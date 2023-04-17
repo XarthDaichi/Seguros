@@ -1,4 +1,4 @@
-package com.progra4.project1.resources;
+package com.progra4.Seguros.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
