@@ -8,6 +8,6 @@ package com.progra4.Seguros.logic;
  *
  * @author diego
  */
-public class Automobile {
+public class Vehicle {
     
 }
