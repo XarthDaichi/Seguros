@@ -1,0 +1,98 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.progra4.Seguros.logic;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author diego
+ */
+public class Policy extends Rule {
+    private Vehicle vehicle;
+    private Term termChosen;
+    private String initialDate;
+    private List<Rule> rules;
+    private float insuredValue;
+
+    public Policy() {
+    }
+
+    public Policy(String id, Vehicle vehicle, Term termChosen, String initialDate, List<Rule> rules, float insuredValue) {
+        super(id, "");
+        this.vehicle = vehicle;
+        this.termChosen = termChosen;
+        this.initialDate = initialDate;
+        this.rules = rules;
+        this.insuredValue = insuredValue;
+    }
+
+    
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public Term getTermChosen() {
+        return termChosen;
+    }
+
+    public void setTermChosen(Term termChosen) {
+        this.termChosen = termChosen;
+    }
+
+    public String getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(String initialDate) {
+        this.initialDate = initialDate;
+    }
+
+    public List<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(List<Rule> rules) {
+        this.rules = rules;
+    }
+
+    public float getInsuredValue() {
+        return insuredValue;
+    }
+
+    public void setInsuredValue(float insuredValue) {
+        this.insuredValue = insuredValue;
+    }
+
+    @Override
+    public String toString() {
+        return "Policy{" + "vehicle=" + vehicle + ", termChosen=" + termChosen + ", initialDate=" + initialDate + ", rules=" + rules + ", insuredValue=" + insuredValue + '}';
+    }
+
+    @Override
+    public void remove(Rule rule) {
+        super.remove(rule);
+    }
+
+    @Override
+    public void add(Rule rule) {
+        super.add(rule);
+    }
+    
+    @Override
+    public double calculateCost(double insuredValue) {
+        double total = 0;
+        for (Rule r: rules) {
+            total += r.calculateCost(insuredValue);
+        }
+        return total;
+    }
+}
