@@ -9,37 +9,50 @@ package com.progra4.Seguros.logic;
  * @author diego
  */
 public class User {
-    private String ID;
+    private String id;
     private String password;
     private String name;
     private String telefono;
     private String email;
     private String cardNumber;
+    private Boolean administrator;
 
     public User() {
-        this.ID = "";
+        this.id = "";
         this.password = "";
         this.name = "";
         this.telefono = "";
         this.email = "";
         this.cardNumber = "";
+        this.administrator = false;
     }
 
-    public User(String ID, String password, String name, String telefono, String email, String cardNumber) {
-        this.ID = ID;
+    public User(String id, String password, String name, String telefono, String email, String cardNumber, Boolean administrator) {
+        this.id = id;
         this.password = password;
         this.name = name;
         this.telefono = telefono;
         this.email = email;
         this.cardNumber = cardNumber;
+        this.administrator = administrator;
+    }
+    
+    public User(String id, String password, String name, String telefono, String email, String cardNumber) {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.telefono = telefono;
+        this.email = email;
+        this.cardNumber = cardNumber;
+        this.administrator = false;
     }
 
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -80,5 +93,18 @@ public class User {
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public Boolean getAdministrator() {
+        return administrator;
+    }
+
+    public void setAdministrator(Boolean administrator) {
+        this.administrator = administrator;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", password=" + password + ", name=" + name + ", telefono=" + telefono + ", email=" + email + ", cardNumber=" + cardNumber + ", administrator=" + administrator + '}';
     }
 }

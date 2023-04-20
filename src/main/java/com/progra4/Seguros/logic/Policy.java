@@ -11,23 +11,26 @@ import java.util.List;
  *
  * @author diego
  */
-public class Policy {
+public class Policy extends Rule {
     private Vehicle vehicle;
     private Term termChosen;
     private String initialDate;
-    private List<Cobertura> coberturas;
+    private List<Rule> rules;
     private float insuredValue;
 
     public Policy() {
     }
 
-    public Policy(Vehicle vehicle, Term termChosen, String initialDate, List<Cobertura> coberturas, float insuredValue) {
+    public Policy(String id, Vehicle vehicle, Term termChosen, String initialDate, List<Rule> rules, float insuredValue) {
+        super(id, "");
         this.vehicle = vehicle;
         this.termChosen = termChosen;
         this.initialDate = initialDate;
-        this.coberturas = coberturas;
+        this.rules = rules;
         this.insuredValue = insuredValue;
     }
+
+    
 
     public Vehicle getVehicle() {
         return vehicle;
@@ -53,12 +56,12 @@ public class Policy {
         this.initialDate = initialDate;
     }
 
-    public List<Cobertura> getCoberturas() {
-        return coberturas;
+    public List<Rule> getRules() {
+        return rules;
     }
 
-    public void setCoberturas(List<Cobertura> coberturas) {
-        this.coberturas = coberturas;
+    public void setRules(List<Rule> rules) {
+        this.rules = rules;
     }
 
     public float getInsuredValue() {
@@ -68,6 +71,28 @@ public class Policy {
     public void setInsuredValue(float insuredValue) {
         this.insuredValue = insuredValue;
     }
+
+    @Override
+    public String toString() {
+        return "Policy{" + "vehicle=" + vehicle + ", termChosen=" + termChosen + ", initialDate=" + initialDate + ", rules=" + rules + ", insuredValue=" + insuredValue + '}';
+    }
+
+    @Override
+    public void remove(Rule rule) {
+        super.remove(rule);
+    }
+
+    @Override
+    public void add(Rule rule) {
+        super.add(rule);
+    }
     
-    
+    @Override
+    public double calculateCost(double insuredValue) {
+        double total = 0;
+        for (Rule r: rules) {
+            total += r.calculateCost(insuredValue);
+        }
+        return total;
+    }
 }
