@@ -3,7 +3,7 @@ CREATE DATABASE Seguros;
 USE Seguros;
 
 create table Usuario (
-    cedula varchar(10) not null;
+    id varchar(10) not null;
     clave varchar(10),
     nombre varchar(30),
     telefono varchar(8),
