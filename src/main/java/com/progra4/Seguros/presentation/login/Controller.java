@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Dell
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/presentation/login/show"})
+@WebServlet(name = "LoginController", urlPatterns = {"/presentation/login/show", "/presentation/login/about", "/presentation/login/register"})
 public class Controller extends HttpServlet {
 
     /**
@@ -38,6 +38,12 @@ public class Controller extends HttpServlet {
             case "/presentation/login/show":
                 viewUrl=this.show(request);
                 break;
+            case "/presentation/login/about":
+                viewUrl=this.about(request);
+                break;
+            case "/presentation/login/register":
+                viewUrl=this.register(request);
+                break;
         }
         request.getRequestDispatcher(viewUrl).forward( request, response);
     }
@@ -51,6 +57,14 @@ public class Controller extends HttpServlet {
         //model.getCurrent().setCedula("");
         //model.getCurrent().setClave("");
         return "/presentation/login/View.jsp"; 
+    }
+    
+    public String about(HttpServletRequest request){
+        return "/presentation/About.jsp";
+    }
+    
+    public String register(HttpServletRequest request){
+        return "/presentation/login/Register.jsp";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
