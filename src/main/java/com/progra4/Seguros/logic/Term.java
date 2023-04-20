@@ -9,7 +9,7 @@ package com.progra4.Seguros.logic;
  * @author lmont
  */
 public enum Term {
-    QUATERLY,
+    QUARTERLY,
     BIANNUAL,
     ANNUAL
 }
