@@ -9,7 +9,7 @@ create table User (
     cellphone varchar(8),
     email varchar(30),
     cardNumber varchar(16),
-    typeU bit,
+    typeU boolean,
     constraint PKUser Primary Key(userId),
     constraint UniqueCell UNIQUE(cellphone),
     constraint UniqueCard UNIQUE(cardNumber)
