@@ -2,17 +2,6 @@ CREATE DATABASE Insurance;
 
 USE Insurance;
 
-<<<<<<< HEAD
-create table Usuario (
-    id varchar(10) not null;
-    clave varchar(10),
-    nombre varchar(30),
-    telefono varchar(8),
-    correo varchar(30),
-    tarjeta varchar(16),
-    tipo integer,
-    Primary Key(cedula)
-=======
 create table User (
     userId varchar(30) not null;
     pass varchar(15) not null;
@@ -24,7 +13,6 @@ create table User (
     constraint PKUser Primary Key(userId),
     constraint UniqueCell UNIQUE(cellphone),
     constraint UniqueCard UNIQUE(cardNumber)
->>>>>>> data_creation
 );
 
 create table Vehicle (
