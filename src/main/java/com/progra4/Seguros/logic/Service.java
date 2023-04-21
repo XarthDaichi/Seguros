@@ -4,10 +4,33 @@
  */
 package com.progra4.Seguros.logic;
 
+import com.progra4.Seguros.data.*;
+
 /**
  *
  * @author diego
  */
 public class Service {
+    private static Service uniqueInstance;
     
+    public static Service instance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Service();
+        }
+        return uniqueInstance;
+    }
+    
+    RelDatabase relDatabase;
+    UserDao userDao;
+    
+    private Service() {
+        relDatabase = new RelDatabase();
+        userDao = new UserDao(relDatabase);
+    }
+    
+    public User userFind(String id, String pass) throws Exception {
+        return userDao.read(id);
+    }
+    
+    public List<Policy> policiesFind()
 }

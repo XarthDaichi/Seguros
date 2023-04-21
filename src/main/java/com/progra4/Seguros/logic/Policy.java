@@ -16,12 +16,12 @@ public class Policy extends Rule {
     private Term termChosen;
     private String initialDate;
     private List<Rule> rules;
-    private float insuredValue;
+    private double insuredValue;
 
     public Policy() {
     }
 
-    public Policy(String id, Vehicle vehicle, Term termChosen, String initialDate, List<Rule> rules, float insuredValue) {
+    public Policy(String id, Vehicle vehicle, Term termChosen, String initialDate, List<Rule> rules, double insuredValue) {
         super(id, "");
         this.vehicle = vehicle;
         this.termChosen = termChosen;
@@ -64,11 +64,11 @@ public class Policy extends Rule {
         this.rules = rules;
     }
 
-    public float getInsuredValue() {
+    public double getInsuredValue() {
         return insuredValue;
     }
 
-    public void setInsuredValue(float insuredValue) {
+    public void setInsuredValue(double insuredValue) {
         this.insuredValue = insuredValue;
     }
 

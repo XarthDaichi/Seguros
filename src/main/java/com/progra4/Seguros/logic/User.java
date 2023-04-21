@@ -12,7 +12,7 @@ public class User {
     private String id;
     private String password;
     private String name;
-    private String telefono;
+    private String cellphone;
     private String email;
     private String cardNumber;
     private Boolean administrator;
@@ -21,27 +21,27 @@ public class User {
         this.id = "";
         this.password = "";
         this.name = "";
-        this.telefono = "";
+        this.cellphone = "";
         this.email = "";
         this.cardNumber = "";
         this.administrator = false;
     }
 
-    public User(String id, String password, String name, String telefono, String email, String cardNumber, Boolean administrator) {
+    public User(String id, String password, String name, String cellphone, String email, String cardNumber, Boolean administrator) {
         this.id = id;
         this.password = password;
         this.name = name;
-        this.telefono = telefono;
+        this.cellphone = cellphone;
         this.email = email;
         this.cardNumber = cardNumber;
         this.administrator = administrator;
     }
     
-    public User(String id, String password, String name, String telefono, String email, String cardNumber) {
+    public User(String id, String password, String name, String cellphone, String email, String cardNumber) {
         this.id = id;
         this.password = password;
         this.name = name;
-        this.telefono = telefono;
+        this.cellphone = cellphone;
         this.email = email;
         this.cardNumber = cardNumber;
         this.administrator = false;
@@ -71,12 +71,12 @@ public class User {
         this.name = name;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getCellphone() {
+        return cellphone;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
     }
 
     public String getEmail() {
@@ -105,6 +105,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", password=" + password + ", name=" + name + ", telefono=" + telefono + ", email=" + email + ", cardNumber=" + cardNumber + ", administrator=" + administrator + '}';
+        return "User{" + "id=" + id + ", password=" + password + ", name=" + name + ", cellphone=" + cellphone + ", email=" + email + ", cardNumber=" + cardNumber + ", administrator=" + administrator + '}';
     }
 }
