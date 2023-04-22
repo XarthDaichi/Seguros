@@ -32,5 +32,5 @@ public class Service {
         return userDao.read(id);
     }
     
-    public List<Policy> policiesFind()
+//    public List<Policy> policiesFind()
 }

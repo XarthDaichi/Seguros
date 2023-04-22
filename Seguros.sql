@@ -24,16 +24,16 @@ create table Vehicle (
 );
 
 create table Category(
-    id varchar(30) not null,
+    categoryId varchar(30) not null,
     descrip varchar(60),
-
+    constraint PKCategory Primary Key(categoryId);
 );
 
 create table Coverage(
     coverageId varchar(30) not null,
     descrip varchar(60),
-    cost float,
-    percent float,
+    cost double,
+    percent double,
     categoryId varchar(30),
     constraint PKCoverage Primary Key(coverageId),
     constraint Foreign key (categoryId) references Category(categoryId)
