@@ -31,10 +31,9 @@ public class UserDao {
         if (rs.next()) {
             return from(rs, "e");
         } else {
-            throw new Exception("Empleado no Existe");
+            throw new Exception("Usuario no Existe");
         }
     }
-    
     public User from(ResultSet rs, String alias) {
         try {
             User e = new User();
