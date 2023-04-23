@@ -1,6 +1,5 @@
 <%@page import="com.progra4.Seguros.presentation.login.Model"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,9 +10,6 @@
         <title>Seguros - Login</title>
     </head>
     <body>
-        
-        <% Model model= (Model) request.getAttribute("model"); %>
-        
         <%@ include file="/presentation/Header.jsp" %>
         <div class="container">
             <div class="row">

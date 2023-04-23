@@ -3,6 +3,7 @@
     Created on : Apr 23, 2023, 3:24:50 PM
     Author     : lmont
 --%>
+<%@page import="com.progra4.Seguros.presentation.client.policy.Model"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,7 +27,7 @@
                         <div class="form-group mb-3">
                             <label for="dropdown-menu">Marca-Modelo:</label>
                             <select id="dropdown-menu">
-                                <option value="" disabled selected>Marca-Modelo</option>
+                                <option value="" disabled selected></option>
                                 <option value="option1">Option 1</option>
                                 <option value="option2">Option 2</option>
                                 <option value="option3">Option 3</option>
@@ -35,7 +36,7 @@
                         <div class="form-group mb-3">
                             <label for="dropdown-menu">Año:</label>
                             <select id="dropdown-menu">
-                                <option value="" disabled selected>Año</option>
+                                <option value="" disabled selected></option>
                                 <option value="option1">Option 1</option>
                                 <option value="option2">Option 2</option>
                                 <option value="option3">Option 3</option>
@@ -47,9 +48,9 @@
                         <div class="form-group mb-3">
                             <fieldset>
                                 <legend>Modo de pago:</legend>
-                                <label><input type="radio" name="Trimestral" value="Trimestral">Apple</label><br>
-                                <label><input type="radio" name="Semestral" value="Semestral">Banana</label><br>
-                                <label><input type="radio" name="Anual" value="Anual">Orange</label><br>
+                                <label><input type="radio" name="modoPago" value="Trimestral">Trimestre</label><br>
+                                <label><input type="radio" name="modoPago" value="Semestral">Semestre</label><br>
+                                <label><input type="radio" name="modoPago" value="Anual">Anual</label><br>
                             </fieldset>
                         </div>
                         <button class="btn btn-primary">Siguiente (coberturas) →</button>

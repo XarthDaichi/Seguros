@@ -34,6 +34,7 @@ public class UserDao {
             throw new Exception("Usuario no Existe");
         }
     }
+    
     public User from(ResultSet rs, String alias) {
         try {
             User e = new User();
@@ -48,5 +49,78 @@ public class UserDao {
         } catch (SQLException ex) {
             return null;
         }
-    }  
+    }
+    
+    public void insert(User e) throws Exception {
+        String sql = "insert into " +
+                "Users " +
+                "(userId, pass, nameU, cellphone, email, cardNumber, typeU) " +
+                "values(?,?,?,?,?,?,?)";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, e.getId());
+        stm.setString(2, e.getPassword());
+        stm.setString(3, e.getName());
+        stm.setString(4, e.getCellphone());
+        stm.setString(5, e.getEmail());
+        stm.setString(6, e.getCardNumber());
+        stm.setBoolean(7, e.getAdministrator());
+
+        db.executeUpdate(stm);
+    }
+    
+    public void updateName(User e) throws Exception {
+        String sql = "update " +
+                "Cliente " +
+                "set nameU=? " +
+                "where userId=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, e.getName());
+        stm.setString(2, e.getId());
+        int count = db.executeUpdate(stm);
+        if (count == 0) {
+            throw new Exception("Usuario no existe");
+        }
+    }
+    
+    public void updateCellphone(User e) throws Exception {
+        String sql = "update " +
+                "Cliente " +
+                "set chellphone=? " +
+                "where userId=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, e.getCellphone());
+        stm.setString(2, e.getId());
+        int count = db.executeUpdate(stm);
+        if (count == 0) {
+            throw new Exception("Usuario no existe");
+        }
+    }
+    
+    public void updateEmail(User e) throws Exception {
+        String sql = "update " +
+                "Cliente " +
+                "set email=? " +
+                "where userId=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, e.getEmail());
+        stm.setString(2, e.getId());
+        int count = db.executeUpdate(stm);
+        if (count == 0) {
+            throw new Exception("Usuario no existe");
+        }
+    }
+    
+    public void updateCard(User e) throws Exception {
+        String sql = "update " +
+                "Cliente " +
+                "set cardNumber=? " +
+                "where userId=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, e.getCardNumber());
+        stm.setString(2, e.getId());
+        int count = db.executeUpdate(stm);
+        if (count == 0) {
+            throw new Exception("Usuario no existe");
+        }
+    }
 }
