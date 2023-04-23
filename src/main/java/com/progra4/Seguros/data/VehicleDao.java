@@ -41,10 +41,24 @@ public class VehicleDao {
             e.setLicensePlate(rs.getString(alias + ".licensePlate"));
             e.setBrand(rs.getString(alias + ".brand"));
             e.setModel(rs.getString(alias + ".model"));
-            e.setYear(rs.getDate(alias + ".yearV").getYear());            
+            e.setYear(rs.getInt(alias + ".yearV"));            
             return e;
         } catch (SQLException ex) {
             return null;
         }
+    }
+    
+    public void insert(Vehicle v) throws Exception {
+        String sql = "insert into " +
+                "Vehicle " +
+                "(licensePlate, brand, model, yearV) "+
+                "values (?,?,?,?)";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, v.getLicensePlate());
+        stm.setString(2, v.getBrand());
+        stm.setString(3, v.getModel());
+        stm.setInt(4, v.getYear());
+        
+        db.executeUpdate(stm);
     }
 }

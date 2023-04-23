@@ -19,7 +19,7 @@ create table Vehicle (
     licensePlate varchar(6) not null,
     brand varchar(15),
     model varchar(15),
-    yearV date,
+    yearV int,
     constraint PKVehicle Primary Key(licensePlate)
 );
 
@@ -77,7 +77,7 @@ insert into Users (userId, pass, nameU, cellphone, email, cardNumber, typeU) val
 ('222','222','Jorge','22222222','jorge@testing.com','222',1), 
 ('333','333','Luis','33333333','luis@testing.com','333',0);
 
-insert into Vehicle (licensePlate, brand, model, yearV) values ('ABC123', 'Toyota', 'Tercel', '1996-07-30'), ('LRD596', 'LandRover', 'RangeRover', '2023-01-01');
+insert into Vehicle (licensePlate, brand, model, yearV) values ('ABC123', 'Toyota', 'Tercel', 1996), ('LRD596', 'LandRover', 'RangeRover', 2023);
 
 insert into policyclass (policyId, userId, vehicleLicensePlate, term, initialDate, insuredValue) values('1', '111', 'ABC123', 'QUARTERLY', '2023-04-23', 3000.5),
 ('2', '333', 'LRD596', 'BIANNUAL', '2023-04-21', 2000000.0);
