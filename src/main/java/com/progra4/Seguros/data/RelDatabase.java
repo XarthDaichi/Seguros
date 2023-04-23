@@ -28,7 +28,7 @@ public class RelDatabase {
             String port = "3306";
             String user = "root";
             String password = "root";
-            String database = "Guia";
+            String database = "Insurance";
             
             String URL_conexion="jdbc:mysql://"+ server+":"+port+"/"+database+"?user="+user+"&password="+
                     password+"&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";

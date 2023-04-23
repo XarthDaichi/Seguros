@@ -70,3 +70,5 @@ values ('Cov001', 'Daño a Personas', 'testing cov 1', 2.00, 0.5, 'Cat001'),
 ('Cov004', 'Daño Directo', 'testing cov 4', 1.00, 0.3, 'Cat002'),
 ('Cov005', 'Daño al auto', 'testing cov 5', 2.00, 0.7, 'Cat002'),
 ('Cov006', 'Robo', 'testing cov 6', 3.50, 0.8, 'Cat002');
+
+insert into Users (userId, pass, nameU, cellphone, email, cardNumber, typeU) values ('111','111','Diego','11111111', 'diego@testing.com','111',0);

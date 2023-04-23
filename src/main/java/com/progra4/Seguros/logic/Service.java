@@ -23,12 +23,18 @@ public class Service {
     
     RelDatabase relDatabase;
     UserDao userDao;
+    CoverageDao coverageDao;
+    CategoryDao categoryDao;
     PolicyDao policyDao;
+    VehicleDao vehicleDao;
     
     private Service() {
         relDatabase = new RelDatabase();
         userDao = new UserDao(relDatabase);
+        coverageDao = new CoverageDao(relDatabase);
+        categoryDao = new CategoryDao(relDatabase);
         policyDao = new PolicyDao(relDatabase);
+        vehicleDao = new VehicleDao(relDatabase);
     }
     
     public User userFind(String id, String pass) throws Exception {
