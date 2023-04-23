@@ -75,11 +75,25 @@ public class PolicyDao {
             Policy e = new Policy();
             e.setId(rs.getString(alias + ".policyId"));
             e.setTermChosen(Term.valueOf(rs.getString(alias + ".term")));
-            e.setInitialDate(rs.getDate(alias + ".initialDate"));
+            e.setInitialDate(rs.getDate(alias + ".initialDate").toLocalDate());
             e.setInsuredValue(rs.getDouble(alias + ".insuredValue"));           
             return e;
         } catch (SQLException ex) {
             return null;
         }
+    }
+    
+    public void insert(Policy p) throws Exception {
+        String sql = "insert into " +
+                "PolicyClass " +
+                "(policyId, userId, vehicleLicensePlate, term, initialDate, insuredValue) " +
+                "values(?,?,?,?,?,?)";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, p.getId());
+        stm.setString(2, p.getDescription());
+        stm.setString(3, p.getVehicle().getLicensePlate());
+        stm.setString(4, p.getTermChosen().name());
+        stm.setString(5, p.getInitialDate().toString());
+        stm.setDouble(6, p.getInsuredValue());
     }
 }
