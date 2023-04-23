@@ -2,9 +2,9 @@ CREATE DATABASE Insurance;
 
 USE Insurance;
 
-create table User (
-    userId varchar(30) not null;
-    pass varchar(15) not null;
+create table Users (
+    userId varchar(30) not null,
+    pass varchar(15) not null,
     nameU varchar(30),
     cellphone varchar(8),
     email varchar(30),
@@ -26,7 +26,7 @@ create table Vehicle (
 create table Category(
     id varchar(30) not null,
     descrip varchar(60),
-
+    Primary Key(id)
 );
 
 create table Coverage(
@@ -36,7 +36,7 @@ create table Coverage(
     percent float,
     categoryId varchar(30),
     constraint PKCoverage Primary Key(coverageId),
-    constraint Foreign key (categoryId) references Category(categoryId)
+    constraint Foreign key (categoryId) references Category(id)
 );
 
 create table PolicyClass (
