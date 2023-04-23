@@ -51,6 +51,23 @@ public class UserDao {
         }
     }
     
+    public void insert(User e) throws Exception {
+        String sql = "insert into " +
+                "Users " +
+                "(userId, pass, nameU, cellphone, email, cardNumber, typeU) " +
+                "values(?,?,?,?,?,?,?)";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, e.getId());
+        stm.setString(2, e.getPassword());
+        stm.setString(3, e.getName());
+        stm.setString(4, e.getCellphone());
+        stm.setString(5, e.getEmail());
+        stm.setString(6, e.getCardNumber());
+        stm.setBoolean(7, e.getAdministrator());
+
+        db.executeUpdate(stm);
+    }
+    
     public void updateName(User e) throws Exception {
         String sql = "update " +
                 "Cliente " +
