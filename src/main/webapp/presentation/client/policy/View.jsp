@@ -10,9 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@ include file="/presentation/Head.jsp" %>
-        <title>Seguros - Login</title>
+        <title>Seguros</title>
     </head>
     <body>
+        <% Model model= (Model) request.getAttribute("model"); %>
         <%@ include file="/presentation/Header.jsp" %>
         <div class="register">
             <div class="row">

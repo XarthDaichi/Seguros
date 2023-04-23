@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author lmont
  */
-@WebServlet(name="PolicyController", urlPatterns={"/presentation/cliente/poliza/blank"})
+@WebServlet(name="PolicyController", urlPatterns={"/presentation/client/policy/blank"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
