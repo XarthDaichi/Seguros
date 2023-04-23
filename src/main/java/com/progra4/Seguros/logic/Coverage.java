@@ -38,6 +38,14 @@ public class Coverage extends Rule {
         this.percentage = percentage;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Coverage{" + "minimumCost=" + minimumCost + ", percentage=" + percentage + '}';

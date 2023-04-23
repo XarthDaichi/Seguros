@@ -44,8 +44,14 @@ public class Category extends Rule {
     public void add(Rule rule) {
         super.add(rule);
     }
-    
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public double calculateCost(double insuredValue) {

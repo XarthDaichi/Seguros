@@ -39,6 +39,7 @@ public class CoverageDao {
         try {
             Coverage e = new Coverage();
             e.setId(rs.getString(alias + ".coverageId"));
+            e.setName(rs.getString(alias + ".coverageName"));
             e.setDescription(rs.getString(alias + ".descrip"));
             e.setMinimumCost(rs.getDouble(alias + ".cost"));
             e.setPercentage(rs.getDouble(alias + ".percent"));

@@ -47,6 +47,7 @@ public class CategoryDao {
         try {
             Category e = new Category();
             e.setId(rs.getString(alias + ".categoryId"));
+            e.setName(rs.getString(alias + ".categoryName"));
             e.setDescription(rs.getString(alias + ".descrip"));
             ArrayList<Coverage> coverages = new ArrayList<>();
             return e;
