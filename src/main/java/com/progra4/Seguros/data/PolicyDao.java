@@ -20,10 +20,12 @@ import java.util.List;
 public class PolicyDao {
     RelDatabase db;
     UserDao userDao;
+    VehicleDao vehicleDao;
 
     public PolicyDao(RelDatabase db) {
         this.db = db;
         this.userDao = new UserDao(db);
+        this.vehicleDao = new VehicleDao(db);
     }
     
     public Policy read(String id) throws Exception {
@@ -67,7 +69,7 @@ public class PolicyDao {
             Policy e = new Policy();
             e.setId(rs.getString(alias + ".policyId"));
             e.setPolicyOwner(userDao.from(rs, ".userId"));
-            //e.setVehicle(rs.getString(alias + ".vehicleLicensePlate"));
+            e.setVehicle(vehicleDao.from(rs, ".vehicleLicensePlate"));
             e.setTermChosen(Term.valueOf(rs.getString(alias + ".term")));
             e.setInitialDate(rs.getString(alias + ".initialDate"));
             e.setInsuredValue(Float.parseFloat(rs.getString(alias + ".insuredValue")));           
