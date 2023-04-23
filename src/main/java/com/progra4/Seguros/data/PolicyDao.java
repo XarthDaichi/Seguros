@@ -31,7 +31,7 @@ public class PolicyDao {
     public Policy read(String id) throws Exception {
         String sql = "select " +
                 "* " +
-                "from  PolicyClass e inner join Users u on e.userId = u.userId " +
+                "from  PolicyClass e inner join Users u on e.userId = u.userId inner join Vehicle v on e.vehicleLicensePlate=v.licensePlate " +
                 "where e.policyId=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, id);
@@ -54,13 +54,17 @@ public class PolicyDao {
         try{
             String sql = "select * " +
                     "from " +
-                    "PolicyClass e " +
+                    "PolicyClass e inner join Vehicle v on e.vehicleLicensePlate=v.licensePlate " +
                     "where e.userId=?";
             PreparedStatement stm = db.prepareStatement(sql);
             stm.setString(1, u.getId());
             ResultSet rs = db.executeQuery(stm);
+            VehicleDao vehicleDao = new VehicleDao(db);
             while (rs.next()) {
-                result.add(from(rs, "e"));
+                Policy p;
+                p = from(rs, "e");
+                p.setVehicle(vehicleDao.from(rs, "v"));
+                result.add(p);
             }
         }catch (SQLException ex){}
         return result;

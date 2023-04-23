@@ -24,23 +24,25 @@ public class CategoryDao {
     }
     
     public Category read(String id) throws Exception {
-        String sql = "select " +
-                "* " +
-                "from Coverage e inner join Category c on e.categoryId=c.categoryId " +
-                "where e.categoryId=?";
-        PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, id);
-        ResultSet rs = db.executeQuery(stm);
-        CoverageDao coverageDao = new CoverageDao(db);
-        Category c = from(rs, "c");
         ArrayList<Rule> coverages = new ArrayList<>();
-        if (rs.next()) {
-            coverages.add(coverageDao.from(rs, "e"));
-        } else {
-            throw new Exception("Categoria no Existe");
-        }
-        c.setCoverages(coverages);
-        return c;
+
+        try {
+            String sql = "select " +
+                    "* " +
+                    "from Coverage e inner join Category c on e.categoryId=c.categoryId " +
+                    "where e.categoryId=?";
+            PreparedStatement stm = db.prepareStatement(sql);
+            stm.setString(1, id);
+            ResultSet rs = db.executeQuery(stm);
+            CoverageDao coverageDao = new CoverageDao(db);
+            Category c = from(rs, "c");
+            while (rs.next()) {
+                coverages.add(coverageDao.from(rs, "e"));
+                c.setCoverages(coverages);
+                return c;
+            }
+        }catch (SQLException ex) {}
+        return null;
     }
     
     private Category from(ResultSet rs, String alias) {
