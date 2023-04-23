@@ -32,7 +32,9 @@ public class Service {
     }
     
     public User userFind(String id, String pass) throws Exception {
-        return userDao.read(id);
+        User user = userDao.read(id);
+        if (user.getPassword().equals(pass)) return user;
+        else return null;
     }
     
     public List<Policy> policiesFind(User u) throws Exception {

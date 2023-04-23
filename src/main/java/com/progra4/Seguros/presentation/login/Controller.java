@@ -16,7 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Dell
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/presentation/login/show", "/presentation/login/about", "/presentation/login/register"})
+@WebServlet(name = "LoginController", urlPatterns = {"/presentation/login/show",
+    "/presentation/login/register", "/presentation/login/login"})
 public class Controller extends HttpServlet {
 
     /**
@@ -38,12 +39,11 @@ public class Controller extends HttpServlet {
             case "/presentation/login/show":
                 viewUrl=this.show(request);
                 break;
-            case "/presentation/login/about":
-                viewUrl=this.about(request);
-                break;
             case "/presentation/login/register":
                 viewUrl=this.register(request);
                 break;
+            case "/presentation/login/login":
+                viewUrl=this.login(request);
         }
         request.getRequestDispatcher(viewUrl).forward( request, response);
     }
@@ -54,17 +54,27 @@ public class Controller extends HttpServlet {
         
     public String showAction(HttpServletRequest request){
         Model model= (Model) request.getAttribute("model");
-        //model.getCurrent().setCedula("");
-        //model.getCurrent().setClave("");
+        model.reset();
         return "/presentation/login/View.jsp"; 
-    }
-    
-    public String about(HttpServletRequest request){
-        return "/presentation/About.jsp";
     }
     
     public String register(HttpServletRequest request){
         return "/presentation/login/Register.jsp";
+    }
+    
+    void updateModel(HttpServletRequest request){
+       Model model= (Model) request.getAttribute("model");
+       
+        model.getCurrent().setId(request.getParameter("IdFld"));
+        model.getCurrent().setPassword(request.getParameter("PassFld"));
+        model.getCurrent().setName(request.getParameter("NameFld"));
+        model.getCurrent().setEmail(request.getParameter("EmailFld"));
+        model.getCurrent().setCellphone(request.getParameter("CellphoneFld"));
+        model.getCurrent().setCardNumber(request.getParameter("CardFld"));
+    }
+    
+    public String login(HttpServletRequest request){
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
