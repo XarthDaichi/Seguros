@@ -3,12 +3,42 @@
 <html>
     <head>
         <%@ include file="/presentation/Head.jsp" %>
-        <title>Error</title> 
+        <title>Polizas</title> 
     </head>
     <body>
         <%@ include file="/presentation/Header.jsp" %>
-        <div id="body" style="margin: 0 auto; width:85%; ">   
-            <h1>Exito</h1>
+        <div class="add">
+            <a href="#" class="btn btn-primary">Agregar Póliza</a>
+        </div>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Placa</th>
+                            <th>Fecha</th>
+                            <th>Auto</th>
+                            <th>Imagen</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <%@ include file="/presentation/Footer.jsp" %>
     </body>
