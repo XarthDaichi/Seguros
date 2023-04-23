@@ -73,8 +73,10 @@ values ('Cov001', 'Daño a Personas', 'testing cov 1', 2.00, 0.5, 'Cat001'),
 ('Cov005', 'Daño al auto', 'testing cov 5', 2.00, 0.7, 'Cat002'),
 ('Cov006', 'Robo', 'testing cov 6', 3.50, 0.8, 'Cat002');
 
-insert into Users (userId, pass, nameU, cellphone, email, cardNumber, typeU) values ('111','111','Diego','11111111', 'diego@testing.com','111',0);
+insert into Users (userId, pass, nameU, cellphone, email, cardNumber, typeU) values ('111','111','Diego','11111111', 'diego@testing.com','111',0),
+('222','222','Jorge','22222222','jorge@testing.com','222',1), ('333','222','Luis','33333333','luis@testing.com','333',0);
 
 insert into Vehicle (licensePlate, brand, model, yearV) values ('ABC123', 'Toyota', 'Tercel', '1996-07-30'), ('LRD596', 'LandRover', 'RangeRover', '2023-01-01');
 
-insert into policyclass (policyId, userId, vehicleLicensePlate, term, initialDate, insuredValue) values('1', '111', 'ABC123', 'QUARTERLY', '2023-04-23', 3000.5);
+insert into policyclass (policyId, userId, vehicleLicensePlate, term, initialDate, insuredValue) values('1', '111', 'ABC123', 'QUARTERLY', '2023-04-23', 3000.5),
+('2', '333', 'LRD596', 'BIANNUAL', '2023-04-21', 2000000.0);
