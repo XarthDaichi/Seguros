@@ -6,9 +6,12 @@ package com.progra4.Seguros.data;
 
 import com.progra4.Seguros.logic.Policy;
 import com.progra4.Seguros.logic.Term;
+import com.progra4.Seguros.logic.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,7 +29,7 @@ public class PolicyDao {
     public Policy read(String id) throws Exception {
         String sql = "select " +
                 "* " +
-                "from  Policy e inner join User u on e.userId = u.userId " +
+                "from  PolicyClass e inner join User u on e.userId = u.userId " +
                 "where e.policyId=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, id);
@@ -39,6 +42,24 @@ public class PolicyDao {
         } else {
             throw new Exception("Policy does not exist");
         }
+    }
+    
+    public List<Policy> findByClient(User u){
+        List<Policy> result = new ArrayList<>();
+        try{
+            String sql = "select * " +
+                    "from " +
+                    "PolicyClass e " +
+                    "where e.userId=?";
+            PreparedStatement stm = db.prepareStatement(sql);
+            stm.setString(1, u.getId());
+            ResultSet rs = db.executeQuery(stm);
+            while (rs.next()) {
+                result.add(from(rs, "e"));
+            }
+        }catch (SQLException ex){}
+        
+        return result;
     }
     
     public Policy from(ResultSet rs, String alias) {
