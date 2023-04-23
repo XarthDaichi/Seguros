@@ -46,6 +46,10 @@
                                     <%= p.getInitialDate() %>
                                 </td>
                                 <td>@mdo</td>
+                                <td>@mdo</td>
+                                <td>
+                                    <%= p.getInsuredValue() %>
+                                </td>
                             </tr>
                         <%}%>
                     </tbody>
