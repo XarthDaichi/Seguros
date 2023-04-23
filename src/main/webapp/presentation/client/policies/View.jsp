@@ -40,12 +40,14 @@
                                     <%= p.getId() %>
                                 </td>
                                 <td>
-                                    1111
+                                    <%= p.getVehicle().getLicensePlate() %>
                                 </td>
                                 <td>
                                     <%= p.getInitialDate() %>
                                 </td>
-                                <td>@mdo</td>
+                                <td>
+                                    <%= p.getVehicle().getBrand() %> - <%= p.getVehicle().getModel() %>
+                                </td>
                                 <td>@mdo</td>
                                 <td>
                                     <%= p.getInsuredValue() %>
