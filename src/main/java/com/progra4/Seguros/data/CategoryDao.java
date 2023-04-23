@@ -6,6 +6,7 @@ package com.progra4.Seguros.data;
 
 import com.progra4.Seguros.logic.Category;
 import com.progra4.Seguros.logic.Coverage;
+import com.progra4.Seguros.logic.Rule;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,18 +26,21 @@ public class CategoryDao {
     public Category read(String id) throws Exception {
         String sql = "select " +
                 "* " +
-                "from Category e " +
+                "from Coverage e inner join Category c on e.categoryId=c.categoryId " +
                 "where e.categoryId=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, id);
         ResultSet rs = db.executeQuery(stm);
-        Category c;
+        CoverageDao coverageDao = new CoverageDao(db);
+        Category c = from(rs, "c");
+        ArrayList<Rule> coverages = new ArrayList<>();
         if (rs.next()) {
-            c = from(rs,"e");
-            return c;
+            coverages.add(coverageDao.from(rs, "e"));
         } else {
             throw new Exception("Categoria no Existe");
         }
+        c.setCoverages(coverages);
+        return c;
     }
     
     private Category from(ResultSet rs, String alias) {
@@ -44,6 +48,8 @@ public class CategoryDao {
             Category e = new Category();
             e.setId(rs.getString(alias + ".categoryId"));
             e.setDescription(rs.getString(alias + ".descrip"));
+            ArrayList<Coverage> coverages = new ArrayList<>();
+            return e;
         } catch (SQLException ex) {
             return null;
         }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author diego
  */
 public class Category extends Rule {
+    private String name;
     private ArrayList<Rule> coverages;
 
     public Category() {

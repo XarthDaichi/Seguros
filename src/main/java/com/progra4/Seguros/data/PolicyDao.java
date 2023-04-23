@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.progra4.Seguros.data;
-
-/**
- *
- * @author diego
- */
-public class PolicyDao {
-    
-}
-=======
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -92,4 +77,3 @@ public class PolicyDao {
         }
     }
 }
->>>>>>> 0e2f78d4115a7b16a74c1bc1ab99b5f2d57d309b

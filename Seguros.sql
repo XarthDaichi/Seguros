@@ -25,22 +25,20 @@ create table Vehicle (
 
 create table Category(
     categoryId varchar(30) not null,
+    categoryName varchar(30),
     descrip varchar(60),
-<<<<<<< HEAD
-    constraint PKCategory Primary Key(categoryId);
-=======
-    Primary Key(id)
->>>>>>> 0e2f78d4115a7b16a74c1bc1ab99b5f2d57d309b
+    constraint PKCategory Primary Key(categoryId)
 );
 
 create table Coverage(
     coverageId varchar(30) not null,
+    coverageName varchar(30),
     descrip varchar(60),
     cost double,
     percent double,
     categoryId varchar(30),
     constraint PKCoverage Primary Key(coverageId),
-    constraint Foreign key (categoryId) references Category(id)
+    constraint Foreign key (categoryId) references Category(categoryId)
 );
 
 create table PolicyClass (
@@ -61,3 +59,14 @@ create table Applies (
     constraint Foreign Key (coverageId) references Coverage(coverageId)
 );
 
+insert into Category (categoryId, categoryName, descrip) 
+values ('Cat001', 'Responsabilidad Civil', 'testing 1'), 
+('Cat002', 'Daño Directo', 'testing 2');
+
+insert into Coverage (coverageId, coverageName, descrip, cost, percent, categoryId) 
+values ('Cov001', 'Daño a Personas', 'testing cov 1', 2.00, 0.5, 'Cat001'), 
+('Cov002', 'Daño a Bienes', 'testing cov 2', 2.05, 0.4, 'Cat001'),
+('Cov003', 'Gastos Legales', 'testing cov 3', 2.00, 0.5, 'Cat001'),
+('Cov004', 'Daño Directo', 'testing cov 4', 1.00, 0.3, 'Cat002'),
+('Cov005', 'Daño al auto', 'testing cov 5', 2.00, 0.7, 'Cat002'),
+('Cov006', 'Robo', 'testing cov 6', 3.50, 0.8, 'Cat002');

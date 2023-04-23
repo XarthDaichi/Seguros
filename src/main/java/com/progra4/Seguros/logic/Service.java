@@ -35,11 +35,7 @@ public class Service {
         return userDao.read(id);
     }
     
-<<<<<<< HEAD
-//    public List<Policy> policiesFind()
-=======
     public List<Policy> policiesFind(User u) throws Exception {
         return policyDao.findByClient(u);
     }
->>>>>>> 0e2f78d4115a7b16a74c1bc1ab99b5f2d57d309b
 }

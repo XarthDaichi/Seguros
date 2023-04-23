@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author diego
  */
 
-abstract class Rule {
+public abstract class Rule {
     protected String id;
     protected String description;
 

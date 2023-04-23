@@ -9,6 +9,7 @@ package com.progra4.Seguros.logic;
  * @author diego
  */
 public class Coverage extends Rule {
+    private String name;
     private double minimumCost;
     private double percentage;
 
