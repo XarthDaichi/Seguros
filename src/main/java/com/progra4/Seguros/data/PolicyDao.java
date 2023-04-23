@@ -31,22 +31,25 @@ public class PolicyDao {
     public Policy read(String id) throws Exception {
         String sql = "select " +
                 "* " +
-                "from  PolicyClass e inner join User u on e.userId = u.userId " +
+                "from  PolicyClass e inner join Users u on e.userId = u.userId " +
                 "where e.policyId=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, id);
         ResultSet rs = db.executeQuery(stm);
+        UserDao userDao = new UserDao(db);
+        VehicleDao vehicleDao = new VehicleDao(db);
         Policy p;
         if (rs.next()) {
             p = from(rs, "e");
             p.setPolicyOwner(userDao.from(rs, "u"));
+            p.setVehicle(vehicleDao.from(rs,"v"));
             return p;
         } else {
             throw new Exception("Policy does not exist");
         }
     }
     
-    public List<Policy> findByClient(User u){
+    public List<Policy> findByUser(User u){
         List<Policy> result = new ArrayList<>();
         try{
             String sql = "select * " +
@@ -60,7 +63,6 @@ public class PolicyDao {
                 result.add(from(rs, "e"));
             }
         }catch (SQLException ex){}
-        
         return result;
     }
     
@@ -68,11 +70,9 @@ public class PolicyDao {
         try {
             Policy e = new Policy();
             e.setId(rs.getString(alias + ".policyId"));
-            e.setPolicyOwner(userDao.from(rs, ".userId"));
-            e.setVehicle(vehicleDao.from(rs, ".vehicleLicensePlate"));
             e.setTermChosen(Term.valueOf(rs.getString(alias + ".term")));
-            e.setInitialDate(rs.getString(alias + ".initialDate"));
-            e.setInsuredValue(Float.parseFloat(rs.getString(alias + ".insuredValue")));           
+            e.setInitialDate(rs.getDate(alias + ".initialDate"));
+            e.setInsuredValue(rs.getDouble(alias + ".insuredValue"));           
             return e;
         } catch (SQLException ex) {
             return null;
