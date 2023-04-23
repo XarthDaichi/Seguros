@@ -48,9 +48,9 @@
                         <div class="form-group mb-3">
                             <fieldset>
                                 <legend>Modo de pago:</legend>
-                                <label><input type="radio" name="Trimestral" value="Trimestral">Apple</label><br>
-                                <label><input type="radio" name="Semestral" value="Semestral">Banana</label><br>
-                                <label><input type="radio" name="Anual" value="Anual">Orange</label><br>
+                                <label><input type="radio" name="Trimestral" value="Trimestral">Trimestre</label><br>
+                                <label><input type="radio" name="Semestral" value="Semestral">Semestre</label><br>
+                                <label><input type="radio" name="Anual" value="Anual">Anual</label><br>
                             </fieldset>
                         </div>
                         <button class="btn btn-primary">Siguiente (coberturas) →</button>
