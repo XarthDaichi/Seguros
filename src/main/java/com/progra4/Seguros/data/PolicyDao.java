@@ -86,10 +86,9 @@ public class PolicyDao {
     public void insert(Policy p) throws Exception {
         String sql = "insert into " +
                 "PolicyClass " +
-                "(policyId, userId, vehicleLicensePlate, term, initialDate, insuredValue) " +
-                "values(?,?,?,?,?,?)";
+                "(userId, vehicleLicensePlate, term, initialDate, insuredValue) " +
+                "values(?,?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setInt(1, Integer.parseInt(p.getId().substring(3, 6)));
         stm.setString(2, p.getDescription());
         stm.setString(3, p.getVehicle().getLicensePlate());
         stm.setString(4, p.getTermChosen().name());
