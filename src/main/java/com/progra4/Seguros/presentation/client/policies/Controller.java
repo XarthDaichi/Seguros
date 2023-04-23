@@ -49,7 +49,7 @@ public class Controller extends HttpServlet {
             model.setPolicies(service.policiesFind(user));
             return "/presentation/client/policies/View.jsp";
         } catch (Exception ex) {
-            return "";
+            return "/presentation/Error.jsp";
         }
     }
 
