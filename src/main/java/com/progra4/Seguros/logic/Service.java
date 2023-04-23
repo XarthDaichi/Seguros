@@ -34,7 +34,7 @@ public class Service {
         return userDao.read(id);
     }
     
-    public List<Policy> policiesFind(){
-        return policyDao.read();
+    public List<Policy> policiesFind(String id) throws Exception {
+        return policyDao.read(id);
     }
 }
