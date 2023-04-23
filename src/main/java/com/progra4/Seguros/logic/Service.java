@@ -44,6 +44,6 @@ public class Service {
     }
     
     public List<Policy> policiesFind(User u) throws Exception {
-        return policyDao.findByClient(u);
+        return policyDao.findByUser(u);
     }
 }

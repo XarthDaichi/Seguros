@@ -19,7 +19,7 @@ create table Vehicle (
     licensePlate varchar(6) not null,
     brand varchar(15),
     model varchar(15),
-    yearV year,
+    yearV date,
     constraint PKVehicle Primary Key(licensePlate)
 );
 
@@ -47,8 +47,10 @@ create table PolicyClass (
     vehicleLicensePlate varchar(6) not null,
     term ENUM('QUARTERLY','BIANNUAL','ANNUAL'),
     initialDate date,
-    insuredValue float,
-    constraint PKPolicy Primary Key(policyId)
+    insuredValue double,
+    constraint PKPolicy Primary Key(policyId),
+    constraint Foreign Key (vehicleLicensePlate) references Vehicle(licensePlate),
+    constraint Foreign Key (userId) references Users(userId)
 );
 
 create table Applies (
@@ -72,3 +74,7 @@ values ('Cov001', 'Daño a Personas', 'testing cov 1', 2.00, 0.5, 'Cat001'),
 ('Cov006', 'Robo', 'testing cov 6', 3.50, 0.8, 'Cat002');
 
 insert into Users (userId, pass, nameU, cellphone, email, cardNumber, typeU) values ('111','111','Diego','11111111', 'diego@testing.com','111',0);
+
+insert into Vehicle (licensePlate, brand, model, yearV) values ('ABC123', 'Toyota', 'Tercel', '1996-07-30'), ('LRD596', 'LandRover', 'RangeRover', '2023-01-01');
+
+insert into policyclass (policyId, userId, vehicleLicensePlate, term, initialDate, insuredValue) values('1', '111', 'ABC123', 'QUARTERLY', '2023-04-23', 3000.5);

@@ -7,6 +7,7 @@ package com.progra4.Seguros.logic;
 import com.progra4.Seguros.logic.User;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 /**
  *
@@ -15,7 +16,7 @@ import java.util.List;
 public class Policy extends Rule {
     private Vehicle vehicle;
     private Term termChosen;
-    private String initialDate;
+    private Date initialDate;
     private List<Rule> rules;
     private double insuredValue;
     private User policyOwner;
@@ -23,7 +24,7 @@ public class Policy extends Rule {
     public Policy() {
     }
 
-    public Policy(String id, Vehicle vehicle, Term termChosen, String initialDate, List<Rule> rules, double insuredValue, User policyOwner) {
+    public Policy(String id, Vehicle vehicle, Term termChosen, Date initialDate, List<Rule> rules, double insuredValue, User policyOwner) {
         super(id, "");
         this.vehicle = vehicle;
         this.termChosen = termChosen;
@@ -49,11 +50,11 @@ public class Policy extends Rule {
         this.termChosen = termChosen;
     }
 
-    public String getInitialDate() {
+    public Date getInitialDate() {
         return initialDate;
     }
 
-    public void setInitialDate(String initialDate) {
+    public void setInitialDate(Date initialDate) {
         this.initialDate = initialDate;
     }
 

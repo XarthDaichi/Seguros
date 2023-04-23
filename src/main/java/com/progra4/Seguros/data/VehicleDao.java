@@ -41,7 +41,7 @@ public class VehicleDao {
             e.setLicensePlate(rs.getString(alias + ".licensePlate"));
             e.setBrand(rs.getString(alias + ".brand"));
             e.setModel(rs.getString(alias + ".model"));
-            e.setYear(rs.getInt(alias + ".yearV"));            
+            e.setYear(rs.getDate(alias + ".yearV").getYear());            
             return e;
         } catch (SQLException ex) {
             return null;
