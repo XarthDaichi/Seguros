@@ -37,13 +37,7 @@ public class Service {
         else return null;
     }
     
-<<<<<<< HEAD
-    //public List<Policy> policiesFind() {
-    //    return new arrayList<Policy>();
-    //}
-=======
     public List<Policy> policiesFind(User u) throws Exception {
         return policyDao.findByClient(u);
     }
->>>>>>> data_creation
 }
