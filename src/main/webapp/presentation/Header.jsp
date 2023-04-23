@@ -7,7 +7,6 @@
         Seguros
     </div>
     <ul class="nav">
-        <li><a href="presentation/login/about">Acerca de</a></li>
         <li><a href="presentation/login/show">Login</a></li>
     </ul>
 </header>

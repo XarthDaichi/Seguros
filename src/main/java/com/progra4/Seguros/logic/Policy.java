@@ -4,6 +4,7 @@
  */
 package com.progra4.Seguros.logic;
 
+import com.progra4.Seguros.logic.User;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,20 +18,20 @@ public class Policy extends Rule {
     private String initialDate;
     private List<Rule> rules;
     private double insuredValue;
+    private User policyOwner;
 
     public Policy() {
     }
 
-    public Policy(String id, Vehicle vehicle, Term termChosen, String initialDate, List<Rule> rules, double insuredValue) {
+    public Policy(String id, Vehicle vehicle, Term termChosen, String initialDate, List<Rule> rules, double insuredValue, User policyOwner) {
         super(id, "");
         this.vehicle = vehicle;
         this.termChosen = termChosen;
         this.initialDate = initialDate;
         this.rules = rules;
         this.insuredValue = insuredValue;
+        this.policyOwner = policyOwner;
     }
-
-    
 
     public Vehicle getVehicle() {
         return vehicle;
@@ -70,6 +71,14 @@ public class Policy extends Rule {
 
     public void setInsuredValue(double insuredValue) {
         this.insuredValue = insuredValue;
+    }
+
+    public User getPolicyOwner() {
+        return policyOwner;
+    }
+
+    public void setPolicyOwner(User policyOwner) {
+        this.policyOwner = policyOwner;
     }
 
     @Override

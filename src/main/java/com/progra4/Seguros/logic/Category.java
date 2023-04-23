@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author diego
  */
 public class Category extends Rule {
+    private String name;
     private ArrayList<Rule> coverages;
 
     public Category() {
@@ -43,8 +44,14 @@ public class Category extends Rule {
     public void add(Rule rule) {
         super.add(rule);
     }
-    
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public double calculateCost(double insuredValue) {

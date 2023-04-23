@@ -9,6 +9,7 @@ package com.progra4.Seguros.logic;
  * @author diego
  */
 public class Coverage extends Rule {
+    private String name;
     private double minimumCost;
     private double percentage;
 
@@ -35,6 +36,14 @@ public class Coverage extends Rule {
 
     public void setPercentage(double percentage) {
         this.percentage = percentage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
