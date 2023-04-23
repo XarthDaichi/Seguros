@@ -62,7 +62,7 @@ public class Controller extends HttpServlet {
     }
     
     void updateModel(HttpServletRequest request){
-       Model model= (Model) request.getAttribute("model");
+        Model model= (Model) request.getAttribute("model");
        
         model.getCurrent().setId(request.getParameter("id"));
         model.getCurrent().setPassword(request.getParameter("password"));
@@ -87,8 +87,8 @@ public class Controller extends HttpServlet {
             model.getCurrent().setAdministrator(real.getAdministrator());
             session.setAttribute("user", real);
             String viewUrl="";
-            if (!real.getAdministrator()) viewUrl="/presentation/client/policies/show";
-            else viewUrl="";
+            if (!model.getCurrent().getAdministrator()) viewUrl="/presentation/client/policies/show";
+            else viewUrl="/presentation/client/policies/show";
             return viewUrl;
         } catch (Exception ex) {
             Map<String,String> errores = new HashMap<>();

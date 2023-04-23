@@ -27,7 +27,7 @@ public class Controller extends HttpServlet {
         
         String viewUrl="";     
         switch (request.getServletPath()) {
-          case "/presentation/cliente/policies/show":
+          case "/presentation/client/policies/show":
               viewUrl = this.show(request);
               break;
         }          
