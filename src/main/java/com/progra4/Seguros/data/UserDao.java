@@ -23,7 +23,7 @@ public class UserDao {
     public User read(String id) throws Exception {
         String sql = "select " +
                 "* " +
-                "from  User e " +
+                "from  Users e " +
                 "where e.userId=?";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, id);
