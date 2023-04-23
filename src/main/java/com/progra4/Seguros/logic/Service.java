@@ -5,6 +5,7 @@
 package com.progra4.Seguros.logic;
 
 import com.progra4.Seguros.data.*;
+import java.util.List;
 
 /**
  *
@@ -34,7 +35,7 @@ public class Service {
         return userDao.read(id);
     }
     
-    public List<Policy> policiesFind(String id) throws Exception {
-        return policyDao.read(id);
+    public List<Policy> policiesFind(User u) throws Exception {
+        return policyDao.findByClient(u);
     }
 }
