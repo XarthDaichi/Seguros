@@ -38,7 +38,7 @@ public class CoverageDao {
     public Coverage from(ResultSet rs, String alias) {
         try {
             Coverage e = new Coverage();
-            e.setId(rs.getString(alias + ".coverageId"));
+            e.setId(String.format("COV%03d", rs.getInt(alias + ".coverageId")));
             e.setName(rs.getString(alias + ".coverageName"));
             e.setDescription(rs.getString(alias + ".descrip"));
             e.setMinimumCost(rs.getDouble(alias + ".cost"));

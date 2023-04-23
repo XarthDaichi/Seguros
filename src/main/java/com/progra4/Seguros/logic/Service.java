@@ -43,7 +43,17 @@ public class Service {
         else return null;
     }
     
+    public void userRegister(User u) throws Exception {
+        userDao.insert(u);
+    }
+    
     public List<Policy> policiesFind(User u) throws Exception {
         return policyDao.findByUser(u);
     }
+    
+    public void PolicyCreate(Policy p) throws Exception {
+        
+    }
+    
+    
 }

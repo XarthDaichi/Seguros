@@ -73,7 +73,7 @@ public class PolicyDao {
     public Policy from(ResultSet rs, String alias) {
         try {
             Policy e = new Policy();
-            e.setId(rs.getString(alias + ".policyId"));
+            e.setId(String.format("POL%03d", rs.getInt(alias + ".policyId")));
             e.setTermChosen(Term.valueOf(rs.getString(alias + ".term")));
             e.setInitialDate(rs.getDate(alias + ".initialDate").toLocalDate());
             e.setInsuredValue(rs.getDouble(alias + ".insuredValue"));           
@@ -89,7 +89,7 @@ public class PolicyDao {
                 "(policyId, userId, vehicleLicensePlate, term, initialDate, insuredValue) " +
                 "values(?,?,?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, p.getId());
+        stm.setInt(1, Integer.parseInt(p.getId().substring(3, 6)));
         stm.setString(2, p.getDescription());
         stm.setString(3, p.getVehicle().getLicensePlate());
         stm.setString(4, p.getTermChosen().name());

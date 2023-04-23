@@ -24,14 +24,14 @@ create table Vehicle (
 );
 
 create table Category(
-    categoryId varchar(30) not null,
+    categoryId int not null AUTO_INCREMENT,
     categoryName varchar(30),
     descrip varchar(60),
     constraint PKCategory Primary Key(categoryId)
 );
 
 create table Coverage(
-    coverageId varchar(30) not null,
+    coverageId int not null AUTO_INCREMENT,
     coverageName varchar(30),
     descrip varchar(60),
     cost double,
@@ -42,7 +42,7 @@ create table Coverage(
 );
 
 create table PolicyClass (
-    policyId varchar(30) not null,
+    policyId int not null AUTO_INCREMENT,
     userId varchar(30) not null,
     vehicleLicensePlate varchar(6) not null,
     term ENUM('QUARTERLY','BIANNUAL','ANNUAL'),
