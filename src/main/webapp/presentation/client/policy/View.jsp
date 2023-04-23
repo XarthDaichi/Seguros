@@ -3,6 +3,7 @@
     Created on : Apr 23, 2023, 3:24:50 PM
     Author     : lmont
 --%>
+<%@page import="com.progra4.Seguros.presentation.client.policy.Model"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
