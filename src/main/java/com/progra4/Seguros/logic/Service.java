@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.progra4.Seguros.logic;
-
+import java.util.List;
 import com.progra4.Seguros.data.*;
 
 /**
@@ -32,5 +32,7 @@ public class Service {
         return userDao.read(id);
     }
     
-    public List<Policy> policiesFind()
+    //public List<Policy> policiesFind() {
+    //    return new arrayList<Policy>();
+    //}
 }
