@@ -22,20 +22,28 @@ public class CategoryDao {
         this.db = db;
     }
     
-    public ArrayList<Coverage> readCoverages(String idCategory) throws Exception {
-        ArrayList<Coverage> results = new ArrayList<>();
+    public Category read(String id) throws Exception {
         String sql = "select " +
                 "* " +
-                "from Coverage e " +
-                "where e.coverageId=?";
+                "from Category e " +
+                "where e.categoryId=?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, "e");
+        stm.setString(1, id);
+        ResultSet rs = db.executeQuery(stm);
+        Category c;
+        if (rs.next()) {
+            c = from(rs,"e");
+            return c;
+        } else {
+            throw new Exception("Categoria no Existe");
+        }
     }
     
-    public Coverage fromCoverage(ResultSet rs, String alias) {
+    private Category from(ResultSet rs, String alias) {
         try {
-            Coverage e = new Coverage();
-            e.setId(rs.getString(alias + ".coverageId"));
+            Category e = new Category();
+            e.setId(rs.getString(alias + ".categoryId"));
+            e.setDescription(rs.getString(alias + ".descrip"));
         } catch (SQLException ex) {
             return null;
         }
