@@ -22,15 +22,19 @@ public class Service {
     
     RelDatabase relDatabase;
     UserDao userDao;
+    PolicyDao policyDao;
     
     private Service() {
         relDatabase = new RelDatabase();
         userDao = new UserDao(relDatabase);
+        policyDao = new PolicyDao(relDatabase);
     }
     
     public User userFind(String id, String pass) throws Exception {
         return userDao.read(id);
     }
     
-    public List<Policy> policiesFind()
+    public List<Policy> policiesFind(){
+        return policyDao.read();
+    }
 }
