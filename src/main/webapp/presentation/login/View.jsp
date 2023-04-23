@@ -1,3 +1,7 @@
+<%@page import="com.progra4.Seguros.presentation.login.Model"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -7,11 +11,14 @@
         <title>Seguros - Login</title>
     </head>
     <body>
+        
+        <% Model model= (Model) request.getAttribute("model"); %>
+        
         <%@ include file="/presentation/Header.jsp" %>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 offset-md-4">
-                    <form name="form" action="presentation/login/show" method="post" >
+                    <form name="form" action="presentation/login/login" method="post" >
                         <img src="images/Logotipo.png" class="login">
                         <h2 style="text-align: center">Login</h2>
                         <div class="form-group mb-3 d-flex">

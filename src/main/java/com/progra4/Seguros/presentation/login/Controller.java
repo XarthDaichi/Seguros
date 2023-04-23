@@ -23,16 +23,7 @@ import java.util.Map;
 @WebServlet(name = "LoginController", urlPatterns = {"/presentation/login/show",
     "/presentation/login/register", "/presentation/login/login","/presentation/login/logout"})
 public class Controller extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -73,12 +64,8 @@ public class Controller extends HttpServlet {
     void updateModel(HttpServletRequest request){
        Model model= (Model) request.getAttribute("model");
        
-        model.getCurrent().setId(request.getParameter("IdFld"));
-        model.getCurrent().setPassword(request.getParameter("PassFld"));
-        model.getCurrent().setName(request.getParameter("NameFld"));
-        model.getCurrent().setEmail(request.getParameter("EmailFld"));
-        model.getCurrent().setCellphone(request.getParameter("CellphoneFld"));
-        model.getCurrent().setCardNumber(request.getParameter("CardFld"));
+        model.getCurrent().setId(request.getParameter("id"));
+        model.getCurrent().setPassword(request.getParameter("password"));
     }
     
     public String login(HttpServletRequest request){
@@ -100,7 +87,7 @@ public class Controller extends HttpServlet {
             model.getCurrent().setAdministrator(real.getAdministrator());
             session.setAttribute("user", real);
             String viewUrl="";
-            if (real.getAdministrator()) viewUrl="/presentation/cliente/cuentas/show";
+            if (!real.getAdministrator()) viewUrl="/presentation/client/policies/show";
             else viewUrl="";
             return viewUrl;
         } catch (Exception ex) {
