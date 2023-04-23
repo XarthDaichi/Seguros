@@ -89,7 +89,7 @@ public class PolicyDao {
                 "(userId, vehicleLicensePlate, term, initialDate, insuredValue) " +
                 "values(?,?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, p.getDescription());
+        stm.setString(1, p.getPolicyOwner().getId());
         stm.setString(2, p.getVehicle().getLicensePlate());
         stm.setString(3, p.getTermChosen().name());
         stm.setString(4, p.getInitialDate().toString());
