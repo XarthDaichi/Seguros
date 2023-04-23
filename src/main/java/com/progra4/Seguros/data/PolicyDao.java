@@ -95,5 +95,7 @@ public class PolicyDao {
         stm.setString(4, p.getTermChosen().name());
         stm.setString(5, p.getInitialDate().toString());
         stm.setDouble(6, p.getInsuredValue());
+        
+        db.executeUpdate(stm);
     }
 }

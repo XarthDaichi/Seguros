@@ -74,7 +74,8 @@ values ('Cov001', 'Daño a Personas', 'testing cov 1', 2.00, 0.5, 'Cat001'),
 ('Cov006', 'Robo', 'testing cov 6', 3.50, 0.8, 'Cat002');
 
 insert into Users (userId, pass, nameU, cellphone, email, cardNumber, typeU) values ('111','111','Diego','11111111', 'diego@testing.com','111',0),
-('222','222','Jorge','22222222','jorge@testing.com','222',1), ('333','222','Luis','33333333','luis@testing.com','333',0);
+('222','222','Jorge','22222222','jorge@testing.com','222',1), 
+('333','333','Luis','33333333','luis@testing.com','333',0);
 
 insert into Vehicle (licensePlate, brand, model, yearV) values ('ABC123', 'Toyota', 'Tercel', '1996-07-30'), ('LRD596', 'LandRover', 'RangeRover', '2023-01-01');
 
