@@ -4,8 +4,7 @@
  */
 package com.progra4.Seguros.presentation.admin.policies;
 
-import com.progra4.Seguros.logic.Service;
-import com.progra4.Seguros.logic.User;
+import com.progra4.Seguros.logic.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +13,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -53,9 +54,18 @@ public class Controller extends HttpServlet {
  
         User user = (User) session.getAttribute("user");
         
-        try {        
+        try {   
             model.setUsers(service.selectAllUsers());
             model.setPolicies(service.selectAllPolicies());
+            for(User us : model.getUsers()){
+                List <Policy> temp = new ArrayList<>();
+                for(Policy pol : model.getPolicies()){
+                    if(pol.getPolicyOwner().getId().equals(us.getId())){
+                        temp.add(pol);
+                    }
+                    model.getPoliciesByUser().put(us.getId(), temp);
+                }
+            }
             return "/presentation/admin/policies/View.jsp";
         } catch (Exception ex) {
             return "/presentation/Error.jsp";

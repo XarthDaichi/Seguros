@@ -3,10 +3,13 @@ package com.progra4.Seguros.presentation.admin.policies;
 import com.progra4.Seguros.logic.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Model {
     List<Policy> policies;
     List<User> users;
+    Map<String, List<Policy>> policiesByUser;
     Policy selected;
 
     public Model() {
@@ -16,6 +19,7 @@ public class Model {
     public void reset(){ 
         List<Policy> rows = new ArrayList<>();
         List<User> rowsU = new ArrayList<>();
+        Map<String, List<Policy>> rowsPolicies = new HashMap<>();
         selected=null;  
         this.setPolicies(rows);
         this.setUsers(rowsU);
@@ -44,4 +48,14 @@ public class Model {
      public List<Policy> getPolicies() {
         return policies;
     }
+
+    public Map<String, List<Policy>> getPoliciesByUser() {
+        return policiesByUser;
+    }
+
+    public void setPoliciesByUser(Map<String, List<Policy>> policiesByUser) {
+        this.policiesByUser = policiesByUser;
+    }
+     
+     
 }
