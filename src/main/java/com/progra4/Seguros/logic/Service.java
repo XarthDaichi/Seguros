@@ -96,6 +96,7 @@ public class Service {
             
         }
         ArrayList<ArrayList<Vehicle>> result = new ArrayList<>();
+        result.add(new ArrayList<>());
         result.get(0).add(resultNoRedundancy.get(0));
         for (int i = 1; i < resultNoRedundancy.size(); i++) {
             for (int j = 0; j < result.size(); j++) {
@@ -110,5 +111,9 @@ public class Service {
             }
         }
         return result;
+    }
+    
+    public ArrayList<Vehicle> findByBrandModel(Vehicle v) throws Exception {
+        return vehicleDao.findByBrandModel(v);
     }
 }
