@@ -70,8 +70,8 @@ public class UserDao {
     }
     
     public void update(User e) throws Exception {
-        String sql = "update " +
-                "Users " +
+         String sql = "update " +
+                "Employee " +
                 "set pass=?, nameU=?, cellphone=?, email=?, cardNumber=? " +
                 "where userId=?";
         PreparedStatement stm = db.prepareStatement(sql);
