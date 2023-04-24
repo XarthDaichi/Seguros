@@ -56,21 +56,28 @@ public class Controller extends HttpServlet {
         } catch (Exception ex) { return "/presentation/Error.jsp"; }
     }
     
-    public String update(HttpServletRequest request) {
-        Model model = (Model) request.getAttribute("model");
-        Service service = Service.instance();
-        HttpSession session = request.getSession(true);
-        User user = (User) session.getAttribute("user");
-        model.getCurrent().setId(user.getId());
+    /*
+    model.getCurrent().setId(user.getId());
         model.getCurrent().setName(user.getName());
         model.getCurrent().setPassword(user.getPassword());
         model.getCurrent().setEmail(user.getEmail());
         model.getCurrent().setCellphone(user.getCellphone());
         model.getCurrent().setCardNumber(user.getCardNumber());
-        model.getCurrent().setAdministrator(user.getAdministrator());
+    */
+    
+    public String update(HttpServletRequest request) {
+        Model model = (Model) request.getAttribute("model");
+        Service service = Service.instance();
+        HttpSession session = request.getSession(true);
+        model.getCurrent().setId(request.getParameter("id"));
+        model.getCurrent().setName(request.getParameter("name"));
+        model.getCurrent().setPassword(request.getParameter("pass"));
+        model.getCurrent().setEmail(request.getParameter("mail"));
+        model.getCurrent().setCellphone(request.getParameter("phone"));
+        model.getCurrent().setCardNumber(request.getParameter("card"));
         try {
             service.userUpdate(model.getCurrent());
-            return "/presentation/client/policies/View.jsp";
+            return "/presentation/client/policies/show";
         } catch (Exception ex) {
             Map<String,String> errores = new HashMap<>();
             request.setAttribute("errores", errores);

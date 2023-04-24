@@ -21,19 +21,19 @@
                         <h2 style="text-align: center">Modificar Datos</h2>
                         <div class="form-group mb-3 d-flex justify-content-between">
                             <input type="text" placeholder="ID: <%= model.getCurrent().getId() %>" class="form-control" id="id" name="id" disabled>
-                            <input type="password" placeholder="Contraseña" class="form-control" id="id" name="clave" value="<%= model.getCurrent().getPassword() %>" required>
+                            <input type="password" placeholder="Contraseña" class="form-control" id="pass" name="pass" value="<%= model.getCurrent().getPassword() %>" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="text" placeholder="Nombre" class="form-control" id="name" name="nombre" value="<%= model.getCurrent().getName() %>" required>
+                            <input type="text" placeholder="Nombre" class="form-control" id="name" name="name" value="<%= model.getCurrent().getName() %>" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="text" placeholder="Teléfono" class="form-control" id="phone" name="telefono" value="<%= model.getCurrent().getCellphone() %>" required>
+                            <input type="text" placeholder="Teléfono" class="form-control" id="phone" name="phone" value="<%= model.getCurrent().getCellphone() %>" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="email" placeholder="Correo electrónico" class="form-control" id="mail" name="correo" value="<%= model.getCurrent().getEmail() %>" required>
+                            <input type="email" placeholder="Correo electrónico" class="form-control" id="mail" name="mail" value="<%= model.getCurrent().getEmail() %>" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="text" placeholder="Número de tarjeta" class="form-control" id="card" name="tarjeta" value="<%= model.getCurrent().getCardNumber() %>" maxlength="16" required>
+                            <input type="text" placeholder="Número de tarjeta" class="form-control" id="card" name="card" value="<%= model.getCurrent().getCardNumber() %>" maxlength="16" required>
                         </div>
                         <button class="btn btn-primary">Ingresar</button>
                     </form>
