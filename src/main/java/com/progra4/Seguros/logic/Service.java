@@ -107,6 +107,7 @@ public class Service {
                 if (j == result.size() - 1) {
                     result.add(new ArrayList<>());
                     result.get(j+1).add(resultNoRedundancy.get(i));
+                    break;
                 }
             }
         }
