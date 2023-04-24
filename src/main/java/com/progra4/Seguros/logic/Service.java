@@ -85,12 +85,13 @@ public class Service {
         ArrayList<Vehicle> resultNoRedundancy = new ArrayList<>();
         resultNoRedundancy.add(resultQuery.get(0));
         for (int i = 1; i < resultQuery.size(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (resultQuery.get(i).getBrand() == resultQuery.get(j).getBrand() && resultQuery.get(i).getModel() == resultQuery.get(j).getModel()) {
+            for (int j = 0; j < resultNoRedundancy.size(); j++) {
+                if (resultQuery.get(i).getBrand().equals(resultNoRedundancy.get(j).getBrand()) && resultQuery.get(i).getModel().equals(resultNoRedundancy.get(j).getModel())) {
                     break;
                 }
                 if (j == i - 1) {
                     resultNoRedundancy.add(resultQuery.get(i));
+                    break;
                 }
             }
             
@@ -100,7 +101,7 @@ public class Service {
         result.get(0).add(resultNoRedundancy.get(0));
         for (int i = 1; i < resultNoRedundancy.size(); i++) {
             for (int j = 0; j < result.size(); j++) {
-                if (resultNoRedundancy.get(i).getBrand() == result.get(j).get(0).getBrand()) {
+                if (resultNoRedundancy.get(i).getBrand().equals(result.get(j).get(0).getBrand())) {
                     result.get(j).add(resultNoRedundancy.get(i));
                     break;
                 }
@@ -114,7 +115,7 @@ public class Service {
         return result;
     }
     
-    public ArrayList<Vehicle> findByBrandModel(Vehicle v) throws Exception {
-        return vehicleDao.findByBrandModel(v);
+    public ArrayList<Vehicle> findByBrandModel(String brand, String model) throws Exception {
+        return vehicleDao.findByBrandModel(brand, model);
     }
 }

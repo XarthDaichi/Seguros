@@ -74,15 +74,15 @@ public class VehicleDao {
         return result;
     }
     
-    public ArrayList<Vehicle> findByBrandModel(Vehicle v) throws Exception {
+    public ArrayList<Vehicle> findByBrandModel(String brand, String model) throws Exception {
         ArrayList<Vehicle> result = new ArrayList<>();
         String sql = "select " +
                 "* " +
                 "from Vehicle v " +
                 "where v.brand=? and v.model=?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, v.getBrand());
-        stm.setString(2, v.getModel());
+        stm.setString(1, brand);
+        stm.setString(2, model);
         ResultSet rs = db.executeQuery(stm);
         while(rs.next()) {
             result.add(from(rs, "v"));
