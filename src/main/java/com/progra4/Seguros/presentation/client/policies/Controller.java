@@ -57,6 +57,7 @@ public class Controller extends HttpServlet {
         Model model = (Model) request.getAttribute("model");
         Service service = Service.instance();
         HttpSession session = request.getSession(true);
+        return "";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
