@@ -28,7 +28,7 @@
                         </div>
                         <button class="btn btn-primary">Ingresar</button>
                         <div class="form-group mb-3">
-                            <a href="presentation/login/register" style="background-color: red" class="btn btn-primary">Registrarse</a>
+                            <a href="presentation/client/register/show" style="background-color: red" class="btn btn-primary">Registrarse</a>
                         </div>
                     </form>
                     
