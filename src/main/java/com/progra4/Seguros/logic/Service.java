@@ -80,20 +80,34 @@ public class Service {
         coverageDao.insert(c, cat);
     }
     
-    public ArrayList<Vehicle> selectBrandsAndModels() throws Exception {
+    public ArrayList<ArrayList<Vehicle>> selectBrandsAndModels() throws Exception {
         ArrayList<Vehicle> resultQuery = vehicleDao.selectAll();
-        ArrayList<Vehicle> result = new ArrayList<>();
-        result.add(resultQuery.get(0));
+        ArrayList<Vehicle> resultNoRedundancy = new ArrayList<>();
+        resultNoRedundancy.add(resultQuery.get(0));
         for (int i = 1; i < resultQuery.size(); i++) {
             for (int j = 0; j < i; j++) {
                 if (resultQuery.get(i).getBrand() == resultQuery.get(j).getBrand() && resultQuery.get(i).getModel() == resultQuery.get(j).getModel()) {
                     break;
                 }
                 if (j == i - 1) {
-                    result.add(resultQuery.get(i));
+                    resultNoRedundancy.add(resultQuery.get(i));
                 }
             }
             
+        }
+        ArrayList<ArrayList<Vehicle>> result = new ArrayList<>();
+        result.get(0).add(resultNoRedundancy.get(0));
+        for (int i = 1; i < resultNoRedundancy.size(); i++) {
+            for (int j = 0; j < result.size(); j++) {
+                if (resultNoRedundancy.get(i).getBrand() == result.get(j).get(0).getBrand()) {
+                    result.get(j).add(resultNoRedundancy.get(i));
+                    break;
+                }
+                if (j == result.size() - 1) {
+                    result.add(new ArrayList<>());
+                    result.get(j+1).add(resultNoRedundancy.get(i));
+                }
+            }
         }
         return result;
     }
