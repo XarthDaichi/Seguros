@@ -48,7 +48,9 @@
                                 <td>
                                     <%= p.getVehicle().getBrand() %> - <%= p.getVehicle().getModel() %>
                                 </td>
-                                <td>@mdo</td>
+                                <td>
+                                    <img class="img-fluid" style="max-width: 100px; max-height: 100px;" src=" images/<%= p.getVehicle().getLicensePlate() %>.png ">
+                                </td>
                                 <td>
                                     <%= p.getInsuredValue() %>
                                 </td>
