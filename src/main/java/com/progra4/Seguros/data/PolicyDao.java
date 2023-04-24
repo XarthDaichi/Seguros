@@ -34,7 +34,7 @@ public class PolicyDao {
                 "from  PolicyClass e inner join Users u on e.userId = u.userId inner join Vehicle v on e.vehicleLicensePlate=v.licensePlate " +
                 "where e.policyId=?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, id);
+        stm.setInt(1, Integer.parseInt(id.substring(3, 6)));
         ResultSet rs = db.executeQuery(stm);
         UserDao userDao = new UserDao(db);
         VehicleDao vehicleDao = new VehicleDao(db);
