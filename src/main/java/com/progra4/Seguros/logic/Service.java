@@ -56,6 +56,10 @@ public class Service {
         userDao.insert(u);
     }
     
+    public ArrayList<User> selectAllUsers() throws Exception {
+        return userDao.selectAll();
+    }
+    
     public List<Policy> policiesFind(User u) throws Exception {
         return policyDao.findByUser(u);
     }
@@ -64,15 +68,15 @@ public class Service {
         policyDao.insert(p);
     }
     
+    public Policy policyFind(Policy p ) throws Exception {
+        return policyDao.read(p.getId());
+    }
+    
     public void CategoryCreate(Category c) throws Exception {
         categoryDao.insert(c);
     }
     
     public void CoverageCreate(Coverage c, Category cat) throws Exception {
         coverageDao.insert(c, cat);
-    }
-    
-    public ArrayList<User> selectAllUsers() throws Exception {
-        return userDao.selectAll();
     }
 }
