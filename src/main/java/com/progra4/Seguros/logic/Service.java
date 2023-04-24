@@ -68,8 +68,8 @@ public class Service {
         policyDao.insert(p);
     }
     
-    public Policy policyFind(String p ) throws Exception {
-        return policyDao.read(p);
+    public Policy policyFind(String policyId) throws Exception {
+        return policyDao.read(policyId);
     }
     
     public void CategoryCreate(Category c) throws Exception {
@@ -115,7 +115,11 @@ public class Service {
         return result;
     }
     
-    public ArrayList<Vehicle> findByBrandModel(String brand, String model) throws Exception {
-        return vehicleDao.findByBrandModel(brand, model);
+    public Vehicle vehicleVerify(Vehicle v) throws Exception {
+        Vehicle vehicle = vehicleDao.read(v.getId());
+        if (vehicle.getBrand().equals(v.getBrand()) && vehicle.getModel().equals(v.getModel()) && vehicle.getYear() == v.getYear()) {
+            return vehicle;
+        }
+        return null;
     }
 }

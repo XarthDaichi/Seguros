@@ -9,33 +9,32 @@ package com.progra4.Seguros.logic;
  * @author diego
  */
 public class Vehicle {
-    private String licensePlate;
+    private int id;
     private String brand;
     private String model;
     private int year;
 
     public Vehicle() {
-        this.licensePlate = "";
         this.brand = "";
         this.model = "";
         this.year = 0;
     }
 
-    public Vehicle(String licensePlate, String brand, String model, int year) {
-        this.licensePlate = licensePlate;
+    public Vehicle(int id, String brand, String model, int year) {
+        this.id=id;
         this.brand = brand;
         this.model = model;
         this.year = year;
     }
 
-    public String getLicensePlate() {
-        return licensePlate;
+    public int getId() {
+        return id;
     }
 
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
+    public void setId(int id) {
+        this.id = id;
     }
-
+    
     public String getBrand() {
         return brand;
     }

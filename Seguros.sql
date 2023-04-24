@@ -15,11 +15,12 @@ create table Users (
 );
 
 create table Vehicle (
-    licensePlate varchar(6) not null,
+    id int not null AUTO_INCREMENT,
     brand varchar(15),
     model varchar(15),
     yearV int,
-    constraint PKVehicle Primary Key(licensePlate)
+    constraint PKVehicle Primary Key(id),
+    constraint UNIQUECombination UNIQUE (brand, model, yearV)
 );
 
 create table Category(
@@ -41,19 +42,19 @@ create table Coverage(
 );
 
 create table PolicyClass (
-    policyId int not null AUTO_INCREMENT,
+    policyId varchar(6),
     userId varchar(30) not null,
-    vehicleLicensePlate varchar(6) not null,
     term ENUM('QUARTERLY','BIANNUAL','ANNUAL'),
     initialDate date,
     insuredValue double,
+    vehicleId int,
     constraint PKPolicy Primary Key(policyId),
-    constraint Foreign Key (vehicleLicensePlate) references Vehicle(licensePlate),
-    constraint Foreign Key (userId) references Users(userId)
+    constraint FKVehicle Foreign Key (vehicleId) references Vehicle(id),
+    constraint FKUser Foreign Key (userId) references Users(userId)
 );
 
 create table Applies (
-    policyId int,
+    policyId varchar(6),
     coverageId int,
     constraint PKApplies Primary Key (policyId, coverageId),
     constraint Foreign Key (policyId) references PolicyClass(policyId),
@@ -76,7 +77,7 @@ insert into Users (userId, pass, nameU, cellphone, email, cardNumber, typeU) val
 ('222','222','Jorge','22222222','jorge@testing.com','222',1), 
 ('333','333','Luis','33333333','luis@testing.com','333',0);
 
-insert into Vehicle (licensePlate, brand, model, yearV) values ('ABC123', 'Toyota', 'Tercel', 1996), ('LRD596', 'LandRover', 'RangeRover', 2023);
+insert into Vehicle (brand, model, yearV) values ('Toyota', 'Tercel', 1996), ('LandRover', 'RangeRover', 2023);
 
-insert into policyclass (userId, vehicleLicensePlate, term, initialDate, insuredValue) values('111', 'ABC123', 'QUARTERLY', '2023-04-23', 3000.5),
-('333', 'LRD596', 'BIANNUAL', '2023-04-21', 2000000.0);
+insert into policyclass (policyId, userId, vehicleId, term, initialDate, insuredValue) values('ABC123', '111', 1, 'QUARTERLY', '2023-04-23', 3000.5),
+('LRD596', '333', 2,'BIANNUAL', '2023-04-21', 2000000.0);

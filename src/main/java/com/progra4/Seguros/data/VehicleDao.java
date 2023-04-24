@@ -21,13 +21,13 @@ public class VehicleDao {
         this.db = db;
     }
     
-    public Vehicle read(String id) throws Exception {
+    public Vehicle read(int id) throws Exception {
         String sql = "select " +
                 "* " +
                 "from  Vehicle v " +
-                "where v.licensePlate=?";
+                "where id=?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, id);
+        stm.setInt(1, id);
         ResultSet rs = db.executeQuery(stm);
         if (rs.next()) {
             return from(rs, "v");
@@ -39,7 +39,7 @@ public class VehicleDao {
     public Vehicle from(ResultSet rs, String alias) {
         try {
             Vehicle e = new Vehicle();
-            e.setLicensePlate(rs.getString(alias + ".licensePlate"));
+            e.setId(rs.getInt(alias + ".id"));
             e.setBrand(rs.getString(alias + ".brand"));
             e.setModel(rs.getString(alias + ".model"));
             e.setYear(rs.getInt(alias + ".yearV"));            
@@ -52,10 +52,9 @@ public class VehicleDao {
     public void insert(Vehicle v) throws Exception {
         String sql = "insert into " +
                 "Vehicle " +
-                "(licensePlate, brand, model, yearV) "+
-                "values (?,?,?,?)";
+                "(brand, model, yearV) "+
+                "values (?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, v.getLicensePlate());
         stm.setString(2, v.getBrand());
         stm.setString(3, v.getModel());
         stm.setInt(4, v.getYear());
@@ -70,22 +69,6 @@ public class VehicleDao {
         ResultSet rs = db.executeQuery(stm);
         while (rs.next()) {
             result.add(from(rs, "e"));
-        }
-        return result;
-    }
-    
-    public ArrayList<Vehicle> findByBrandModel(String brand, String model) throws Exception {
-        ArrayList<Vehicle> result = new ArrayList<>();
-        String sql = "select " +
-                "* " +
-                "from Vehicle v " +
-                "where v.brand=? and v.model=?";
-        PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, brand);
-        stm.setString(2, model);
-        ResultSet rs = db.executeQuery(stm);
-        while(rs.next()) {
-            result.add(from(rs, "v"));
         }
         return result;
     }

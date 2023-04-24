@@ -31,10 +31,10 @@ public class PolicyDao {
     public Policy read(String id) throws Exception {
         String sql = "select " +
                 "* " +
-                "from  PolicyClass e inner join Users u on e.userId = u.userId inner join Vehicle v on e.vehicleLicensePlate=v.licensePlate " +
+                "from  PolicyClass e inner join Users u on e.userId = u.userId inner join Vehicle v on e.vehicleId=v.id " +
                 "where e.policyId=?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setInt(1, Integer.parseInt(id.substring(3, 6)));
+        stm.setString(1, id);
         ResultSet rs = db.executeQuery(stm);
         UserDao userDao = new UserDao(db);
         VehicleDao vehicleDao = new VehicleDao(db);
@@ -54,7 +54,7 @@ public class PolicyDao {
         try{
             String sql = "select * " +
                     "from " +
-                    "PolicyClass e inner join Vehicle v on e.vehicleLicensePlate=v.licensePlate " +
+                    "PolicyClass e inner join Vehicle v on e.vehicleId=v.id " +
                     "where e.userId=?";
             PreparedStatement stm = db.prepareStatement(sql);
             stm.setString(1, u.getId());
@@ -73,7 +73,7 @@ public class PolicyDao {
     public Policy from(ResultSet rs, String alias) {
         try {
             Policy e = new Policy();
-            e.setId(String.format("POL%03d", rs.getInt(alias + ".policyId")));
+            e.setId(rs.getString(alias + ".policyId"));
             e.setTermChosen(Term.valueOf(rs.getString(alias + ".term")));
             e.setInitialDate(rs.getDate(alias + ".initialDate").toLocalDate());
             e.setInsuredValue(rs.getDouble(alias + ".insuredValue"));           
@@ -86,11 +86,11 @@ public class PolicyDao {
     public void insert(Policy p) throws Exception {
         String sql = "insert into " +
                 "PolicyClass " +
-                "(userId, vehicleLicensePlate, term, initialDate, insuredValue) " +
+                "(userId, vehicleId, term, initialDate, insuredValue) " +
                 "values(?,?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
         stm.setString(1, p.getPolicyOwner().getId());
-        stm.setString(2, p.getVehicle().getLicensePlate());
+        stm.setInt(2, p.getVehicle().getId());
         stm.setString(3, p.getTermChosen().name());
         stm.setString(4, p.getInitialDate().toString());
         stm.setDouble(5, p.getInsuredValue());
