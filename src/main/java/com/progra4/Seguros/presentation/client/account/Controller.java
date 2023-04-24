@@ -11,6 +11,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import com.progra4.Seguros.logic.*;
 
 /**
  *
@@ -21,10 +23,30 @@ public class Controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String viewUrl="";     
-                  
-        request.getRequestDispatcher(viewUrl).forward( request, response); 
+        request.setAttribute("model", new Model());
         
+        String viewUrl="";
+        switch (request.getServletPath()) {
+             case "/presentation/client/account/show":
+                viewUrl = this.show(request);
+                break;
+        }
+        request.getRequestDispatcher(viewUrl).forward( request, response);
+    }
+        
+    public String show(HttpServletRequest request) {
+        return this.showAction(request);
+    }
+    
+    public String showAction(HttpServletRequest request) {
+        Model model = (Model) request.getAttribute("model");
+        Service service = Service.instance();
+        HttpSession session = request.getSession(true);
+        User user = (User) session.getAttribute("user");
+        try {
+            model.setCurrent(user);
+            return "/presentation/client/account/View.jsp";
+        } catch (Exception ex) { return "/presentation/Error.jsp"; }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
