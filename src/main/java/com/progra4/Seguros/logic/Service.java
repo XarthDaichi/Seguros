@@ -68,8 +68,8 @@ public class Service {
         policyDao.insert(p);
     }
     
-    public Policy policyFind(Policy p ) throws Exception {
-        return policyDao.read(p.getId());
+    public Policy policyFind(String p ) throws Exception {
+        return policyDao.read(p);
     }
     
     public void CategoryCreate(Category c) throws Exception {
