@@ -68,6 +68,20 @@ public class UserDao {
         db.executeUpdate(stm);
     }
     
+    public void updatePassword(User e) throws Exception {
+        String sql = "update " +
+                "Cliente " +
+                "set pass=? " +
+                "where userId=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, e.getPassword());
+        stm.setString(2, e.getId());
+        int count = db.executeUpdate(stm);
+        if (count == 0) {
+            throw new Exception("Usuario no existe");
+        }
+    }
+    
     public void updateName(User e) throws Exception {
         String sql = "update " +
                 "Cliente " +
