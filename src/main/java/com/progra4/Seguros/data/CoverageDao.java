@@ -4,6 +4,7 @@
  */
 package com.progra4.Seguros.data;
 
+import com.progra4.Seguros.logic.Category;
 import com.progra4.Seguros.logic.Coverage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,5 +48,20 @@ public class CoverageDao {
         } catch (SQLException ex) {
             return null;
         }
+    }
+    
+    public void insert(Coverage c, Category cat) throws Exception {
+        String sql = "insert into " +
+                "Coverage " +
+                "(coverageName, descrip, cost, percent, categoryId) " +
+                "values (?,?,?,?,?)";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, c.getName());
+        stm.setString(2, c.getDescription());
+        stm.setDouble(3, c.getMinimumCost());
+        stm.setDouble(4, c.getPercentage());
+        stm.setInt(5, Integer.parseInt(cat.getId().substring(3, 6)));
+        
+        db.executeUpdate(stm);
     }
 }

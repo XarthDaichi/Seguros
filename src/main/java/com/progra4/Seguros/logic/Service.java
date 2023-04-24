@@ -52,8 +52,14 @@ public class Service {
     }
     
     public void PolicyCreate(Policy p) throws Exception {
-        
+        policyDao.insert(p);
     }
     
+    public void CategoryCreate(Category c) throws Exception {
+        categoryDao.insert(c);
+    }
     
+    public void CoverageCreate(Coverage c, Category cat) throws Exception {
+        coverageDao.insert(c, cat);
+    }
 }

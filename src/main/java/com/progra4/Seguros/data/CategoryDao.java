@@ -57,4 +57,21 @@ public class CategoryDao {
             return null;
         }
     }
+    
+    public void insert(Category c) throws Exception {
+        String sql = "insert into " +
+                "Category " +
+                "(categoryName, descrip) " +
+                "values (?,?)";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, c.getName());
+        stm.setString(2, c.getDescription());
+        CoverageDao coverageDao = new CoverageDao(db);
+        for (Rule ru : c.getCoverages()) {
+            Coverage cov = (Coverage) ru;
+            coverageDao.insert(cov, c);
+        }
+        
+        db.executeUpdate(stm);
+    }
 }
