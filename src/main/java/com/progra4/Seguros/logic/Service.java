@@ -68,7 +68,7 @@ public class Service {
         policyDao.insert(p);
     }
     
-    public Policy policyFind(Policy p ) throws Exception {
+    public Policy policyFind(Policy p) throws Exception {
         return policyDao.read(p.getId());
     }
     
@@ -78,5 +78,23 @@ public class Service {
     
     public void CoverageCreate(Coverage c, Category cat) throws Exception {
         coverageDao.insert(c, cat);
+    }
+    
+    public ArrayList<Vehicle> selectBrandsAndModels() throws Exception {
+        ArrayList<Vehicle> resultQuery = vehicleDao.selectAll();
+        ArrayList<Vehicle> result = new ArrayList<>();
+        result.add(resultQuery.get(0));
+        for (int i = 1; i < resultQuery.size(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (resultQuery.get(i).getBrand() == resultQuery.get(j).getBrand() && resultQuery.get(i).getModel() == resultQuery.get(j).getModel()) {
+                    break;
+                }
+                if (j == i - 1) {
+                    result.add(resultQuery.get(i));
+                }
+            }
+            
+        }
+        return result;
     }
 }

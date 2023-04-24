@@ -8,6 +8,7 @@ import com.progra4.Seguros.logic.Vehicle;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -60,5 +61,16 @@ public class VehicleDao {
         stm.setInt(4, v.getYear());
         
         db.executeUpdate(stm);
+    }
+    
+    public ArrayList<Vehicle> selectAll() throws Exception {
+        ArrayList<Vehicle> result = new ArrayList<>();
+        String sql = "select * from Vehicle e";
+        PreparedStatement stm = db.prepareStatement(sql);
+        ResultSet rs = db.executeQuery(stm);
+        while (rs.next()) {
+            result.add(from(rs, "e"));
+        }
+        return result;
     }
 }
