@@ -40,7 +40,7 @@
                                     <a href="presentation/client/policies/select?id=<%= p.getId() %>"> <%= p.getId() %> </a>
                                 </td>
                                 <td>
-                                    <%= p.getVehicle().getLicensePlate() %>
+                                    <%= p.getId() %>
                                 </td>
                                 <td>
                                     <%= p.getInitialDate() %>
@@ -49,7 +49,7 @@
                                     <%= p.getVehicle().getBrand() %> - <%= p.getVehicle().getModel() %>
                                 </td>
                                 <td>
-                                    <img class="img-fluid" style="max-width: 100px; max-height: 100px;" src=" images/<%= p.getVehicle().getLicensePlate() %>.png ">
+                                    <img class="img-fluid" style="max-width: 100px; max-height: 100px;" src=" images/<%= p.getId()%>.png ">
                                 </td>
                                 <td>
                                     <%= p.getInsuredValue() %>
