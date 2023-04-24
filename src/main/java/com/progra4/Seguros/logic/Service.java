@@ -89,7 +89,7 @@ public class Service {
                 if (resultQuery.get(i).getBrand().equals(resultNoRedundancy.get(j).getBrand()) && resultQuery.get(i).getModel().equals(resultNoRedundancy.get(j).getModel())) {
                     break;
                 }
-                if (j == i - 1) {
+                if (j == resultNoRedundancy.size() - 1) {
                     resultNoRedundancy.add(resultQuery.get(i));
                     break;
                 }
