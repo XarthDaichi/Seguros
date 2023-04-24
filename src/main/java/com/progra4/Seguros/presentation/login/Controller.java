@@ -52,6 +52,9 @@ public class Controller extends HttpServlet {
     }
         
     public String showAction(HttpServletRequest request){
+         HttpSession session = request.getSession(true);
+            session.removeAttribute("user");
+            session.invalidate();
         Model model= (Model) request.getAttribute("model");
         model.reset();
         return "/presentation/login/View.jsp"; 

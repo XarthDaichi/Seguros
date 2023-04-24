@@ -13,12 +13,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import com.progra4.Seguros.logic.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Dell
  */
-@WebServlet(name = "accountController", urlPatterns = {"/presentation/client/account/show"})
+@WebServlet(name = "accountController", urlPatterns = {"/presentation/client/account/show",
+"/presentation/client/account/update"})
 public class Controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,9 +30,13 @@ public class Controller extends HttpServlet {
         
         String viewUrl="";
         switch (request.getServletPath()) {
-             case "/presentation/client/account/show":
+            case "/presentation/client/account/show":
                 viewUrl = this.show(request);
                 break;
+            case "/presentation/client/account/update":
+                viewUrl = this.update(request);
+                break;
+                    
         }
         request.getRequestDispatcher(viewUrl).forward( request, response);
     }
@@ -47,6 +54,29 @@ public class Controller extends HttpServlet {
             model.setCurrent(user);
             return "/presentation/client/account/View.jsp";
         } catch (Exception ex) { return "/presentation/Error.jsp"; }
+    }
+    
+    public String update(HttpServletRequest request) {
+        Model model = (Model) request.getAttribute("model");
+        Service service = Service.instance();
+        HttpSession session = request.getSession(true);
+        User user = (User) session.getAttribute("user");
+        model.getCurrent().setId(user.getId());
+        model.getCurrent().setName(user.getName());
+        model.getCurrent().setPassword(user.getPassword());
+        model.getCurrent().setEmail(user.getEmail());
+        model.getCurrent().setCellphone(user.getCellphone());
+        model.getCurrent().setCardNumber(user.getCardNumber());
+        model.getCurrent().setAdministrator(user.getAdministrator());
+        try {
+            service.userUpdate(model.getCurrent());
+            return "/presentation/client/policies/View.jsp";
+        } catch (Exception ex) {
+            Map<String,String> errores = new HashMap<>();
+            request.setAttribute("errores", errores);
+            errores.put("nombreFld","cedula o nombreincorrectos");
+            return "/presentation/cliente/datos/View.jsp"; 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

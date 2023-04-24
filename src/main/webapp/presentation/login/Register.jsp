@@ -19,13 +19,16 @@
                             <input type="password" placeholder="Contraseña" class="form-control" id="clave" name="clave" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="text" placeholder="Nombre" class="form-control" id="nombre" name="nombre" required>
+                            <input type="text" placeholder="Nombre" class="form-control" id="name" name="nombre" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="text" placeholder="Teléfono" class="form-control" id="telefono" name="telefono" required>
+                            <input type="text" placeholder="Teléfono" class="form-control" id="phone" name="telefono" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input type="email" placeholder="Correo electrónico" class="form-control" id="correo" name="correo" required>
+                            <input type="email" placeholder="Correo electrónico" class="form-control" id="mail" name="correo" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="text" placeholder="Número de tarjeta" class="form-control" id="card" name="tarjeta" required>
                         </div>
                         <button class="btn btn-primary">Ingresar</button>
                     </form>
