@@ -35,16 +35,14 @@
                                     <option value="<%= vehicle.getBrand() %> - <%= vehicle.getModel() %>"> <%= vehicle.getBrand() %> - <%= vehicle.getModel() %> </option>
                                     <% } %>
                                 <% } %>
-                                
                             </select>
                         </div>
                         <div class="form-group mb-3">
                             <label for="dropdown-menu">Año:</label>
                             <select id="dropdown-menu">
-                                <option value="" disabled selected></option>
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                                <option value="option3">Option 3</option>
+                                <% for (int i = 1970; i < 2024; i++) { %>
+                                    <option value="<%= i %>"> <%= i %> </option>
+                                <% } %>
                             </select>
                         </div>
                         <div class="form-group mb-3">

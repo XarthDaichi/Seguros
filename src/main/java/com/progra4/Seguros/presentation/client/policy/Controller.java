@@ -5,6 +5,7 @@
 
 package com.progra4.Seguros.presentation.client.policy;
 
+import com.progra4.Seguros.logic.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -49,7 +51,15 @@ public class Controller extends HttpServlet {
     }
     
     public String add(HttpServletRequest request){
-        return this.showAction(request);
+        Model model= (Model) request.getAttribute("model");
+        Service  service = Service.instance();
+        HttpSession session = request.getSession(true);
+        try {
+            
+        } catch (Exception ex) {
+            
+        }
+        return "";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
