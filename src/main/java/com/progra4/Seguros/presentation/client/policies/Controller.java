@@ -14,11 +14,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import com.progra4.Seguros.logic.*;
 
-/**
- *
- * @author Dell
- */
-@WebServlet(name = "ClientPoliciesController", urlPatterns = {"/presentation/client/policies/show"})
+@WebServlet(name = "ClientPoliciesController", urlPatterns = {"/presentation/client/policies/show",
+"/presentation/client/policies/select"})
 public class Controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,8 +24,11 @@ public class Controller extends HttpServlet {
         
         String viewUrl="";     
         switch (request.getServletPath()) {
-          case "/presentation/client/policies/show":
+            case "/presentation/client/policies/show":
               viewUrl = this.show(request);
+              break;
+            case "/presentation/client/policies/select":
+              viewUrl = this.select(request);
               break;
         }          
         request.getRequestDispatcher(viewUrl).forward( request, response);
@@ -51,6 +51,12 @@ public class Controller extends HttpServlet {
         } catch (Exception ex) {
             return "/presentation/Error.jsp";
         }
+    }
+    
+    public String select(HttpServletRequest request) {
+        Model model = (Model) request.getAttribute("model");
+        Service service = Service.instance();
+        HttpSession session = request.getSession(true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -18,7 +18,7 @@
             <h1>Lista de pólizas</h1>
         </div>
         <div class="add">
-            <a href="#" class="btn btn-primary">Agregar Póliza</a>
+            <a href="/Seguros/presentation/client/policy/show" class="btn btn-primary">Agregar Póliza</a>
         </div>
         <div class="container">
             <div class="table-responsive">

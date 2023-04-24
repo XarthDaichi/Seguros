@@ -17,18 +17,22 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author lmont
  */
-@WebServlet(name="PolicyController", urlPatterns={"/presentation/client/policy/blank"})
+@WebServlet(name="PolicyController", urlPatterns={"/presentation/client/policy/show",
+"/presentation/client/policy/add"})
 public class Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         request.setAttribute("model", new Model()); 
         
         String viewUrl="";
         switch(request.getServletPath()){
-            case "/presentation/cliente/poliza/blank":
+            case "/presentation/client/policy/show":
                 viewUrl=this.show(request);
+                break;
+            case "/presentation/client/policy/add":
+                viewUrl=this.add(request);
                 break;
         }
         request.getRequestDispatcher(viewUrl).forward( request, response);
@@ -42,6 +46,10 @@ public class Controller extends HttpServlet {
         Model model= (Model) request.getAttribute("model");
         model.reset();
         return "/presentation/client/policy/View.jsp"; 
+    }
+    
+    public String add(HttpServletRequest request){
+        return this.showAction(request);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
