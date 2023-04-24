@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.progra4.Seguros.presentation.client.policies;
+package com.progra4.Seguros.presentation.client.policyInfo;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,9 +14,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import com.progra4.Seguros.logic.*;
 
-@WebServlet(name = "ClientPoliciesController", urlPatterns = {"/presentation/client/policies/show",
-"/presentation/client/policies/select"})
+/**
+ *
+ * @author Dell
+ */
+@WebServlet(name = "policyInfoController", urlPatterns = {"/presentation/client/policyInfo/show"})
 public class Controller extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -24,46 +28,19 @@ public class Controller extends HttpServlet {
         
         String viewUrl="";     
         switch (request.getServletPath()) {
-            case "/presentation/client/policies/show":
+            case "/presentation/client/policyInfo/show":
               viewUrl = this.show(request);
-              break;
-            case "/presentation/client/policies/select":
-              viewUrl = this.select(request);
               break;
         }          
         request.getRequestDispatcher(viewUrl).forward( request, response);
+        
     }
     
     public String show(HttpServletRequest request) {
-        return this.showAction(request);
-    }
-    
-    public String showAction(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
-        Service service = Service.instance();
         HttpSession session = request.getSession(true);
- 
-        User user = (User) session.getAttribute("user");
-        
-        try {        
-            model.setPolicies(service.policiesFind(user));
-            return "/presentation/client/policies/View.jsp";
-        } catch (Exception ex) {
-            return "/presentation/Error.jsp";
-        }
-    }
-    
-    public String select(HttpServletRequest request) {
-        Model model = (Model) request.getAttribute("model");
-        Service service = Service.instance();
-        HttpSession session = request.getSession(true);
-        try {
-            model.setSeleccionado(service.policyFind(request.getParameter("id")));
-            session.setAttribute("policy", model.getSeleccionado());
-            return "/presentation/client/policyInfo/show";
-        } catch (Exception ex) {
-            return "/presentation/Error.jsp";
-        }
+        model.setCurrent((Policy) session.getAttribute("policy"));
+        return "/presentation/client/policyInfo/View.jsp";
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -106,4 +83,3 @@ public class Controller extends HttpServlet {
     }// </editor-fold>
 
 }
- 

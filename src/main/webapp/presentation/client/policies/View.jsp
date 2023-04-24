@@ -37,7 +37,7 @@
                         <% for(Policy p:policies){%>
                             <tr>
                                 <td>
-                                    <%= p.getId() %>
+                                    <a href="presentation/client/policies/select?id=<%= p.getId() %>"> <%= p.getId() %> </a>
                                 </td>
                                 <td>
                                     <%= p.getVehicle().getLicensePlate() %>

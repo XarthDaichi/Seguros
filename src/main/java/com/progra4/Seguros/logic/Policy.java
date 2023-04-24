@@ -45,6 +45,18 @@ public class Policy extends Rule {
     public Term getTermChosen() {
         return termChosen;
     }
+    
+    public String getTerm() {
+        switch (termChosen) {
+            case QUARTERLY:
+                return "Trimestral";
+            case BIANNUAL:
+                return "Semestral";
+            case ANNUAL:
+                return "Anual";
+        }
+        return "";
+    }
 
     public void setTermChosen(Term termChosen) {
         this.termChosen = termChosen;
