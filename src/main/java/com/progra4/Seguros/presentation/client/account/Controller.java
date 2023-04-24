@@ -77,6 +77,7 @@ public class Controller extends HttpServlet {
         model.getCurrent().setCardNumber(request.getParameter("card"));
         try {
             service.userUpdate(model.getCurrent());
+            session.setAttribute("user", model.getCurrent());
             return "/presentation/client/policies/show";
         } catch (Exception ex) {
             Map<String,String> errores = new HashMap<>();

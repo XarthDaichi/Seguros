@@ -20,7 +20,7 @@
                         <img src="images/Logotipo.png" class="login">
                         <h2 style="text-align: center">Modificar Datos</h2>
                         <div class="form-group mb-3 d-flex justify-content-between">
-                            <input type="text" placeholder="ID: <%= model.getCurrent().getId() %>" class="form-control" id="id" name="id" disabled>
+                            <input type="text" placeholder="ID" class="form-control" id="id" name="id" value="<%= model.getCurrent().getId() %>" readonly>
                             <input type="password" placeholder="Contraseña" class="form-control" id="pass" name="pass" value="<%= model.getCurrent().getPassword() %>" required>
                         </div>
                         <div class="form-group mb-3">
