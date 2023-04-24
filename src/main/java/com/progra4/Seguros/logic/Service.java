@@ -44,6 +44,14 @@ public class Service {
         else return null;
     }
     
+    public void userUpdate(User u) {
+        try {
+            userDao.update(u);
+        } catch(Exception ex) {
+            
+        }
+    }
+    
     public void userRegister(User u) throws Exception {
         userDao.insert(u);
     }

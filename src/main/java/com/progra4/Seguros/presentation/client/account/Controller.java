@@ -75,7 +75,7 @@ public class Controller extends HttpServlet {
             Map<String,String> errores = new HashMap<>();
             request.setAttribute("errores", errores);
             errores.put("nombreFld","cedula o nombreincorrectos");
-            return "/presentation/cliente/datos/View.jsp"; 
+            return "/presentation/Error.jsp"; 
         }
     }
 

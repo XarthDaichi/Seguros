@@ -71,7 +71,7 @@ public class UserDao {
     
     public void update(User e) throws Exception {
         String sql = "update " +
-                "Cliente " +
+                "Users " +
                 "set pass=?, nameU=?, cellphone=?, email=?, cardNumber=? " +
                 "where userId=?";
         PreparedStatement stm = db.prepareStatement(sql);
