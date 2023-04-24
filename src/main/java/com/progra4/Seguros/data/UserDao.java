@@ -8,6 +8,7 @@ import com.progra4.Seguros.logic.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -137,4 +138,15 @@ public class UserDao {
             throw new Exception("Usuario no existe");
         }
     }
+    
+    public ArrayList<User> selectAll() throws Exception {
+        ArrayList<User> result = new ArrayList<>();
+        String sql = "select * from Users e";
+        PreparedStatement stm = db.prepareStatement(sql);
+        ResultSet rs = db.executeQuery(stm);
+        while (rs.next()) {
+            result.add(from(rs, "e"));
+        }
+        return result;
+    }     
 }

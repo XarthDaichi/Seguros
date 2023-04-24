@@ -5,6 +5,7 @@
 package com.progra4.Seguros.logic;
 import java.util.List;
 import com.progra4.Seguros.data.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,5 +62,9 @@ public class Service {
     
     public void CoverageCreate(Coverage c, Category cat) throws Exception {
         coverageDao.insert(c, cat);
+    }
+    
+    public ArrayList<User> selectAllUsers() throws Exception {
+        return userDao.selectAll();
     }
 }

@@ -12,7 +12,6 @@ create table Users (
     typeU boolean,
     constraint PKUser Primary Key(userId),
     constraint UniqueCell UNIQUE(cellphone),
-    constraint UniqueCard UNIQUE(cardNumber)
 );
 
 create table Vehicle (
