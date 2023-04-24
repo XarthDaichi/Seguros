@@ -1,9 +1,7 @@
-<%-- 
-    Document   : View
-    Created on : Apr 23, 2023, 3:24:50 PM
-    Author     : lmont
---%>
 <%@page import="com.progra4.Seguros.presentation.client.policy.Model"%>
+<%@page import="com.progra4.Seguros.logic.*"%>
+<%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,7 +12,10 @@
         <title>Seguros</title>
     </head>
     <body>
+        
         <% Model model= (Model) request.getAttribute("model"); %>
+        <% Service service = Service.instance(); %>
+        
         <%@ include file="/presentation/Header.jsp" %>
         <div class="register">
             <div class="row">
@@ -27,10 +28,14 @@
                         <div class="form-group mb-3">
                             <label for="dropdown-menu">Marca-Modelo:</label>
                             <select id="dropdown-menu">
-                                <option value="" disabled selected></option>
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                                <option value="option3">Option 3</option>
+                                
+                                <% for (ArrayList<Vehicle> vehicleList : service.selectBrandsAndModels()) { %>
+                                <optgroup label="<%= vehicleList.get(0).getBrand() %>"> 
+                                    <% for (Vehicle vehicle : vehicleList) { %>
+                                    <option value="<%= vehicle.getBrand() %> - <%= vehicle.getModel() %>"> <%= vehicle.getBrand() %> - <%= vehicle.getModel() %> </option>
+                                    <% } %>
+                                <% } %>
+                                
                             </select>
                         </div>
                         <div class="form-group mb-3">
