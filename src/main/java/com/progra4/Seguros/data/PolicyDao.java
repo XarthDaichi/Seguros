@@ -70,6 +70,17 @@ public class PolicyDao {
         return result;
     }
     
+    public ArrayList<Policy> selectAll() throws Exception{
+        ArrayList<Policy> result = new ArrayList<>();
+        String sql = "select * from PolicyClass e";
+        PreparedStatement stm = db.prepareStatement(sql);
+        ResultSet rs = db.executeQuery(stm);
+        while (rs.next()) {
+            result.add(from(rs, "e"));
+        }
+        return result;
+    }
+    
     public Policy from(ResultSet rs, String alias) {
         try {
             Policy e = new Policy();
