@@ -80,6 +80,10 @@ public class Service {
         return policyDao.read(policyId);
     }
     
+    public ArrayList<Category> selectAllCategories() throws Exception {
+        return categoryDao.selectAll();
+    }
+    
     public void CategoryCreate(Category c) throws Exception {
         categoryDao.insert(c);
     }
@@ -123,11 +127,11 @@ public class Service {
         return result;
     }
     
-    public Vehicle vehicleVerify(Vehicle v) throws Exception {
-        Vehicle vehicle = vehicleDao.findVehicle(v.getBrand(), v.getModel(), v.getYear());
-        if (vehicle.getBrand().equals(v.getBrand()) && vehicle.getModel().equals(v.getModel()) && vehicle.getYear() == v.getYear()) {
+    public Vehicle getVehicle(int id) throws Exception {
+        return vehicleDao.read(id);
+        /*if (vehicle.getBrand().equals(v.getBrand()) && vehicle.getModel().equals(v.getModel()) && vehicle.getYear() == v.getYear()) {
             return vehicle;
         }
-        return null;
+        return null;*/
     }
 }

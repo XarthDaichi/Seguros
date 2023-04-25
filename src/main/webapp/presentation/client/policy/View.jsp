@@ -26,22 +26,14 @@
                             <input type="text" placeholder="Placa" class="form-control" id="placa" name="placa" required>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="dropdown-menu">Marca-Modelo:</label>
+                            <label for="dropdown-menu">Marca-Modelo-Año:</label>
                             <select id="dropdown-menu">
                                 
                                 <% for (ArrayList<Vehicle> vehicleList : service.selectBrandsAndModels()) { %>
                                 <optgroup label="<%= vehicleList.get(0).getBrand() %>"> 
                                     <% for (Vehicle vehicle : vehicleList) { %>
-                                    <option value="<%= vehicle.getBrand() %> - <%= vehicle.getModel() %>"> <%= vehicle.getBrand() %> - <%= vehicle.getModel() %> </option>
+                                    <option name="brandModelYear" value="<%= vehicle.getId() %>"> <%= vehicle.getBrand() %> - <%= vehicle.getModel() %> - <%= vehicle.getYear() %> </option>
                                     <% } %>
-                                <% } %>
-                            </select>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="dropdown-menu">Año:</label>
-                            <select id="dropdown-menu">
-                                <% for (int i = 1970; i < 2024; i++) { %>
-                                    <option value="<%= i %>"> <%= i %> </option>
                                 <% } %>
                             </select>
                         </div>

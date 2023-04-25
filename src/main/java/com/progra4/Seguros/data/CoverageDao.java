@@ -9,6 +9,7 @@ import com.progra4.Seguros.logic.Coverage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,7 +28,7 @@ public class CoverageDao {
                 "from Coverage e " +
                 "where e.coverageId=?";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, id);
+        stm.setInt(1, Integer.parseInt(id.substring(3,6)));
         ResultSet rs = db.executeQuery(stm);
         if (rs.next()) {
             return from(rs, "e");
@@ -64,4 +65,17 @@ public class CoverageDao {
         
         db.executeUpdate(stm);
     }
+    
+//    public ArrayList<Coverage> selectAll() throws Exception {
+//        ArrayList<Coverage> result = new ArrayList<>();
+//        String sql = "select " +
+//                "* " +
+//                "from Coverage e";
+//        PreparedStatement stm = db.prepareStatement(sql);
+//        ResultSet rs = db.executeQuery(stm);
+//        while (rs.next()) {
+//            result.add(from(rs, "e"));
+//        }
+//        return result;
+//    }
 }

@@ -25,14 +25,13 @@ public class CategoryDao {
     
     public Category read(String id) throws Exception {
         ArrayList<Rule> coverages = new ArrayList<>();
-
         try {
             String sql = "select " +
                     "* " +
                     "from Coverage e inner join Category c on e.categoryId=c.categoryId " +
                     "where e.categoryId=?";
             PreparedStatement stm = db.prepareStatement(sql);
-            stm.setString(1, id);
+            stm.setInt(1, Integer.parseInt(id.substring(3,6)));
             ResultSet rs = db.executeQuery(stm);
             CoverageDao coverageDao = new CoverageDao(db);
             Category c = from(rs, "c");
@@ -73,5 +72,17 @@ public class CategoryDao {
         }
         
         db.executeUpdate(stm);
+    }
+    
+    public ArrayList<Category> selectAll() throws Exception {
+        ArrayList<Category> result = new ArrayList<>();
+        String sql = "select * from Category e";
+        PreparedStatement stm = db.prepareStatement(sql);
+        ResultSet rs = db.executeQuery(stm);
+        while (rs.next()) {
+            Category c = from(rs, "e");
+            result.add(read(c.getId()));
+        }
+        return result;
     }
 }
