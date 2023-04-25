@@ -18,7 +18,7 @@
                         <h2 style="text-align: center">Póliza</h2>
                         <div class="form-group mb-3">
                             <label for="inputText">Placa:</label>
-                            <input class="form-control" type="text" placeholder="Placa" class="form-control" id="placa" name="placa" value="<%= model.getCurrent().getVehicle().getLicensePlate() %>" readonly>
+                            <input class="form-control" type="text" placeholder="Placa" id="placa" name="placa" value="<%= model.getCurrent().getId() %>" readonly>
                         </div>
                         <div class="form-group mb-3">
                             <label for="dropdown-menu">Marca-Modelo:</label>
