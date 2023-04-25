@@ -20,7 +20,7 @@
         <div class="register">
             <div class="row">
                 <div class="col-md-4 offset-md-4 mx-auto">
-                    <form name="form" action="presentation/coverage/show" method="post" >
+                    <form name="form" action="presentation/client/coverages/show" method="post" >
                         <h2 style="text-align: center">Póliza</h2>
                         <div class="form-group mb-3">
                             <input type="text" placeholder="Placa" class="form-control" id="placa" name="placa" required>
