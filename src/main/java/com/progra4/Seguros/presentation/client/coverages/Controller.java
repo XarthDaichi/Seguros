@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package com.progra4.Seguros.presentation.client.policy;
+package com.progra4.Seguros.presentation.client.coverages;
 
-import com.progra4.Seguros.logic.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,26 +13,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import com.progra4.Seguros.logic.*;
 
 /**
  *
  * @author lmont
  */
-@WebServlet(name="PolicyController", urlPatterns={"/presentation/client/policy/show",
-"/presentation/client/policy/add"})
+@WebServlet(name="CoveragesController", urlPatterns={"/presentation/client/coverages/show"})
 public class Controller extends HttpServlet {
-
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
         request.setAttribute("model", new Model()); 
         
         String viewUrl="";
         switch(request.getServletPath()){
-            case "/presentation/client/policy/show":
+            case "/presentation/client/coverages/show":
                 viewUrl=this.show(request);
                 break;
-            case "/presentation/client/policy/add":
+            case "/presentation/client/coverages/add":
                 viewUrl=this.add(request);
                 break;
         }
@@ -59,18 +57,31 @@ public class Controller extends HttpServlet {
         } 
     }
     
-    public String addAction(HttpServletRequest request) throws Exception{
-        Model model= (Model) request.getAttribute("model");
-        Service  service = Service.instance();
+    public String addAction(HttpServletRequest request) throws Exception {
+        Model model = (Model) request.getAttribute("model");
+        Service service = Service.instance();
         HttpSession session = request.getSession(true);
         
-        model.getCurrent().setVehicle(service.getVehicle(Integer.parseInt(request.getParameter("brandModelYear"))));
-        model.getCurrent().setInsuredValue(Double.parseDouble(request.getParameter("valor")));
-        model.getCurrent().setTermChosen(Term.valueOf(request.getParameter("modoPago")));
+        String currentCov;
+        
+        for(Category cat: service.selectAllCategories()){
+            for(Rule cov : cat.getCoverages()){
+                currentCov = "coverageId"+cov.getId();
+                if(request.getParameter(currentCov) != null){
+                    model.getCurrent().getRules().add(cov);
+                }
+            }
+        }
+        
+        if(model.getCurrent().getRules().isEmpty()){
+            throw new Exception("Seleccione una cobertura");
+        }
+        
+        model.setCurrent((Policy) session.getAttribute("policy"));
         
         try {
-            session.setAttribute("policy", model.getCurrent());
-            return "/presentation/client/coverages/show";
+            service.PolicyCreate(model.getCurrent());
+            return "/presentation/client/policies/show";
         } catch (Exception ex) {
             return "/presentation/Error.jsp";
         }
