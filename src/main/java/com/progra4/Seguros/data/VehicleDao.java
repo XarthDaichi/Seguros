@@ -77,6 +77,9 @@ public class VehicleDao {
         String sql = "select * from Vehicle e " +
                 "where e.brand=? and e.model=? and e.yearV=?";
         PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, brand);
+        stm.setString(2, model);
+        stm.setInt(3, year);
         ResultSet rs = db.executeQuery(stm);
         if (rs.next()) {
             return from(rs, "e");

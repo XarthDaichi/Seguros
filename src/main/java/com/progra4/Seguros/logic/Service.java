@@ -138,4 +138,8 @@ public class Service {
     public void vehicleCreate(Vehicle v) throws Exception {
         vehicleDao.insert(v);
     }
+    
+    public Vehicle findVehicle(String brand, String model, int year) throws Exception {
+        return vehicleDao.findVehicle(brand, model, year);
+    }
 }
