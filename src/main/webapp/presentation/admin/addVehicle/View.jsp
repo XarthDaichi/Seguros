@@ -15,7 +15,7 @@
         <div class="register">
             <div class="row">
                 <div class="col-md-4 offset-md-4 mx-auto">
-                    <form name="form" action="presentation/coverage/show" method="post" >
+                    <form name="form" action="presentation/admin/addVehicle/add" method="post" >
                         <h2 style="text-align: center">Vehículo</h2>
                         <img src="images/Logotipo.png" class="login">
                         <div class="form-group mb-3">
@@ -28,7 +28,7 @@
                             <input type="int" placeholder="Año" class="form-control" id="year" name="year" required>
                         </div>
                         <div class="form-group mb-3">
-                            <input id="file-upload" type="file" name="img" accept=".png" required>
+                            <input id="file-upload" type="file" name="img" accept=".png">
                         </div>
                         <button class="btn btn-primary">Guardar</button>
                     </form>

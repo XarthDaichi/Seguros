@@ -55,9 +55,9 @@ public class VehicleDao {
                 "(brand, model, yearV) "+
                 "values (?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(2, v.getBrand());
-        stm.setString(3, v.getModel());
-        stm.setInt(4, v.getYear());
+        stm.setString(1, v.getBrand());
+        stm.setString(2, v.getModel());
+        stm.setInt(3, v.getYear());
         
         db.executeUpdate(stm);
     }

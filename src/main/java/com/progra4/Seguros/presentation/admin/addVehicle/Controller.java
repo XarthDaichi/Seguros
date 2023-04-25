@@ -9,7 +9,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import com.progra4.Seguros.logic.*;
+import java.io.*;
 
 @WebServlet(name = "addVehicleController", urlPatterns = {"/presentation/admin/addVehicle/show",
 "/presentation/admin/addVehicle/add"})
@@ -46,9 +48,23 @@ public class Controller extends HttpServlet {
         vehicle.setModel(request.getParameter("model"));
         vehicle.setYear(Integer.parseInt(request.getParameter("year")));
         
-        
         try {
             model.setCurrent(vehicle);
+            service.vehicleCreate(vehicle);
+            
+            /*
+            Part filePart = request.getPart("file");
+            InputStream fileContent = filePart.getInputStream();
+            String fileName = filePart.getSubmittedFileName();
+            
+            OutputStream out = new FileOutputStream(new File("images/5.png"));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while ((read = fileContent.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            */
+            
             return "/presentation/admin/brand/show";
         } catch (Exception ex) {
             return "/presentation/Error.jsp";
