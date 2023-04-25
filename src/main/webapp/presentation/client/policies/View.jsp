@@ -25,7 +25,6 @@
                 <table class="table custom-table">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Placa</th>
                             <th>Fecha</th>
                             <th>Auto</th>
@@ -38,9 +37,6 @@
                             <tr>
                                 <td>
                                     <a href="presentation/client/policies/select?id=<%= p.getId() %>"> <%= p.getId() %> </a>
-                                </td>
-                                <td>
-                                    <%= p.getId() %>
                                 </td>
                                 <td>
                                     <%= p.getInitialDate() %>
