@@ -19,7 +19,7 @@
             <h1>Lista de pólizas por cliente</h1>
         </div>
         <div class="add">
-            <a href="/Seguros/presentation/admin/brand/add" class="btn btn-primary">Agregar Vehículo</a>
+            <a href="presentation/admin/addVehicle/show" class="btn btn-primary">Agregar Vehículo</a>
         </div>
         <div class="container">
             <% for (ArrayList<Vehicle> vehicleList : vehicles) { %>

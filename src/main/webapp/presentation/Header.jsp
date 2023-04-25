@@ -14,14 +14,14 @@
         <% if (user==null){%>
             <li><a href="presentation/login/show">Login</a></li>
         <% } else if ((user!=null)&&(!user.getAdministrator())){%>
-            <li><a href="/Seguros/presentation/client/policies/show">Pólizas</a></li>
-            <li><a href="/Seguros/presentation/client/account/show">Cuenta: <%= user.getName() %></a></li>
-            <li><a href="/Seguros/presentation/login/logout">Cerrar Sesión</a></li>
+            <li><a href="presentation/client/policies/show">Pólizas</a></li>
+            <li><a href="presentation/client/account/show">Cuenta: <%= user.getName() %></a></li>
+            <li><a href="presentation/login/logout">Cerrar Sesión</a></li>
         <%} else if ((user!=null)&&(user.getAdministrator())){%>
-            <li><a href="/Seguros/presentation/admin/policies/brand">Marcas y modelos</a></li>
-            <li><a href="/Seguros/presentation/admin/policies/categories">Categorías y pólizas</a></li>
-            <li><a href="/Seguros/presentation/admin/policies/show">Pólizas</a></li>
-            <li><a href="/Seguros/presentation/login/logout">Cerrar Sesión</a></li>
+            <li><a href="presentation/admin/brand/show">Marcas y modelos</a></li>
+            <li><a href="presentation/admin/categories">Categorías y pólizas</a></li>
+            <li><a href="presentation/admin/policies/show">Pólizas</a></li>
+            <li><a href="presentation/login/logout">Cerrar Sesión</a></li>
         <% } %>
     </ul>
 </header>

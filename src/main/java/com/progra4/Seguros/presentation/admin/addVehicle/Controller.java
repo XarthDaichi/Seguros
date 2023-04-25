@@ -16,7 +16,7 @@ public class Controller extends HttpServlet {
         
         request.setAttribute("model", new Model());
         
-        String viewUrl="";     
+        String viewUrl="";
         switch (request.getServletPath()) {
             case "/presentation/admin/addVehicle/show":
                 viewUrl = this.show(request);

@@ -1,17 +1,17 @@
-<%-- 
-    Document   : View
-    Created on : 24 abr. 2023, 22:19:57
-    Author     : Dell
---%>
+<%@page import="com.progra4.Seguros.presentation.admin.brand.Model"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.progra4.Seguros.logic.*"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <%@ include file="/presentation/Head.jsp" %>
+        <title>Polizas</title> 
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%@ include file="/presentation/Header.jsp" %>
+        
+        <%@ include file="/presentation/Footer.jsp" %>
     </body>
 </html>

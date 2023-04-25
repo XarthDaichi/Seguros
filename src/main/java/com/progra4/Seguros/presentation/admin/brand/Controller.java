@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "adminBrandController", urlPatterns = {"/presentation/admin/brand/show",
+@WebServlet(name = "AdminBrandController", urlPatterns = {"/presentation/admin/brand/show",
 "/presentation/admin/brand/add"})
 public class Controller extends HttpServlet {
     
@@ -26,7 +26,7 @@ public class Controller extends HttpServlet {
                 break;
             case "/presentation/admin/brand/add":
                 viewUrl = this.show(request);
-            break;
+                break;
         }          
         request.getRequestDispatcher(viewUrl).forward( request, response);
         
@@ -46,7 +46,7 @@ public class Controller extends HttpServlet {
     }
     
      public String add(HttpServletRequest request) {
-        return "/presentation/admin/addVehicle/show";
+        return "/presentation/admin/addVehicle/add";
      }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
