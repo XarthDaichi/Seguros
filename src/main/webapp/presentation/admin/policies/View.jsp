@@ -21,14 +21,13 @@
         <div class="add">
             <h1>Lista de pólizas por cliente</h1>
         </div>
-        <% for(User u:users) { %>
-            <div class="container">
+        <div class="container">
+            <% for(User u:users) { %>
                 <h2> <%= u.getName() %>: </h2>
                 <div class="table-responsive">
                     <table class="table custom-table">
                         <thead>
                         <tr>
-                            <th>#</th>
                             <th>Placa</th>
                             <th>Fecha</th>
                             <th>Auto</th>
@@ -40,19 +39,16 @@
                         <% for(Policy p:policies.get(u.getId())) { %>
                             <tr>
                                 <td>
-                                    
-                                </td>
-                                <td>
                                     <%= p.getId() %>
                                 </td>
                                 <td>
                                     <%= p.getInitialDate() %>
                                 </td>
                                 <td>
-                                    
+                                    <%= p.getInitialDate() %>
                                 </td>
                                 <td>
-                                    <!-- <img class="img-fluid" style="max-width: 100px; max-height: 100px;" src=" images/.png "> -->
+                                    <img class="img-fluid" style="max-width: 100px; max-height: 100px;" src=" images/<%= p.getId()%>.png ">
                                 </td>
                                 <td>
                                     <%= p.getInsuredValue() %>
@@ -62,8 +58,8 @@
                     </tbody>
                     </table>
                 </div>
-            </div> 
-        <% } %>
+            <% } %>
+        </div>
         <%@ include file="/presentation/Footer.jsp" %>
     </body>
 </html>

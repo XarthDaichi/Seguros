@@ -98,7 +98,7 @@ public class UserDao {
         return result;
     }
     
-    public ArrayList<Users> selectClients() throws Exception{
+    public ArrayList<User> selectClients() throws Exception{
         ArrayList<User> result = new ArrayList<>();
         String sql = "select * from Users e where typeU=0";
         PreparedStatement stm = db.prepareStatement(sql);
