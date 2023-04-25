@@ -91,7 +91,7 @@ public class Controller extends HttpServlet {
             session.setAttribute("user", real);
             String viewUrl="";
             if (!model.getCurrent().getAdministrator()) viewUrl="/presentation/client/policies/show";
-            else viewUrl="/presentation/client/policies/show";
+            else viewUrl="/presentation/admin/policies/show";
             return viewUrl;
         } catch (Exception ex) {
             Map<String,String> errores = new HashMap<>();

@@ -64,6 +64,10 @@ public class Service {
         return policyDao.findByUser(u);
     }
     
+    public ArrayList<Policy> selectAllPolicies() throws Exception{
+        return policyDao.selectAll();
+    }
+    
     public void PolicyCreate(Policy p) throws Exception {
         policyDao.insert(p);
     }
