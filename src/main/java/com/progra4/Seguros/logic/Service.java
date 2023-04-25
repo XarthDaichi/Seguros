@@ -124,7 +124,7 @@ public class Service {
     }
     
     public Vehicle vehicleVerify(Vehicle v) throws Exception {
-        Vehicle vehicle = vehicleDao.read(v.getId());
+        Vehicle vehicle = vehicleDao.findVehicle(v.getBrand(), v.getModel(), v.getYear());
         if (vehicle.getBrand().equals(v.getBrand()) && vehicle.getModel().equals(v.getModel()) && vehicle.getYear() == v.getYear()) {
             return vehicle;
         }

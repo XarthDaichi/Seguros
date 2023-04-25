@@ -72,4 +72,15 @@ public class VehicleDao {
         }
         return result;
     }
+    
+    public Vehicle findVehicle(String brand, String model, int year) throws Exception {
+        String sql = "select * from Vehicle e " +
+                "where e.brand=? and e.model=? and e.yearV=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        ResultSet rs = db.executeQuery(stm);
+        if (rs.next()) {
+            return from(rs, "e");
+        }
+        return null;
+    }
 }
