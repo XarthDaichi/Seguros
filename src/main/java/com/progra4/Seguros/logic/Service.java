@@ -135,7 +135,7 @@ public class Service {
         return null;*/
     }
     
-    public void vehicleCreate(Vehicle V) throws Exception {
+    public void vehicleCreate(Vehicle v) throws Exception {
         vehicleDao.insert(v);
     }
 }
