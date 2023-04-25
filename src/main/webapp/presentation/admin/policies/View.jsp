@@ -48,7 +48,7 @@
                                     <%= p.getInitialDate() %>
                                 </td>
                                 <td>
-                                    <img class="img-fluid" style="max-width: 100px; max-height: 100px;" src=" images/<%= p.getId()%>.png ">
+                                    <img class="img-fluid" style="max-width: 100px; max-height: 100px;" src=" images/<%= p.getVehicle().getId()%>.png ">
                                 </td>
                                 <td>
                                     <%= p.getInsuredValue() %>

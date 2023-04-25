@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-package com.progra4.Seguros.presentation.admin.policies;
+package com.progra4.Seguros.presentation.admin.brand;
 
-import com.progra4.Seguros.logic.*;
+import com.progra4.Seguros.logic.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,17 +9,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- *
- * @author Dell
- */
-@WebServlet(name = "Controller", urlPatterns = {"/presentation/admin/policies/show",
-"/presentation/admin/policies/brand", "/presentation/admin/policies/categories"})
+@WebServlet(name = "adminBrandController", urlPatterns = {"/presentation/admin/brand/show",
+"/presentation/admin/brand/add"})
 public class Controller extends HttpServlet {
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -31,61 +21,33 @@ public class Controller extends HttpServlet {
         
         String viewUrl="";     
         switch (request.getServletPath()) {
-            case "/presentation/admin/policies/show":
-              viewUrl = this.show(request);
-              break;
-              case "/presentation/admin/policies/brand":
-              viewUrl = this.brand(request);
-              break;
-              case "/presentation/admin/policies/categories":
-              viewUrl = this.categories(request);
-              break;
-              /*
-            case "/presentation/admin/policies/select":
-              viewUrl = this.select(request);
-              break;
-              */
+            case "/presentation/admin/brand/show":
+                viewUrl = this.show(request);
+                break;
+            case "/presentation/admin/brand/add":
+                viewUrl = this.show(request);
+            break;
         }          
         request.getRequestDispatcher(viewUrl).forward( request, response);
         
     }
     
     public String show(HttpServletRequest request) {
-        return this.showAction(request);
-    }
-    
-    public String showAction(HttpServletRequest request) {
         Model model = (Model) request.getAttribute("model");
         Service service = Service.instance();
         HttpSession session = request.getSession(true);
- 
-        User user = (User) session.getAttribute("user");
         
-        try {   
-            model.setUsers(service.selectOnlyClients());
-            model.setPolicies(service.selectAllPolicies());
-            for(User us : model.getUsers()){
-                List <Policy> temp = new ArrayList<>();
-                for(Policy pol : model.getPolicies()){
-                    if(pol.getPolicyOwner().getId().equals(us.getId())){
-                        temp.add(pol);
-                    }
-                    model.getPoliciesByUser().put(us.getId(), temp);
-                }
-            }
-            return "/presentation/admin/policies/View.jsp";
+        try {
+            model.setVehicles(service.selectBrandsAndModels());
+            return "/presentation/admin/brand/View.jsp";
         } catch (Exception ex) {
             return "/presentation/Error.jsp";
         }
     }
     
-     public String brand(HttpServletRequest request) {
-        return "/presentation/admin/brand/show";
-    }
-     
-      public String categories(HttpServletRequest request) {
-        return "/presentation/admin/categories/show";
-    }
+     public String add(HttpServletRequest request) {
+        return "/presentation/admin/addVehicle/show";
+     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
