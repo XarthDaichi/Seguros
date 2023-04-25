@@ -55,7 +55,7 @@ public class Controller extends HttpServlet {
         User user = (User) session.getAttribute("user");
         
         try {   
-            model.setUsers(service.selectAllUsers());
+            model.setUsers(service.selectOnlyClients());
             model.setPolicies(service.selectAllPolicies());
             for(User us : model.getUsers()){
                 List <Policy> temp = new ArrayList<>();

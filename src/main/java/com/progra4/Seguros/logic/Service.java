@@ -60,6 +60,10 @@ public class Service {
         return userDao.selectAll();
     }
     
+    public ArrayList<User> selectOnlyClients() throws Exception{
+        return userDao.selectClients();
+    }
+    
     public List<Policy> policiesFind(User u) throws Exception {
         return policyDao.findByUser(u);
     }

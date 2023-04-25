@@ -96,5 +96,16 @@ public class UserDao {
             result.add(from(rs, "e"));
         }
         return result;
-    }     
+    }
+    
+    public ArrayList<Users> selectClients() throws Exception{
+        ArrayList<User> result = new ArrayList<>();
+        String sql = "select * from Users e where typeU=0";
+        PreparedStatement stm = db.prepareStatement(sql);
+        ResultSet rs = db.executeQuery(stm);
+        while (rs.next()) {
+            result.add(from(rs, "e"));
+        }
+        return result;
+    }
 }
