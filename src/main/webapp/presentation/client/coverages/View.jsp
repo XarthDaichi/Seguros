@@ -21,7 +21,6 @@
         <title>Seguros</title>
     </head>
     <body>
-        <% Model model= (Model) request.getAttribute("model"); %>
         <%@ include file="/presentation/Header.jsp" %>
         <div class="registerCoverages">
             <div class="row">

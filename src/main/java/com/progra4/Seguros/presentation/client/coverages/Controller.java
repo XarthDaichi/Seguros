@@ -45,7 +45,7 @@ public class Controller extends HttpServlet {
     public String showAction(HttpServletRequest request){
         Model model= (Model) request.getAttribute("model");
         model.reset();
-        return "/presentation/client/policy/View.jsp"; 
+        return "/presentation/client/coverages/View.jsp"; 
     }
     
     private String add(HttpServletRequest request) { 
