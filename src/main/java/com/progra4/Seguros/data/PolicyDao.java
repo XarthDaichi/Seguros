@@ -72,7 +72,7 @@ public class PolicyDao {
     
     public ArrayList<Policy> selectAll() throws Exception{
         ArrayList<Policy> result = new ArrayList<>();
-        String sql = "select * from PolicyClass e inner join Users u on e.userId = u.userId";
+        String sql = "select * from PolicyClass e inner join Users u on e.userId = u.userId inner join Vehicle v on e.vehicleId=v.id";
         PreparedStatement stm = db.prepareStatement(sql);
         ResultSet rs = db.executeQuery(stm);
         UserDao userDao = new UserDao(db);
@@ -81,6 +81,7 @@ public class PolicyDao {
         while (rs.next()) {
             p = from(rs, "e");
             p.setPolicyOwner(userDao.from(rs, "u"));
+            p.setVehicle(vehicleDao.from(rs, "v"));
             result.add(p);
         }
         return result;
