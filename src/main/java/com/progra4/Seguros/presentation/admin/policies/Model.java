@@ -23,6 +23,7 @@ public class Model {
         selected=null;  
         this.setPolicies(rows);
         this.setUsers(rowsU);
+        this.setPoliciesByUser(rowsPolicies);
     }
 
     public List<User> getUsers() {

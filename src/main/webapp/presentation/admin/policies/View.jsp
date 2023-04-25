@@ -1,5 +1,7 @@
 <%@page import="com.progra4.Seguros.presentation.admin.policies.Model"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,7 +14,7 @@
         
         
         <% Model model= (Model) request.getAttribute("model"); %>
-        <% List<Policy> policies= (List) model.getPolicies(); %>
+        <% Map<String,List<Policy>> policies= model.getPoliciesByUser(); %>
         <% List<User> users= (List) model.getUsers(); %>
         
         <%@ include file="/presentation/Header.jsp" %>
@@ -35,53 +37,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
-                    </tbody>
-                    </table>
-                </div>
-            </div> 
-        <% } %>
-        <div class="container">
-            <div class="table-responsive">
-                <table class="table custom-table">
-                    
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Placa</th>
-                            <th>Fecha</th>
-                            <th>Auto</th>
-                            <th>Imagen</th>
-                            <th>Valor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for(Policy p:policies){%>
+                        <% for(Policy p:policies.get(u.getId())) { %>
                             <tr>
                                 <td>
-                                    <a href="presentation/client/policies/select?id=<%= p.getId() %>"> <%= p.getId() %> </a>
+                                    
                                 </td>
                                 <td>
-                                    <%= p.getVehicle().getLicensePlate() %>
+                                    <%= p.getId() %>
                                 </td>
                                 <td>
                                     <%= p.getInitialDate() %>
                                 </td>
                                 <td>
-                                    <%= p.getVehicle().getBrand() %> - <%= p.getVehicle().getModel() %>
+                                    
                                 </td>
                                 <td>
-                                    <img class="img-fluid" style="max-width: 100px; max-height: 100px;" src=" images/<%= p.getVehicle().getLicensePlate() %>.png ">
+                                    <!-- <img class="img-fluid" style="max-width: 100px; max-height: 100px;" src=" images/.png "> -->
                                 </td>
                                 <td>
                                     <%= p.getInsuredValue() %>
                                 </td>
                             </tr>
-                        <%}%>
+                        <% } %>
                     </tbody>
-                </table>
-            </div>
-        </div>
+                    </table>
+                </div>
+            </div> 
+        <% } %>
         <%@ include file="/presentation/Footer.jsp" %>
     </body>
 </html>
