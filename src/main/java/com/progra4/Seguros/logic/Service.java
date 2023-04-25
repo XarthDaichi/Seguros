@@ -80,6 +80,10 @@ public class Service {
         return policyDao.read(policyId);
     }
     
+    public ArrayList<Category> selectAllCategories() throws Exception {
+        return categoryDao.selectAll();
+    }
+    
     public void CategoryCreate(Category c) throws Exception {
         categoryDao.insert(c);
     }
