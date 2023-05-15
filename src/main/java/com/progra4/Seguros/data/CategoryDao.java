@@ -34,12 +34,13 @@ public class CategoryDao {
             stm.setInt(1, Integer.parseInt(id.substring(3,6)));
             ResultSet rs = db.executeQuery(stm);
             CoverageDao coverageDao = new CoverageDao(db);
-            Category c = from(rs, "c");
+            
             while (rs.next()) {
                 coverages.add(coverageDao.from(rs, "e"));
-                c.setCoverages(coverages);
-                return c;
+                
             }
+            c.setCoverages(coverages);
+            return c;
         }catch (SQLException ex) {}
         return null;
     }

@@ -66,16 +66,16 @@ public class CoverageDao {
         db.executeUpdate(stm);
     }
     
-//    public ArrayList<Coverage> selectAll() throws Exception {
-//        ArrayList<Coverage> result = new ArrayList<>();
-//        String sql = "select " +
-//                "* " +
-//                "from Coverage e";
-//        PreparedStatement stm = db.prepareStatement(sql);
-//        ResultSet rs = db.executeQuery(stm);
-//        while (rs.next()) {
-//            result.add(from(rs, "e"));
-//        }
-//        return result;
-//    }
+    public ArrayList<Coverage> selectAll() throws Exception {
+        ArrayList<Coverage> result = new ArrayList<>();
+        String sql = "select " +
+                "* " +
+                "from Coverage e";
+        PreparedStatement stm = db.prepareStatement(sql);
+        ResultSet rs = db.executeQuery(stm);
+        while (rs.next()) {
+            result.add(from(rs, "e"));
+        }
+        return result;
+    }
 }
