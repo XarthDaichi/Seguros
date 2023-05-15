@@ -1,0 +1,202 @@
+.header {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Styles for logo */
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+.login {
+    display: block;
+    border-radius: 50%;
+    max-width: 30%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.logo>img {
+    border-radius: 50%;
+    max-width: 10%;
+}
+/* Styles for navigation links */
+.nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nav li {
+    margin: 0 10px;
+}
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.container, .register {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.register {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+form {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #e9e7ff;
+  border-radius: 5%;
+}
+.btn-primary {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.input-group-text {
+    border-bottom-right-radius: 0px;
+}
+
+.form-group .input-group-text {
+  width: auto;
+}
+
+.form-group .form-control {
+  flex: 1;
+}
+
+.row {
+    margin-left: 0!important;
+    margin-right: 0!important;
+}
+
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 40px 0;
+  font-size: 16px;
+}
+
+footer h4 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+footer p, footer ul {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer ul li {
+  margin-bottom: 10px;
+}
+
+footer ul li i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.social {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.social li {
+  margin-right: 10px;
+}
+
+.social a {
+  color: #fff;
+}
+
+.bottom {
+  background-color: #111;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+footer .container {
+    margin-top: 0!important;
+    margin-bottom: 0!important;
+}
+
+.add {
+    text-align: left;
+    margin-top: 20px;
+    margin-left: 10%;
+}
+  
+.add a {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 20%!important;
+}
+  
+.add a:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+select {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  background-color: #f2f2f2;
+  width: 200px;
+  border-radius: 5px;
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 5px #719ECE;
+}
+
+fieldset {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}
