@@ -55,9 +55,9 @@ public class VehicleDao {
                 "(brand, model, yearV) "+
                 "values (?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(2, v.getBrand());
-        stm.setString(3, v.getModel());
-        stm.setInt(4, v.getYear());
+        stm.setString(1, v.getBrand());
+        stm.setString(2, v.getModel());
+        stm.setInt(3, v.getYear());
         
         db.executeUpdate(stm);
     }
@@ -77,6 +77,9 @@ public class VehicleDao {
         String sql = "select * from Vehicle e " +
                 "where e.brand=? and e.model=? and e.yearV=?";
         PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, brand);
+        stm.setString(2, model);
+        stm.setInt(3, year);
         ResultSet rs = db.executeQuery(stm);
         if (rs.next()) {
             return from(rs, "e");

@@ -30,9 +30,10 @@
                         <ul id="checkbox-list">
                             <% for (Category cat : service.selectAllCategories()) { %>
                                 <% for (Rule cov : cat.getCoverages()) { %>
+                                    <% Coverage tempCov = (Coverage) cov; %>
                                     <li>
-                                      <input type="checkbox" name="coverageId<%=cov.getId()%>" value="<%=cov.getId()%>">
-                                      <label for="<%=cov.getId()%>"><%=cov.getDescription()%></label>
+                                      <input type="checkbox" name="coverageId<%=tempCov.getId()%>" value="<%=tempCov.getId()%>">
+                                      <label for="<%=tempCov.getId()%>"><%=tempCov.getName()%></label>
                                     </li>
                                 <% } %>
                             <% } %>

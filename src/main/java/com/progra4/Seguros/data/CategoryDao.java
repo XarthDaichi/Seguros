@@ -34,10 +34,18 @@ public class CategoryDao {
             stm.setInt(1, Integer.parseInt(id.substring(3,6)));
             ResultSet rs = db.executeQuery(stm);
             CoverageDao coverageDao = new CoverageDao(db);
+<<<<<<< HEAD
             
+=======
+            Category c = new Category();
+>>>>>>> 5f9c8331db215acdfce24f697b5ec6813f992142
             while (rs.next()) {
+                c = from(rs, "c");
                 coverages.add(coverageDao.from(rs, "e"));
+<<<<<<< HEAD
                 
+=======
+>>>>>>> 5f9c8331db215acdfce24f697b5ec6813f992142
             }
             c.setCoverages(coverages);
             return c;
