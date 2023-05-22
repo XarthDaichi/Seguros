@@ -11,7 +11,9 @@ create table Users (
     cardNumber varchar(16),
     typeU boolean,
     constraint PKUser Primary Key(userId),
-    constraint UniqueCell UNIQUE(cellphone)
+    constraint UniqueCell UNIQUE(cellphone),
+    constraint UniqueEmail UNIQUE(email),
+    constraint UniqueCard UNIQUE(cardNumber)
 );
 
 create table Vehicle (

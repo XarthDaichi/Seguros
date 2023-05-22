@@ -80,6 +80,10 @@ public class Service {
         return policyDao.read(policyId);
     }
     
+    public void policyDelete(String policyId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
     public ArrayList<Category> selectAllCategories() throws Exception {
         return categoryDao.selectAll();
     }
