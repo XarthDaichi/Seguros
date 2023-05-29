@@ -4,17 +4,20 @@
  */
 package com.progra4.segurosbackend.logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author diego
  */
-public class Category extends Rule {
+public class Category extends Rule implements Serializable {
     private String name;
     private ArrayList<Rule> coverages;
 
     public Category() {
+        super();
+        this.name = "";
     }
 
     public Category(String id, String description, ArrayList<Rule> coverages) {
