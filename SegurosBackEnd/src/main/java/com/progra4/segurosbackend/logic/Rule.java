@@ -4,6 +4,7 @@
  */
 package com.progra4.segurosbackend.logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,11 +12,13 @@ import java.util.ArrayList;
  * @author diego
  */
 
-public abstract class Rule {
+public abstract class Rule implements Serializable {
     protected String id;
     protected String description;
 
     public Rule() {
+        this.id = "";
+        this.description = "";
     }
 
     public Rule(String id, String description) {

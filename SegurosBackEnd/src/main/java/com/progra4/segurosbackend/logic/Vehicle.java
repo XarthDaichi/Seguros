@@ -4,11 +4,13 @@
  */
 package com.progra4.segurosbackend.logic;
 
+import java.io.Serializable;
+
 /**
  *
  * @author diego
  */
-public class Vehicle {
+public class Vehicle implements Serializable {
     private int id;
     private String brand;
     private String model;

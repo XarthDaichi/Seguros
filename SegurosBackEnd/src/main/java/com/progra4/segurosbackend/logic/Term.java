@@ -4,11 +4,13 @@
  */
 package com.progra4.segurosbackend.logic;
 
+import java.io.Serializable;
+
 /**
  *
  * @author lmont
  */
-public enum Term {
+public enum Term implements Serializable {
     QUARTERLY,
     BIANNUAL,
     ANNUAL

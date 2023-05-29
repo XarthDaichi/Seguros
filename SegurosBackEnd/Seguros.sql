@@ -75,11 +75,23 @@ values ('Daño a Personas', 'testing cov 1', 2.00, 0.5, 1),
 ('Daño al auto', 'testing cov 5', 2.00, 0.7, 2),
 ('Robo', 'testing cov 6', 3.50, 0.8, 2);
 
-insert into Users (userId, pass, nameU, cellphone, email, cardNumber, typeU) values ('111','111','Diego','11111111', 'diego@testing.com','111',0),
+insert into Users (userId, pass, nameU, cellphone, email, cardNumber, typeU) 
+values ('111','111','Diego','11111111', 'diego@testing.com','111',0),
 ('222','222','Jorge','22222222','jorge@testing.com','222',1), 
 ('333','333','Luis','33333333','luis@testing.com','333',0);
 
-insert into Vehicle (brand, model, yearV) values ('Toyota', 'Tercel', 1996), ('LandRover', 'RangeRover', 2023);
+insert into Vehicle (brand, model, yearV) 
+values ('Toyota', 'Tercel', 1996), 
+('LandRover', 'RangeRover', 2023);
 
-insert into policyclass (policyId, userId, vehicleId, term, initialDate, insuredValue) values('ABC123', '111', 1, 'QUARTERLY', '2023-04-23', 3000.5),
+insert into policyclass (policyId, userId, vehicleId, term, initialDate, insuredValue) 
+values ('ABC123', '111', 1, 'QUARTERLY', '2023-04-23', 3000.5),
 ('LRD596', '333', 2,'BIANNUAL', '2023-04-21', 2000000.0);
+
+insert into Applies (policyId, coverageId)
+values ('ABC123', 1),
+('ABC123', 2),
+('ABC123',3),
+('LRD596', 4),
+('LRD596', 5),
+('LRD596', 6);

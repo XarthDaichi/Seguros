@@ -4,11 +4,13 @@
  */
 package com.progra4.segurosbackend.logic;
 
+import java.io.Serializable;
+
 /**
  *
  * @author diego
  */
-public class User {
+public class User implements Serializable {
     private String id;
     private String password;
     private String name;

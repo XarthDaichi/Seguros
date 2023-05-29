@@ -1,6 +1,6 @@
 package com.progra4.segurosbackend;
 
-import com.progra4.segurosbackend.logic.*;
+import com.progra4.segurosbackend.resources.*;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
@@ -12,18 +12,17 @@ import java.util.Set;
  * @author Juneau
  */
 @ApplicationPath("api")
-@DeclareRoles({"ADM", "CLI"})
+//@DeclareRoles({"ADM", "CLI"})
 public class JakartaRestConfiguration extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         HashSet<Class<?>> classes = new HashSet<>();
-        classes.add(User.class); 
-        classes.add(Rule.class);
-        classes.add(Coverage.class);
-        classes.add(Category.class);
-        classes.add(Policy.class);
-        classes.add(Vehicle.class);
-        classes.add(Term.class);
+        classes.add(Policies.class);
+        classes.add(Categories.class);
+        classes.add(Coverages.class);
+        classes.add(Login.class);
+        classes.add(Register.class);
+        classes.add(Vehicles.class);
         return classes;
     } 
 }

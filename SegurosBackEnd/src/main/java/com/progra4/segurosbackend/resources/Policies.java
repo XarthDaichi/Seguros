@@ -27,13 +27,14 @@ import jakarta.ws.rs.QueryParam;
  * @author diego
  */
 
-@Path("/seguros")
+@Path("/policies")
 @PermitAll
 public class Policies {
     /**
      * 
      * @param name
      * @return
+     * @throws java.lang.Exception
      */
     @GET
     @Produces({MediaType.APPLICATION_JSON})

@@ -4,16 +4,22 @@
  */
 package com.progra4.segurosbackend.logic;
 
+import java.io.Serializable;
+
 /**
  *
  * @author diego
  */
-public class Coverage extends Rule {
+public class Coverage extends Rule implements Serializable {
     private String name;
     private double minimumCost;
     private double percentage;
 
     public Coverage() {
+        super();
+        this.name = "";
+        this.minimumCost = 0;
+        this.percentage = 0;
     }
 
     public Coverage(String id, String description, double minimumCost, double percentage) {

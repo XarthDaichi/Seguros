@@ -5,6 +5,7 @@
 package com.progra4.segurosbackend.logic;
 
 import com.progra4.segurosbackend.logic.User;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
  *
  * @author diego
  */
-public class Policy extends Rule {
+public class Policy extends Rule implements Serializable {
     private Vehicle vehicle;
     private Term termChosen;
     private LocalDate initialDate;
@@ -22,6 +23,12 @@ public class Policy extends Rule {
     private User policyOwner;
 
     public Policy() {
+        super();
+        this.vehicle = new Vehicle();
+        this.termChosen = Term.ANNUAL;
+        this.initialDate = LocalDate.now();
+        this.insuredValue = 0;
+        this.policyOwner = new User();
     }
 
     public Policy(String id, Vehicle vehicle, Term termChosen, LocalDate initialDate, List<Rule> rules, double insuredValue, User policyOwner) {
