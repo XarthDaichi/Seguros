@@ -34,8 +34,8 @@ class App{
             <nav id="menu" class="navbar navbar-expand-lg p-0 navbar-dark bg-dark">
               <div class="container-fluid">
                 <a class="navbar-brand  font-italic font-weight-light  text-info" href="#">
-                    <img src="images/logo.png" class="logo rounded-circle" alt="logo">
-                    Policies
+                    <img src="images/Logotipo.png" class="logo rounded-circle" style="max-width: 100px; max-height: 100px" alt="logo">
+                    Seguros
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuCollapse">
                   <span class="navbar-toggler-icon"></span>
@@ -59,17 +59,36 @@ class App{
     renderFooter=()=>{
         return `
             <footer id="footer" class="bg-dark text-white mt-4 w-100 fixed-bottom">
-                <div class="container-fluid py-2">
-
+                <div class="container">
                     <div class="row">
-                        <div class="col-md-2"><h5>Total Soft Inc.</h5></div>
-                        <div class="col-md-7"><h4>
-                            <i class="fab fa-twitter"></i>
-                            <i class="fab fa-facebook"></i>
-                            <i class="fab fa-instagram"></i></h4>
-                        </div>
-                        <div class="col-md-3 text-right small align-self-end">©2023 Tsf, Inc.</div>
+                      <div class="col-md-4">
+                        <h4>Sobre nosotros</h4>
+                        <p>
+                            Somos una empresa
+                            multinacional comprometida a asegurar de manera eficiente sus bienes.
+                        </p>
+                      </div>
+                      <div class="col-md-4">
+                        <h4>Contactenos</h4>
+                        <ul>
+                          <li><i class="fas fa-map-marker-alt"></i> Heredia, Costa Rica</li>
+                          <li><i class="fas fa-phone"></i> (506) 8686-9797</li>
+                          <li><i class="fas fa-envelope"></i> loremipsum@gmail.com</li>
+                        </ul>
+                      </div>
+                      <div class="col-md-4">
+                        <h4>Redes Sociales</h4>
+                        <ul class="social">
+                          <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                          <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        </ul>
+                      </div>
                     </div>
+                </div>
+                <div class="bottom">
+                    <p>&copy; 2023 - Todos los derechos reservados</p>
                 </div>
             </footer> 
         `;
@@ -113,8 +132,8 @@ class App{
     renderBodyFiller=()=>{
         var html= `
             <div id='bodyFiller' style='margin-left: 10%; margin-top:100px; width: 80%; text-align: center; font-size: 1.5em'>
-                <p>Informacón de los paises del mundo.</p>
-                <img src="images/filler.jpg" class="filler rounded-circle" alt="filler">
+                <p>Bienvenidos a Seguros.</p>
+                <img src="images/filler.png" alt="filler">
             </div>
         `;
         this.dom.querySelector('#app>#body').replaceChildren();
