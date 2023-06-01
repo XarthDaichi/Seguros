@@ -28,7 +28,7 @@ class Policies{
      return `
         <div id="list" class="container">     
             <div class="card bg-light">
-                <h4 class="card-title mt-3 text-center">Countries</h4>    
+                <h4 class="card-title mt-3 text-center">Policies</h4>    
                 <div class="card-body mx-auto w-75" >
                     <form id="form">
                         <div class="input-group mb-3">
@@ -115,13 +115,13 @@ class Policies{
   }
 
   list=()=>{
-    const request = new Request(`${backend}/countries`, {method: 'GET', headers: { }});
+    const request = new Request(`${backend}/policies`, {method: 'GET', headers: { }});
     (async ()=>{
         const response = await fetch(request);
         if (!response.ok) {errorMessage(response.status);return;}
-        var countries = await response.json();
-        this.state.entities = countries;
-        var listing=this.dom.querySelector("#countries #list #listbody");
+        var policies = await response.json();
+        this.state.entities = policies;
+        var listing=this.dom.querySelector("#policies #list #listbody");
         listing.innerHTML="";
         this.state.entities.forEach( e=>this.row(listing,e));         
     })();       
