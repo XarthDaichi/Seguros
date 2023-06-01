@@ -19,7 +19,7 @@ class Policies{
             ${this.renderModal()}    
         `;
        var rootContent= document.createElement('div');
-       rootContent.id='countries';       
+       rootContent.id='policies';       
        rootContent.innerHTML=html;
        return rootContent;
   }

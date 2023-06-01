@@ -17,83 +17,108 @@ class App{
     }
     
     render=()=>{
-        const html=`
+        const html = `
             ${this.renderMenu()}
-            ${this.renderBody()}
+            ${this.renderBody()} 
             ${this.renderFooter()}
             ${this.renderModal()}
         `;
-        var rootContent = document.createElement('div');
-        rootContent.id='app';
-        rootContent.innerHTML=html;
-        return rootContent;
+       var rootContent = document.createElement('div');
+       rootContent.id='app';
+       rootContent.innerHTML=html;
+       return rootContent;
     }
     
     renderMenu=()=>{
         return `
-            <h1>Lorem Ipsum</h1>
+            <nav id="menu" class="navbar navbar-expand-lg p-0 navbar-dark bg-dark">
+              <div class="container-fluid">
+                <a class="navbar-brand  font-italic font-weight-light  text-info" href="#">
+                    <img src="images/logo.png" class="logo rounded-circle" alt="logo">
+                    Policies
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuCollapse">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="menuCollapse" class="collapse navbar-collapse" >
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0" id='menuItems'>
+                  </ul>
+                </div>
+              </div>
+            </nav>
         `;
     }
     
     renderBody=()=>{
         return `
-            <h1>Lorem Ipsum</h1>
+            <div id="body">   
+            </div>          
         `;
     }
     
     renderFooter=()=>{
         return `
-            <footer id="footer">
-                <div class="container">
+            <footer id="footer" class="bg-dark text-white mt-4 w-100 fixed-bottom">
+                <div class="container-fluid py-2">
+
                     <div class="row">
-                        <div class="col-md-4">
-                            <h4>Sobre nosotros</h4>
-                            <p>
-                                Somos una empresa
-                                multinacional comprometida a asegurar de manera eficiente sus bienes.
-                            </p>
+                        <div class="col-md-2"><h5>Total Soft Inc.</h5></div>
+                        <div class="col-md-7"><h4>
+                            <i class="fab fa-twitter"></i>
+                            <i class="fab fa-facebook"></i>
+                            <i class="fab fa-instagram"></i></h4>
                         </div>
-                        <div class="col-md-4">
-                            <h4>Contactenos</h4>
-                            <ul>
-                                <li><i class="fas fa-map-marker-alt"></i> Heredia, Costa Rica</li>
-                                <li><i class="fas fa-phone"></i> (506) 6304-0703</li>
-                                <li><i class="fas fa-envelope"></i> jorgedc1304@gmail.com</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-4">
-                            <h4>Redes Sociales</h4>
-                            <ul class="social">
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul>
-                        </div>
+                        <div class="col-md-3 text-right small align-self-end">©2023 Tsf, Inc.</div>
                     </div>
                 </div>
-                <div class="bottom">
-                    <p>&copy; 2023 - Todos los derechos reservados</p>
-                </div>
-            </footer>
+            </footer> 
         `;
     }
     
     renderModal=()=>{
         return `
-            <h1>Lorem Ipsum</h1>
+            <div id="modal" class="modal fade" tabindex="-1">
+               <div class="modal-dialog">
+                   <div class="modal-content">
+                       <div class="modal-header" >
+                           <img class="img-circle" id="img_logo" src="images/user.png" style="max-width: 50px; max-height: 50px" alt="logo">
+                           <span style='margin-left:4em;font-weight: bold;'>Login</span> 
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                       </div>
+                       <form id="form" >
+                       <div class="modal-body">
+                           <div class="input-group mb-3">
+                               <span class="input-group-text">Id</span>
+                               <input type="text" class="form-control" id="identificacion" name="identificacion">
+                           </div>  
+                           <div class="input-group mb-3">
+                               <span class="input-group-text">clave</span>
+                               <input type="password" class="form-control" id="clave" name="clave">
+                           </div>      
+                       </div>
+                       <div class="modal-footer">
+                           <button id="apply" type="button" class="btn btn-primary" id="apply">Login</button>
+                       </div>
+                       <div class="input-group">
+                           <span style="font-style: italic; margin-left: 2em;">No tiene cuenta? ... </span>
+                           <a id="register" class="btn btn-info btn-block" style="margin-bottom: 15px; background-color: white; color:red; border:1px solid red" href="#">Registrese aquí</a>
+                       </div>                
+                       </form>                 
+                   </div>         
+               </div>          
+           </div>   
         `;
     }
     
     renderBodyFiller=()=>{
-        var html=`
+        var html= `
             <div id='bodyFiller' style='margin-left: 10%; margin-top:100px; width: 80%; text-align: center; font-size: 1.5em'>
-            <p>Lorem Ipsum.</p>
-            <img src="images/filler.jpg" class="filler rounded-circle" alt="filler">
-        </div>
+                <p>Informacón de los paises del mundo.</p>
+                <img src="images/filler.jpg" class="filler rounded-circle" alt="filler">
+            </div>
         `;
         this.dom.querySelector('#app>#body').replaceChildren();
-        this.dom.querySelector('#app>#body').innerHTML=html;
+        this.dom.querySelector('#app>#body').innerHTML=html; 
     }
     
     renderMenuItems=()=>{
@@ -108,7 +133,7 @@ class App{
             if(globalstate.user.rol==='0'){//Client
                 html+=`
                     <li class="nav-item">
-                        <a class="nav-link" id="countries" href="#"> <span><i class="fas fa-file-alt"></i></span> Countries </a>
+                        <a class="nav-link" id="policies" href="#"> <span><i class="fas fa-file-alt"></i></span> Policies </a>
                     </li>
                 `;
             }
@@ -124,15 +149,13 @@ class App{
         };
         this.dom.querySelector('#app>#menu #menuItems').replaceChildren();
         this.dom.querySelector('#app>#menu #menuItems').innerHTML=html;
-        this.dom.querySelector('#app>#menu #menuItems #policies')?.addEventListener('click', e=>this.policiesShow());
+        this.dom.querySelector("#app>#menu #menuItems #policies")?.addEventListener('click', e=>this.policiesShow());   
         this.dom.querySelector("#app>#menu #menuItems #login")?.addEventListener('click', e=>this.modal.show());  
         this.dom.querySelector("#app>#menu #menuItems #logout")?.addEventListener('click', e=>this.logout());
         if(globalstate.user!==null){
             switch(globalstate.user.rol){
-                case '0': //Client
+                case '0'://CLient
                     this.policiesShow();
-                    break;
-                case '1': //Admin
                     break;
             }
         }
@@ -144,18 +167,18 @@ class App{
     }
     
     login= async ()=>{
-        const candidate = Object.fromEntries( (new FormData(this.dom.querySelector('#form'))).entries() );
+        const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#form"))).entries());
         candidate.rol='0';
         globalstate.user = candidate;
         this.modal.hide();
         this.renderMenuItems();
     }
     
-    logout= async() =>{
+    logout= async ()=>{
         globalstate.user=null;
         this.dom.querySelector('#app>#body').replaceChildren();
         this.renderBodyFiller();
-        this.renderMenuItems();
+        this.renderMenuItems();         
         let request = new Request(`${backend}/login`, {method: 'DELETE', headers: { }});
     }
 }
