@@ -169,12 +169,14 @@ class App{
     login= async ()=>{
         const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#form"))).entries());
         candidate.rol='0';
+        //Invoque backend for login
         globalstate.user = candidate;
         this.modal.hide();
         this.renderMenuItems();
     }
     
     logout= async ()=>{
+        //Invoque backend for login
         globalstate.user=null;
         this.dom.querySelector('#app>#body').replaceChildren();
         this.renderBodyFiller();
