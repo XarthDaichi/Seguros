@@ -3,12 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
-
 var backend = "http://localhost:8080/SegurosBackEnd/api";
 
 var globalstate = {user:null};
 
-function lodaded(){
+var app;
+
+function loaded(){
     app = new App();
     document.querySelector('#root').replaceChildren(app.dom);
 }
