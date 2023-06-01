@@ -8,9 +8,9 @@ class Policies{
     this.state = {'entities': new Array(), 'entity': this.emptyEntity(), 'mode':'A'};
     this.dom=this.render();
     this.modal = new bootstrap.Modal(this.dom.querySelector('#modal'));
-    this.dom.querySelector("#countries #create").addEventListener('click',this.makenew);        
-    this.dom.querySelector("#countries #search").addEventListener('click',this.search);
-    this.dom.querySelector('#countries #modal #form #apply').addEventListener('click',this.add);
+    this.dom.querySelector("#policies #create").addEventListener('click',this.makenew);        
+    this.dom.querySelector("#policies #search").addEventListener('click',this.search);
+    this.dom.querySelector('#policies #modal #form #apply').addEventListener('click',this.add);
   }
   
   render=()=>{
