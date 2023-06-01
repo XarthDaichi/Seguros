@@ -43,7 +43,7 @@ class App{
     
     renderFooter=()=>{
         return `
-            <footer>
+            <footer id="footer">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
@@ -87,7 +87,10 @@ class App{
     
     renderBodyFiller=()=>{
         var html=`
-            <h1>Lorem Ipsum</h1>
+            <div id='bodyFiller' style='margin-left: 10%; margin-top:100px; width: 80%; text-align: center; font-size: 1.5em'>
+            <p>Lorem Ipsum.</p>
+            <img src="images/filler.jpg" class="filler rounded-circle" alt="filler">
+        </div>
         `;
         this.dom.querySelector('#app>#body').replaceChildren();
         this.dom.querySelector('#app>#body').innerHTML=html;
