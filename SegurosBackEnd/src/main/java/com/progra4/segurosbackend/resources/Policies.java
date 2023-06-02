@@ -32,20 +32,23 @@ import jakarta.ws.rs.QueryParam;
 public class Policies {
     /**
      * 
-     * @param name
+     * @param id
      * @return
      * @throws java.lang.Exception
      */
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Policy> find (@DefaultValue("") @QueryParam("name") String name) throws Exception {
+    public List<Policy> find (@DefaultValue("") @QueryParam("id") String id) throws Exception {
+        if (id.equals("")) {
+            return Service.instance().selectAllPolicies();
+        }
         User u = new User();
-        u.setName(name);
+        u.setId(id);
         return Service.instance().policiesFind(u);
     }
     
     @GET
-    @Path("{policyId}")
+    @Path("/{policyId}")
     @Produces({MediaType.APPLICATION_JSON})
     public Policy read (@PathParam("policyId") String policyId) {
         try {
@@ -56,12 +59,13 @@ public class Policies {
     }
     
     @DELETE
-    @Path("{policId}")
+    @Path("/{policId}")
     public void delete(@PathParam("policyId") String policyId) {
         Service.instance().policyDelete(policyId);
     }
     
     @POST
+//    @Path("/register")
     @Consumes({MediaType.APPLICATION_JSON})
     public void addPolicy(Policy policy) throws Exception {
         Service.instance().PolicyCreate(policy);

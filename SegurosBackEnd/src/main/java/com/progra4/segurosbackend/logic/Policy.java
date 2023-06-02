@@ -27,6 +27,7 @@ public class Policy extends Rule implements Serializable {
         this.vehicle = new Vehicle();
         this.termChosen = Term.ANNUAL;
         this.initialDate = LocalDate.now();
+        this.rules = new ArrayList<>();
         this.insuredValue = 0;
         this.policyOwner = new User();
     }

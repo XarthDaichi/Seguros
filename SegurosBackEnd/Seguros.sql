@@ -86,12 +86,16 @@ values ('Toyota', 'Tercel', 1996),
 
 insert into policyclass (policyId, userId, vehicleId, term, initialDate, insuredValue) 
 values ('ABC123', '111', 1, 'QUARTERLY', '2023-04-23', 3000.5),
+('DEF456', '111', 2, 'ANNUAL', '2023-05-23', 5000.5),
 ('LRD596', '333', 2,'BIANNUAL', '2023-04-21', 2000000.0);
 
 insert into Applies (policyId, coverageId)
 values ('ABC123', 1),
 ('ABC123', 2),
 ('ABC123',3),
+('DEF456', 4),
+('DEF456', 5),
+('DEF456',6),
 ('LRD596', 4),
 ('LRD596', 5),
 ('LRD596', 6);

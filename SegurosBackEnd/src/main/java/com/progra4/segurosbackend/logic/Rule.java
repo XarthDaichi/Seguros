@@ -17,9 +17,10 @@ public abstract class Rule implements Serializable {
     protected String description;
 
     public Rule() {
-        this.id = "";
-        this.description = "";
+        id = "";
+        description = "";
     }
+    
 
     public Rule(String id, String description) {
         this.id = id;
