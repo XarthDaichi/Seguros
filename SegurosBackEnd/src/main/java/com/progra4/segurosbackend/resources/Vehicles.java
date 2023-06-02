@@ -37,20 +37,20 @@ public class Vehicles {
      * @return
      */
     
-    @GET
-    @Path("/{brand}/{model}/{year}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Vehicle read(@PathParam("brand") String brand, @PathParam("model") String model, @PathParam("year") int year) {
-        try {
-            return Service.instance().findVehicle(brand, model, year);
-        } catch (Exception ex) {
-            throw new NotFoundException();
-        }
-    }
-    
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public ArrayList<ArrayList<Vehicle>> find(@DefaultValue("") @QueryParam("brand") String brand, @DefaultValue("") @QueryParam("model") String model, @DefaultValue("") @QueryParam("year") int year) throws Exception {
-        return Service.instance().selectBrandsAndModels();
-    }
+//    @GET
+//    @Path("/{brand}/{model}/{year}")
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public Vehicle read(@PathParam("brand") String brand, @PathParam("model") String model, @PathParam("year") int year) {
+//        try {
+//            return Service.instance().findVehicle(brand, model, year);
+//        } catch (Exception ex) {
+//            throw new NotFoundException();
+//        }
+//    }
+//    
+//    @GET
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public ArrayList<ArrayList<Vehicle>> find(@DefaultValue("") @QueryParam("brand") String brand, @DefaultValue("") @QueryParam("model") String model, @DefaultValue("") @QueryParam("year") int year) throws Exception {
+//        return Service.instance().selectBrandsAndModels();
+//    }
 }
