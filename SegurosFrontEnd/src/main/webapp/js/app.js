@@ -1,6 +1,8 @@
 class App{
     dom;
+    
     modal;
+    registerUserModal;
     
     state;
     
@@ -10,6 +12,7 @@ class App{
         this.state={};
         this.dom=this.render(); 
         this.modal = new bootstrap.Modal(this.dom.querySelector('#app>#modal'));
+        this.registerUserModal = new bootstrap.Modal(this.dom.querySelector('#app>#registerUserModal'));
         this.dom.querySelector('#app>#modal #apply').addEventListener('click',e=>this.login());
         this.renderBodyFiller();
         this.renderMenuItems();
@@ -108,11 +111,11 @@ class App{
                             <div class="modal-body">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Id</span>
-                                    <input type="text" class="form-control" id="identificacion" name="identificacion">
+                                    <input type="text" class="form-control" id="id" name="id">
                                 </div>  
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">clave</span>
-                                    <input type="password" class="form-control" id="clave" name="clave">
+                                    <input type="password" class="form-control" id="password" name="password">
                                 </div>      
                             </div>
                             <div class="modal-footer">
@@ -125,7 +128,55 @@ class App{
                         </form>                 
                     </div>         
                 </div>          
-            </div>   
+            </div>
+        
+            <div id="registerUserModal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" >
+                            <img class="img-circle" id="img_logo" src="images/profile.png" style="max-width: 50px; max-height: 50px" alt="logo">
+                            <span style='margin-left:4em;font-weight: bold;'>Register</span> 
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="form" >
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Id</span>
+                                    <input type="text" class="form-control" id="id" name="id" placeholder="ID" required>
+                                </div> 
+        
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">clave</span>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                </div>
+        
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">clave</span>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                                </div>
+        
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">clave</span>
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone number" required>
+                                </div>
+        
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">clave</span>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+                                </div>
+        
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">clave</span>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="applyRegister" type="button" class="btn btn-primary" id="applyRegister">Register</button>
+                            </div>               
+                        </form>                 
+                    </div>         
+                </div>          
+            </div>
         `;
     }
     
@@ -171,6 +222,12 @@ class App{
         this.dom.querySelector("#app>#menu #menuItems #policies")?.addEventListener('click', e=>this.policiesShow());   
         this.dom.querySelector("#app>#menu #menuItems #login")?.addEventListener('click', e=>this.modal.show());  
         this.dom.querySelector("#app>#menu #menuItems #logout")?.addEventListener('click', e=>this.logout());
+        
+        this.dom.querySelector("#app>#modal #register")?.addEventListener('click',e=>{
+            this.modal.hide();
+            this.registerUserModal.show();
+        });
+        
         if(globalstate.user!==null){
             switch(globalstate.user.rol){
                 case '0'://CLient
@@ -187,8 +244,13 @@ class App{
     
     login= async ()=>{
         const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#form"))).entries());
-        
-        const request = new Request('${backend}/login/login',{
+        candidate.name = "";
+        candidate.cellphone = "";
+        candidate.email = "";
+        candidate.cardNumber = "";
+        candidate.administrator = false;
+                
+        const userRequest = new Request(`${backend}/login`,{
             method:'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(candidate)
@@ -196,7 +258,7 @@ class App{
         
         try{
             
-            const response = await fetch(request);
+            const response = await fetch(userRequest);
             
             if(!response.ok){
                 const error = await response.text();
@@ -208,9 +270,9 @@ class App{
             const user = await response.json();
             globalstate.user = user;
             
-            if(globalstate.user.administrator === '0'){
+            /*if(globalstate.user.administrator === '0'){
                 //Verify usability of this clause
-            }
+            }*/ //Might be unnecessary needs checking
             
             this.modal.hide();
             this.renderMenuItems();
@@ -218,12 +280,6 @@ class App{
         }catch(err){
             console.error(err);
         }
-        
-        /*candidate.rol='0';
-        //Invoque backend for login
-        globalstate.user = candidate;
-        this.modal.hide();
-        this.renderMenuItems();*/
     }
     
     logout= async ()=>{

@@ -35,7 +35,7 @@ public class Vehicles {
      * @param model
      * @param year
      * @return
-     */
+     
     
     @GET
     @Path("/{brand}/{model}/{year}")
@@ -52,5 +52,5 @@ public class Vehicles {
     @Produces({MediaType.APPLICATION_JSON})
     public ArrayList<ArrayList<Vehicle>> find(@DefaultValue("") @QueryParam("brand") String brand, @DefaultValue("") @QueryParam("model") String model, @DefaultValue("") @QueryParam("year") int year) throws Exception {
         return Service.instance().selectBrandsAndModels();
-    }
+    }*/
 }
