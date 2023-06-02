@@ -213,7 +213,7 @@ class App{
             }
             html+=`
               <li class="nav-item">
-                  <a class="nav-link" id="logout" href="#" data-bs-toggle="modal"> <span><i class="fas fa-power-off"></i></span> Logout (${globalstate.user.identificacion}) </a>
+                  <a class="nav-link" id="logout" href="#" data-bs-toggle="modal"> <span><i class="fas fa-power-off"></i></span> Logout (${globalstate.user.name}) </a>
               </li>
             `;
         };
