@@ -35,13 +35,14 @@ public class Vehicles {
      * @param model
      * @param year
      * @return
-
+    */
+    
     @GET
     @Path("/{brand}/{model}/{year}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Vehicle read(@PathParam("brand") String brand, @PathParam("model") String model, @PathParam("year") int year) {
+    public Vehicle read(@PathParam("brand") String brand, @PathParam("model") String model, @PathParam("year") String year) {
         try {
-            return Service.instance().findVehicle(brand, model, year);
+            return Service.instance().findVehicle(brand, model, Integer.parseInt(year));
         } catch (Exception ex) {
             throw new NotFoundException();
         }
@@ -49,7 +50,7 @@ public class Vehicles {
     
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public ArrayList<ArrayList<Vehicle>> find(@DefaultValue("") @QueryParam("brand") String brand, @DefaultValue("") @QueryParam("model") String model, @DefaultValue("") @QueryParam("year") int year) throws Exception {
+    public ArrayList<ArrayList<Vehicle>> find(@DefaultValue("") @QueryParam("brand") String brand, @DefaultValue("") @QueryParam("model") String model, @DefaultValue("") @QueryParam("year") String year) throws Exception {
         return Service.instance().selectBrandsAndModels();
-    }*/
+    }
 }
