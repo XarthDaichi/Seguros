@@ -200,14 +200,14 @@ class App{
               </li>
             `;
         }else{
-            if(globalstate.user.rol==='0'){//Client
+            if(globalstate.user.administrator==='0'){//Client
                 html+=`
                     <li class="nav-item">
                         <a class="nav-link" id="policies" href="#"> <span><i class="fas fa-file-alt"></i></span> Policies </a>
                     </li>
                 `;
             }
-            if(globalstate.user.rol==='1'){//Admin
+            if(globalstate.user.administrator==='1'){//Admin
                 html+=`
                 `;
             }
