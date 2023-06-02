@@ -4,6 +4,7 @@
  */
 package com.progra4.segurosbackend.resources;
 
+//import com.progra4.segurosbackend.logic.JsonUtils;
 import com.progra4.segurosbackend.logic.Service;
 import com.progra4.segurosbackend.logic.Policy;
 import com.progra4.segurosbackend.logic.User;
@@ -67,7 +68,8 @@ public class Policies {
     @POST
 //    @Path("/register")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void addPolicy(Policy policy) throws Exception {
-        Service.instance().PolicyCreate(policy);
+    public void addPolicy(String json) throws Exception {
+//        Policy policy = JsonUtils.deserializePolicy(json);
+//        Service.instance().PolicyCreate(policy);
     }
 }

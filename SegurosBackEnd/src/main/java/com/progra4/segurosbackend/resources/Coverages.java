@@ -4,6 +4,8 @@
  */
 package com.progra4.segurosbackend.resources;
 
+import com.progra4.segurosbackend.logic.Coverage;
+import com.progra4.segurosbackend.logic.Service;
 import jakarta.annotation.security.PermitAll;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -27,4 +29,22 @@ import jakarta.ws.rs.QueryParam;
 @PermitAll
 public class Coverages {
     
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws java.lang.Exception
+     */
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Coverage> find(@DefaultValue("") @QueryParam("id") String id) {
+        return null;
+    }
+    
+    @GET
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Coverage read(@PathParam("id") String id) throws Exception {
+        return Service.instance().coverageFind(id);
+    }
 }

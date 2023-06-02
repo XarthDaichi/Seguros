@@ -96,6 +96,14 @@ public class Service {
         coverageDao.insert(c, cat);
     }
     
+    public ArrayList<Coverage> selectAllCoverages() throws Exception {
+        return coverageDao.selectAll();
+    }
+    
+    public Coverage coverageFind(String coverageId) throws Exception {
+        return coverageDao.read(coverageId);
+    }
+    
     public ArrayList<ArrayList<Vehicle>> selectBrandsAndModels() throws Exception {
         ArrayList<Vehicle> resultQuery = vehicleDao.selectAll();
         ArrayList<Vehicle> resultNoRedundancy = new ArrayList<>();

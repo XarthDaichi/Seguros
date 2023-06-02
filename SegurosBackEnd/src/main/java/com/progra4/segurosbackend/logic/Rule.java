@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author diego
  */
 
-public abstract class Rule implements Serializable {
+public abstract class Rule {
     protected String id;
     protected String description;
 
