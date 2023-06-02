@@ -110,11 +110,11 @@ class App{
                         <form id="form" >
                             <div class="modal-body">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">Id</span>
+                                    <span class="input-group-text">ID</span>
                                     <input type="text" class="form-control" id="id" name="id">
                                 </div>  
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">clave</span>
+                                    <span class="input-group-text">Password</span>
                                     <input type="password" class="form-control" id="password" name="password">
                                 </div>      
                             </div>
@@ -141,33 +141,33 @@ class App{
                         <form id="form" >
                             <div class="modal-body">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">Id</span>
+                                    <span class="input-group-text">ID</span>
                                     <input type="text" class="form-control" id="id" name="id" placeholder="ID" required>
                                 </div> 
         
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">clave</span>
+                                    <span class="input-group-text">Password</span>
                                     <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                                 </div>
         
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">clave</span>
+                                    <span class="input-group-text">Name</span>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
                                 </div>
         
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">clave</span>
+                                    <span class="input-group-text">Phone number</span>
                                     <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone number" required>
                                 </div>
         
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">clave</span>
+                                    <span class="input-group-text">Email</span>
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
                                 </div>
         
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">clave</span>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+                                    <span class="input-group-text">Card number</span>
+                                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Card number" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -213,7 +213,7 @@ class App{
             }
             html+=`
               <li class="nav-item">
-                  <a class="nav-link" id="logout" href="#" data-bs-toggle="modal"> <span><i class="fas fa-power-off"></i></span> Logout (${globalstate.user.identificacion}) </a>
+                  <a class="nav-link" id="logout" href="#" data-bs-toggle="modal"> <span><i class="fas fa-power-off"></i></span> Logout (${globalstate.user.name}) </a>
               </li>
             `;
         };
