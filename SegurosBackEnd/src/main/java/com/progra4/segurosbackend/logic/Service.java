@@ -38,10 +38,18 @@ public class Service {
         vehicleDao = new VehicleDao(relDatabase);
     }
     
-    public User userFind(String id, String pass) throws Exception {
+    public User userLogin(String id, String pass) throws Exception {
         User user = userDao.read(id);
         if (user.getPassword().equals(pass)) return user;
         else return null;
+    }
+    
+    public ArrayList<User> userFindId(String id) throws Exception {
+        return userDao.findId(id);
+    }
+    
+    public ArrayList<User> userFindName(String name) throws Exception {
+        return userDao.findName(name);
     }
     
     public void userUpdate(User u) {

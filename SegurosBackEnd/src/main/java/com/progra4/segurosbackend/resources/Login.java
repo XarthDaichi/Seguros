@@ -35,7 +35,7 @@ public class Login {
     public User login(User user) {
         User logged = null;
         try {
-            logged= Service.instance().userFind(user.getId(), user.getPassword());
+            logged= Service.instance().userLogin(user.getId(), user.getPassword());
             request.getSession(true).setAttribute("user", logged);
             return logged;
         } catch (Exception ex) {

@@ -21,6 +21,44 @@ public class UserDao {
         this.db = db;
     }
     
+    public ArrayList<User> findId(String id) throws Exception {
+        ArrayList<User> result = new ArrayList<User>();
+        try {
+            String sql = "select " +
+                    "* " +
+                    "from Users e " +
+                    "where e.userId like ?";
+            PreparedStatement stm = db.prepareStatement(sql);
+            stm.setString(1, "%" + id + "%");
+            ResultSet rs = db.executeQuery(stm);
+            while(rs.next()) {
+                result.add(from(rs, "e"));
+            }
+        } catch (SQLException ex) {
+            return null;
+        }
+        return result;
+    }
+    
+    public ArrayList<User> findName(String name) throws Exception {
+        ArrayList<User> result = new ArrayList<User>();
+        try {
+            String sql = "select " +
+                    "* " +
+                    "from Users e " +
+                    "where e.nameU like ?";
+            PreparedStatement stm = db.prepareStatement(sql);
+            stm.setString(1, "%" + name + "%");
+            ResultSet rs = db.executeQuery(stm);
+            while(rs.next()) {
+                result.add(from(rs, "e"));
+            }
+        } catch (SQLException ex) {
+            return null;
+        }
+        return result;
+    }
+    
     public User read(String id) throws Exception {
         String sql = "select " +
                 "* " +

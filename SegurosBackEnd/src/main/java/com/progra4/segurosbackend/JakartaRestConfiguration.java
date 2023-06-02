@@ -23,6 +23,7 @@ public class JakartaRestConfiguration extends Application {
         classes.add(Login.class);
         classes.add(Register.class);
         classes.add(Vehicles.class);
+        classes.add(Clients.class);
         return classes;
     } 
 }
