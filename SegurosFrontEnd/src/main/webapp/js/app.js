@@ -97,35 +97,35 @@ class App{
     renderModal=()=>{
         return `
             <div id="modal" class="modal fade" tabindex="-1">
-               <div class="modal-dialog">
-                   <div class="modal-content">
-                       <div class="modal-header" >
-                           <img class="img-circle" id="img_logo" src="images/user.png" style="max-width: 50px; max-height: 50px" alt="logo">
-                           <span style='margin-left:4em;font-weight: bold;'>Login</span> 
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                       </div>
-                       <form id="form" >
-                       <div class="modal-body">
-                           <div class="input-group mb-3">
-                               <span class="input-group-text">Id</span>
-                               <input type="text" class="form-control" id="identificacion" name="identificacion">
-                           </div>  
-                           <div class="input-group mb-3">
-                               <span class="input-group-text">clave</span>
-                               <input type="password" class="form-control" id="clave" name="clave">
-                           </div>      
-                       </div>
-                       <div class="modal-footer">
-                           <button id="apply" type="button" class="btn btn-primary" id="apply">Login</button>
-                       </div>
-                       <div class="input-group">
-                           <span style="font-style: italic; margin-left: 2em;">No tiene cuenta? ... </span>
-                           <a id="register" class="btn btn-info btn-block" style="margin-bottom: 15px; background-color: white; color:red; border:1px solid red" href="#">Registrese aquí</a>
-                       </div>                
-                       </form>                 
-                   </div>         
-               </div>          
-           </div>   
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" >
+                            <img class="img-circle" id="img_logo" src="images/profile.png" style="max-width: 50px; max-height: 50px" alt="logo">
+                            <span style='margin-left:4em;font-weight: bold;'>Login</span> 
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="form" >
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Id</span>
+                                    <input type="text" class="form-control" id="identificacion" name="identificacion">
+                                </div>  
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">clave</span>
+                                    <input type="password" class="form-control" id="clave" name="clave">
+                                </div>      
+                            </div>
+                            <div class="modal-footer">
+                                <button id="apply" type="button" class="btn btn-primary" id="apply">Login</button>
+                            </div>
+                            <div class="input-group">
+                                <span style="font-style: italic; margin-left: 2em;">No tiene cuenta? ... </span>
+                                <a id="register" class="btn btn-info btn-block" style="margin-bottom: 15px; background-color: white; color:red; border:1px solid red" href="#">Registrese aquí</a>
+                            </div>                
+                        </form>                 
+                    </div>         
+                </div>          
+            </div>   
         `;
     }
     
@@ -187,11 +187,43 @@ class App{
     
     login= async ()=>{
         const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#form"))).entries());
-        candidate.rol='0';
+        
+        const request = new Request('${backend}/login/login',{
+            method:'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(candidate)
+        });
+        
+        try{
+            
+            const response = await fetch(request);
+            
+            if(!response.ok){
+                const error = await response.text();
+                console.log("LOGIN ERROR"+error);
+                return;
+            }
+            
+            //console.log("LOGIN SUCCESSFUL");
+            const user = await response.json();
+            globalstate.user = user;
+            
+            if(globalstate.user.administrator === '0'){
+                //Verify usability of this clause
+            }
+            
+            this.modal.hide();
+            this.renderMenuItems();
+            
+        }catch(err){
+            console.error(err);
+        }
+        
+        /*candidate.rol='0';
         //Invoque backend for login
         globalstate.user = candidate;
         this.modal.hide();
-        this.renderMenuItems();
+        this.renderMenuItems();*/
     }
     
     logout= async ()=>{
