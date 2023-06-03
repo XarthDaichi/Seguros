@@ -253,7 +253,7 @@ class App{
         if(globalstate.user===null){
             html+=`
               <li class="nav-item">
-                  <a class="nav-link" id="login" href="#" data-bs-toggle="modal"> <span><i class="fa fa-address-card"></i></span> Login </a>
+                  <a class="nav-link" id="login" href="#" data-bs-toggle="modal"> <span><i class="fas fa-sign-in-alt"></i></span> Login </a>
               </li>
             `;
         }else{
@@ -276,7 +276,7 @@ class App{
                     <a class="nav-link" id="userProfile" href="#" data-bs-toggle="modal"> <span><i class="fas fa-user"></i></span> ${globalstate.user.name} </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="logout" href="#" data-bs-toggle="modal"> <span><i class="fas fa-power-off"></i></span> Logout </a>
+                    <a class="nav-link" id="logout" href="#" data-bs-toggle="modal"> <span><i class="fas fa-sign-out-alt"></i></span> Logout </a>
                 </li>
             `;
         };

@@ -95,7 +95,7 @@ class Policies {
     renderPolicies = async () => {
         const policiesRequest = new Request(`${backend}/policies?id=${globalstate.user.id}`,{
             method:'GET',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json'}
         });
         
         try{
@@ -120,77 +120,77 @@ class Policies {
     
 
     renderModal = () => {
-      return `
-        <div id="createPolicyModal" class="modal fade" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Crear Póliza de Seguro</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="datosBasicosTab" data-bs-toggle="tab" data-bs-target="#datosBasicos" type="button" role="tab" aria-controls="datosBasicos" aria-selected="true">Datos Básicos</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="coberturasTab" data-bs-toggle="tab" data-bs-target="#coberturas" type="button" role="tab" aria-controls="coberturas" aria-selected="false">Coberturas</button>
-                  </li>
-                </ul>
-                <div class="tab-content mt-3">
-                  <div class="tab-pane fade show active" id="datosBasicos" role="tabpanel" aria-labelledby="datosBasicosTab">
-                    <form>
-                      <div class="mb-3">
-                        <label for="numeroPlaca" class="form-label">Número de Placa del Vehículo</label>
-                        <input type="text" class="form-control" id="numeroPlaca" placeholder="Ingrese el número de placa del vehículo" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="anioVehiculo" class="form-label">Año del Vehículo</label>
-                        <input type="text" class="form-control" id="anioVehiculo" placeholder="Ingrese el año del vehículo" pattern="^((188[6-9])|(18[9][0-9])|(19[0-9]{2})|(200[0-9])|(201[0-9])|(202[0-3]))$" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="marcaModelo" class="form-label">Marca y Modelo del Vehículo</label>
-                        <select class="form-select" id="marcaModelo" required>
-                          <option value="">Seleccione la marca y modelo del vehículo...</option>
-                          <!-- Opciones de marca y modelo aquí con renderVehiculos-->
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label for="valorVehiculo" class="form-label">Valor del Vehículo en Colones</label>
-                        <input type="text" class="form-control" id="valorVehiculo" placeholder="Ingrese el valor del vehículo en colones" required>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Método de Pago</label>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="metodoPago" id="Trimestral" required>
-                          <label class="form-check-label" for="Trimestral">Pago Trimestral</label>
+        return `
+            <div id="createPolicyModal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Crear Póliza de Seguro</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="metodoPago" id="Semestral" required>
-                          <label class="form-check-label" for="Semestral">Pago Semestral</label>
+                        <div class="modal-body">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="datosBasicosTab" data-bs-toggle="tab" data-bs-target="#datosBasicos" type="button" role="tab" aria-controls="datosBasicos" aria-selected="true">Datos Básicos</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="coberturasTab" data-bs-toggle="tab" data-bs-target="#coberturas" type="button" role="tab" aria-controls="coberturas" aria-selected="false">Coberturas</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content mt-3">
+                                <div class="tab-pane fade show active" id="datosBasicos" role="tabpanel" aria-labelledby="datosBasicosTab">
+                                    <form id="addPolicyForm">
+                                        <div class="mb-3">
+                                            <label for="numeroPlaca" class="form-label">Número de Placa del Vehículo</label>
+                                            <input type="text" class="form-control" id="numeroPlaca" placeholder="Ingrese el número de placa del vehículo" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="anioVehiculo" class="form-label">Año del Vehículo</label>
+                                            <input type="text" class="form-control" id="anioVehiculo" placeholder="Ingrese el año del vehículo" pattern="^((188[6-9])|(18[9][0-9])|(19[0-9]{2})|(200[0-9])|(201[0-9])|(202[0-3]))$" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="marcaModelo" class="form-label">Marca y Modelo del Vehículo</label>
+                                            <select class="form-select" id="marcaModelo" required>
+                                                <option value="">Seleccione la marca y modelo del vehículo...</option>
+                                                <!-- Opciones de marca y modelo aquí con renderVehiculos-->
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="valorVehiculo" class="form-label">Valor del Vehículo en Colones</label>
+                                            <input type="text" class="form-control" id="valorVehiculo" placeholder="Ingrese el valor del vehículo en colones" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Método de Pago</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="metodoPago" id="Trimestral" required>
+                                                <label class="form-check-label" for="Trimestral">Pago Trimestral</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="metodoPago" id="Semestral" required>
+                                                <label class="form-check-label" for="Semestral">Pago Semestral</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="metodoPago" id="Anual" required>
+                                                <label class="form-check-label" for="Anual">Pago Anual</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="coberturas" role="tabpanel" aria-labelledby="coberturasTab">
+                                    <div class="scrollable" id="listaCoberturas">
+                                      <!-- Renderizar las categorías y sus coberturas en load -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="metodoPago" id="Anual" required>
-                          <label class="form-check-label" for="Anual">Pago Anual</label>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          <button id="siguienteBtn" type="button" class="btn btn-primary">Siguiente</button>
                         </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="tab-pane fade" id="coberturas" role="tabpanel" aria-labelledby="coberturasTab">
-                    <div class="scrollable" id="listaCoberturas">
-                      <!-- Renderizar las categorías y sus coberturas en load -->
                     </div>
-                  </div>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button id="siguienteBtn" type="button" class="btn btn-primary">Siguiente</button>
-              </div>
             </div>
-          </div>
-        </div>
-      `;
+        `;
     };
 
     showModal = () => {
