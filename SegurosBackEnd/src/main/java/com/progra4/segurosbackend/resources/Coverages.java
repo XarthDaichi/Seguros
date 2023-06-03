@@ -49,12 +49,6 @@ public class Coverages {
         return Service.instance().coverageFind(id);
     }
     
-    /**
-     * @param categoryId
-     * @return
-     * @throws java.lang.Exception
-     */
-    
 //    @POST
 //    @Path {"/{categoryId}"}
 //    @Consumes({MediaType.APPLICATION_JSON})
