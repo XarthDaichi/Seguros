@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -85,5 +86,40 @@ public class VehicleDao {
             return from(rs, "e");
         }
         return null;
+    }
+    
+    public List<Vehicle> findVehicles(String brand, String model) throws Exception {
+        ArrayList<Vehicle> result = new ArrayList<>();
+        try {
+            String sql = "select * from Vehicle e " +
+                "where e.brand=? and e.model=?";
+            PreparedStatement stm = db.prepareStatement(sql);
+            stm.setString(1, brand);
+            stm.setString(2, model);
+            ResultSet rs = db.executeQuery(stm);
+            while (rs.next()) {
+                result.add(from(rs, "e"));
+            }
+        } catch (SQLException ex) {
+            return null;
+        }
+        return result;
+    }
+    
+    public List<Vehicle> findVehicles(String brand) throws Exception {
+        ArrayList<Vehicle> result = new ArrayList<>();
+        try {
+            String sql = "select * from Vehicle e " +
+                "where e.brand=?";
+            PreparedStatement stm = db.prepareStatement(sql);
+            stm.setString(1, brand);
+            ResultSet rs = db.executeQuery(stm);
+            while (rs.next()) {
+                result.add(from(rs, "e"));
+            }
+        } catch (SQLException ex) {
+            return null;
+        }
+        return result;
     }
 }

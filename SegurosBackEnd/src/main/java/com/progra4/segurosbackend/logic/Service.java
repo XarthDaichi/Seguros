@@ -149,10 +149,6 @@ public class Service {
     
     public Vehicle getVehicle(int id) throws Exception {
         return vehicleDao.read(id);
-        /*if (vehicle.getBrand().equals(v.getBrand()) && vehicle.getModel().equals(v.getModel()) && vehicle.getYear() == v.getYear()) {
-            return vehicle;
-        }
-        return null;*/
     }
     
     public void vehicleCreate(Vehicle v) throws Exception {
@@ -161,5 +157,13 @@ public class Service {
     
     public Vehicle findVehicle(String brand, String model, int year) throws Exception {
         return vehicleDao.findVehicle(brand, model, year);
+    }
+    
+    public List<Vehicle> findVehicles(String brand, String model) throws Exception {
+        if (!model.equals("")) {
+            return vehicleDao.findVehicles(brand, model);
+        } else {
+            return vehicleDao.findVehicles(brand);
+        }
     }
 }
