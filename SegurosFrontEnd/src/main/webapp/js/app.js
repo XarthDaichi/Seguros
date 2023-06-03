@@ -184,7 +184,7 @@ class App{
         var html= `
             <div id='bodyFiller' style='margin-left: 10%; margin-top:100px; width: 80%; text-align: center; font-size: 1.5em'>
                 <p>Bienvenidos a Seguros.</p>
-                <img src="images/filler.png" alt="filler">
+                <img src="images/filler.png" alt="filler" style="max-width: 50%; max-height: 50%">
             </div>
         `;
         this.dom.querySelector('#app>#body').replaceChildren();
