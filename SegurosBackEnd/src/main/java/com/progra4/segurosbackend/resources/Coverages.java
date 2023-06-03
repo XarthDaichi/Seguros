@@ -55,4 +55,4 @@ public class Coverages {
 //    public void insert(Coverage coverage, @PathParam("categoryId") String cat) throws Exception {
 //        Service.instance().CoverageCreate(coverage, cat);
 //    }
-//}
+}

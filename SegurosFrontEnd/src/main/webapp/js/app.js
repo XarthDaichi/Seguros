@@ -7,6 +7,7 @@ class App{
     state;
     
     policies;
+    administrator;
     
     constructor(){
         this.state={};
@@ -14,6 +15,7 @@ class App{
         this.renderBodyFiller();
         this.renderMenuItems();
         this.policies = new Policies();
+        //this.administrator = new Administrator(); This line breaks front-end, class needs checking
         this.modal = new bootstrap.Modal(this.dom.querySelector('#app>#modal'));
         this.registerUserModal = new bootstrap.Modal(this.dom.querySelector('#app>#registerUserModal'));
         this.dom.querySelector('#app>#modal #apply').addEventListener('click',e=>this.login());
@@ -200,26 +202,34 @@ class App{
               </li>
             `;
         }else{
-            if(globalstate.user.administrator==='0'){//Client
+            if(globalstate.user.administrator===false){//Client
                 html+=`
                     <li class="nav-item">
-                        <a class="nav-link" id="policies" href="#"> <span><i class="fas fa-file-alt"></i></span> Policies </a>
+                        <a class="nav-link" id="policies" href="#"> <span><i class="fas fa-th-list"></i></span> Policies </a>
                     </li>
                 `;
             }
-            if(globalstate.user.administrator==='1'){//Admin
+            if(globalstate.user.administrator===true){//Admin
                 html+=`
+                    <li class="nav-item">
+                        <a class="nav-link" id="clientsPolicies" href="#"> <span><i class="fas fa-th-list"></i></span> Clients' policies </a>
+                    </li>
                 `;
             }
             html+=`
-              <li class="nav-item">
-                  <a class="nav-link" id="logout" href="#" data-bs-toggle="modal"> <span><i class="fas fa-power-off"></i></span> Logout (${globalstate.user.name}) </a>
-              </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="userProfile" href="#" data-bs-toggle="modal"> <span><i class="fas fa-user"></i></span> ${globalstate.user.name} </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="logout" href="#" data-bs-toggle="modal"> <span><i class="fas fa-power-off"></i></span> Logout </a>
+                </li>
             `;
         };
         this.dom.querySelector('#app>#menu #menuItems').replaceChildren();
         this.dom.querySelector('#app>#menu #menuItems').innerHTML=html;
-        this.dom.querySelector("#app>#menu #menuItems #policies")?.addEventListener('click', e=>this.policiesShow());   
+        this.dom.querySelector("#app>#menu #menuItems #policies")?.addEventListener('click', e=>this.policiesShow());
+        this.dom.querySelector("#app>#menu #menuItems #clientsPolicies")?.addEventListener('click', e=>this.administratorShow());
+        //Make eventListener for clientsPolicies & userProfile menu items
         this.dom.querySelector("#app>#menu #menuItems #login")?.addEventListener('click', e=>this.modal.show());  
         this.dom.querySelector("#app>#menu #menuItems #logout")?.addEventListener('click', e=>this.logout());
         
@@ -241,6 +251,11 @@ class App{
         this.dom.querySelector('#app>#body').replaceChildren(this.policies.dom);
         this.policies.renderPolicies();
     }
+    
+    administratorShow=()=>{
+        //Show all clients policies like policiesShow
+    }
+     
     
     login= async ()=>{
         const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#form"))).entries());
@@ -289,6 +304,7 @@ class App{
         if(!response.ok){
             console.log(`LOGOUT ERROR - ${response.status}`);
         }
+        this.clearLoginModal();
     }
     
     clearLoginModal = ()=>{
