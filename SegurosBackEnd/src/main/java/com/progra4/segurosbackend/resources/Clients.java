@@ -11,6 +11,8 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -25,7 +27,6 @@ import java.util.List;
  */
 
 @Path("/clients")
-//@RolesAllowed({"1"})
 @PermitAll
 public class Clients {
     /**
@@ -53,6 +54,16 @@ public class Clients {
     @Produces({MediaType.APPLICATION_JSON})
     public User read(@PathParam("id") String id) throws Exception {
         return Service.instance().userRead(id);
+    }
+    
+    @POST
+    @Consumes (MediaType.APPLICATION_JSON)
+    public void register(User user) {
+        try {
+            Service.instance().userRegister(user);
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
     }
     
     @PUT

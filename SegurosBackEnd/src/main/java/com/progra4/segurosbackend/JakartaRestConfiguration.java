@@ -21,7 +21,6 @@ public class JakartaRestConfiguration extends Application {
         classes.add(Categories.class);
         classes.add(Coverages.class);
         classes.add(Login.class);
-        classes.add(Register.class);
         classes.add(Vehicles.class);
         classes.add(Clients.class);
         return classes;
