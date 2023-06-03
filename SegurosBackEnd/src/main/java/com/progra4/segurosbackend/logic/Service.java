@@ -62,6 +62,10 @@ public class Service {
         }
     }
     
+    public User userRead(String id) throws Exception {
+        return userDao.read(id);
+    }
+    
     public void userRegister(User u) throws Exception {
         userDao.insert(u);
     }

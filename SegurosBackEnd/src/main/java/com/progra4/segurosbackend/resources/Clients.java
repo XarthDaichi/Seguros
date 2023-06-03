@@ -8,9 +8,12 @@ import com.progra4.segurosbackend.logic.Service;
 import com.progra4.segurosbackend.logic.User;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -35,7 +38,7 @@ public class Clients {
     
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public List<User> find (@DefaultValue("") @QueryParam("id") String id, @DefaultValue("") @QueryParam("name") String name) throws Exception {
+    public List<User> find(@DefaultValue("") @QueryParam("id") String id, @DefaultValue("") @QueryParam("name") String name) throws Exception {
         if (id.equals("") && name.equals("")) {
             return Service.instance().selectOnlyClients();
         } else if (name.equals("")) {
@@ -43,5 +46,18 @@ public class Clients {
         } else {
             return Service.instance().userFindName(name);
         }
+    }
+    
+    @GET
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public User read(@PathParam("id") String id) throws Exception {
+        return Service.instance().userRead(id);
+    }
+    
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON})
+    public void modify(User user) throws Exception {
+        Service.instance().userUpdate(user);
     }
 }
