@@ -44,7 +44,8 @@ create table Coverage(
 );
 
 create table PolicyClass (
-    policyId varchar(6),
+    policyId int not null AUTO_INCREMENT,
+    license varchar(6),
     userId varchar(30) not null,
     term ENUM('QUARTERLY','BIANNUAL','ANNUAL'),
     initialDate date,
@@ -52,11 +53,12 @@ create table PolicyClass (
     vehicleId int,
     constraint PKPolicy Primary Key(policyId),
     constraint FKVehicle Foreign Key (vehicleId) references Vehicle(id),
-    constraint FKUser Foreign Key (userId) references Users(userId)
+    constraint FKUser Foreign Key (userId) references Users(userId),
+    constraint UNIQUEPolicy UNIQUE (license, initialDate)
 );
 
 create table Applies (
-    policyId varchar(6),
+    policyId int,
     coverageId int,
     constraint PKApplies Primary Key (policyId, coverageId),
     constraint Foreign Key (policyId) references PolicyClass(policyId),
@@ -84,18 +86,18 @@ insert into Vehicle (brand, model, yearV)
 values ('Toyota', 'Tercel', 1996), 
 ('LandRover', 'RangeRover', 2023);
 
-insert into policyclass (policyId, userId, vehicleId, term, initialDate, insuredValue) 
+insert into policyclass (license, userId, vehicleId, term, initialDate, insuredValue) 
 values ('ABC123', '111', 1, 'QUARTERLY', '2023-04-23', 3000.5),
 ('DEF456', '111', 2, 'ANNUAL', '2023-05-23', 5000.5),
 ('LRD596', '333', 2,'BIANNUAL', '2023-04-21', 2000000.0);
 
 insert into Applies (policyId, coverageId)
-values ('ABC123', 1),
-('ABC123', 2),
-('ABC123',3),
-('DEF456', 4),
-('DEF456', 5),
-('DEF456',6),
-('LRD596', 4),
-('LRD596', 5),
-('LRD596', 6);
+values (1, 1),
+(1, 2),
+(1,3),
+(2, 4),
+(2, 5),
+(2,6),
+(3, 4),
+(3, 5),
+(3, 6);

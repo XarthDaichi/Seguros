@@ -31,7 +31,7 @@ public class PolicyDao {
     }
     
     public Policy read(String id) throws Exception {
-        ArrayList<Rule> coverages = new ArrayList<>();
+        ArrayList<Coverage> coverages = new ArrayList<>();
         try {
             String sql = "select " +
                     "* " +
@@ -60,7 +60,7 @@ public class PolicyDao {
     
     public List<Policy> findByUser(User u){
         List<Policy> result = new ArrayList<>();
-        ArrayList<Rule> coverages = new ArrayList<>();
+        ArrayList<Coverage> coverages = new ArrayList<>();
         try{
             String sql = "select " +
                     "* " +
@@ -102,7 +102,7 @@ public class PolicyDao {
     
     public ArrayList<Policy> selectAll() throws Exception{
         ArrayList<Policy> result = new ArrayList<>();
-        ArrayList<Rule> coverages = new ArrayList<>();
+        ArrayList<Coverage> coverages = new ArrayList<>();
         String sql = "select " +
             "* " +
             "from Applies e " +
@@ -143,7 +143,8 @@ public class PolicyDao {
     public Policy from(ResultSet rs, String alias) {
         try {
             Policy e = new Policy();
-            e.setId(rs.getString(alias + ".policyId"));
+            e.setId(String.format("POL%03d", rs.getInt(alias + ".policyId")));
+            e.setLicense(rs.getString(alias + ".license"));
             e.setTermChosen(Term.valueOf(rs.getString(alias + ".term")));
             e.setInitialDate(rs.getDate(alias + ".initialDate").toLocalDate());
             e.setInsuredValue(rs.getDouble(alias + ".insuredValue"));           
@@ -155,7 +156,7 @@ public class PolicyDao {
     
     public String fromApplies(ResultSet rs, String alias) {
         try {
-            return rs.getString(alias + ".policyId");
+            return String.format("POL%03d", rs.getInt(alias + ".policyId"));
         } catch (SQLException ex) {
             return null;
         }
@@ -164,10 +165,10 @@ public class PolicyDao {
     public void insert(Policy p) throws Exception {
         String sql = "insert into " +
                 "PolicyClass " +
-                "(policyId, userId, vehicleId, term, initialDate, insuredValue) " +
+                "(license, userId, vehicleId, term, initialDate, insuredValue) " +
                 "values(?,?,?,?,?,?)";
         PreparedStatement stm = db.prepareStatement(sql);
-        stm.setString(1, p.getId());
+        stm.setString(1, p.getLicense());
         stm.setString(2, p.getPolicyOwner().getId());
         stm.setInt(3, p.getVehicle().getId());
         stm.setString(4, p.getTermChosen().name());
@@ -175,5 +176,40 @@ public class PolicyDao {
         stm.setDouble(6, p.getInsuredValue());
         
         db.executeUpdate(stm);
+        
+        String sql2 = "select policyId from PolicyClass e order by policyId desc";
+        PreparedStatement stm2 = db.prepareStatement(sql2);
+        ResultSet rs = db.executeQuery(stm2);
+        
+        int id = 0;
+        if(rs.next()) {
+            id = rs.getInt("e.policyId");
+        }
+        
+        for (Coverage r : p.getRules()) {
+            String sql3 = "insert into Applies (policyId, coverageId) " +
+                    "values (?, ?)";
+            PreparedStatement stm3 = db.prepareStatement(sql3);
+            stm3.setInt(1, id);
+            stm3.setInt(2, Integer.parseInt(r.getId().substring(3,6)));
+            
+            db.executeUpdate(stm3);
+        }
+    }
+    
+    public void delete(String policyId) throws Exception {
+        String sql = "delete from " +
+                "Applies " +
+                "where policyId=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setInt(1, Integer.parseInt(policyId.substring(3,6)));
+        db.executeUpdate(stm);
+        
+        String sql2 = "delete from " +
+                "PolicyClass " +
+                "where policyId=?";
+        PreparedStatement stm2 = db.prepareStatement(sql2);
+        stm2.setInt(1, Integer.parseInt(policyId.substring(3,6)));
+        db.executeUpdate(stm2);
     }
 }

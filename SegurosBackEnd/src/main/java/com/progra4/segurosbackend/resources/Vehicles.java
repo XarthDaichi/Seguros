@@ -39,15 +39,6 @@ import java.util.ArrayList;
 public class Vehicles {
     String location = "";
     
-    /**
-     * 
-     * @param id
-     * @param brand
-     * @param model
-     * @param year
-     * @return
-    */
-    
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public ArrayList<ArrayList<Vehicle>> getAllSorted() throws Exception {
@@ -74,6 +65,13 @@ public class Vehicles {
         return response.build();
     }
     
+    /**
+     * 
+     * @param brand
+     * @param model
+     * @return
+    */
+    
     @GET
     @Path("/search")
     @Produces({MediaType.APPLICATION_JSON})
@@ -82,7 +80,7 @@ public class Vehicles {
     }
     
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON})
     public void insert(Vehicle v) {
         try {
             Service.instance().vehicleCreate(v);
@@ -92,7 +90,7 @@ public class Vehicles {
     }
     
     @POST
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Consumes({MediaType.MULTIPART_FORM_DATA})
     @Path("{id}/image")
     public void createImage(@PathParam("id") String id, @FormParam("image") InputStream in) {
         try {

@@ -24,7 +24,7 @@ public class CategoryDao {
     }
     
     public Category read(String id) throws Exception {
-        ArrayList<Rule> coverages = new ArrayList<>();
+        ArrayList<Coverage> coverages = new ArrayList<>();
         try {
             String sql = "select " +
                     "* " +
@@ -69,7 +69,7 @@ public class CategoryDao {
         CoverageDao coverageDao = new CoverageDao(db);
         for (Rule ru : c.getCoverages()) {
             Coverage cov = (Coverage) ru;
-            coverageDao.insert(cov, c);
+            coverageDao.insert(cov, c.getId());
         }
         
         db.executeUpdate(stm);

@@ -13,23 +13,23 @@ import java.util.ArrayList;
  */
 public class Category extends Rule implements Serializable {
     private String name;
-    private ArrayList<Rule> coverages;
+    private ArrayList<Coverage> coverages;
 
     public Category() {
         super();
         this.name = "";
     }
 
-    public Category(String id, String description, ArrayList<Rule> coverages) {
+    public Category(String id, String description, ArrayList<Coverage> coverages) {
         super(id, description);
         this.coverages = coverages;
     }
 
-    public ArrayList<Rule> getCoverages() {
+    public ArrayList<Coverage> getCoverages() {
         return coverages;
     }
 
-    public void setCoverages(ArrayList<Rule> coverages) {
+    public void setCoverages(ArrayList<Coverage> coverages) {
         this.coverages = coverages;
     }
 
@@ -59,7 +59,7 @@ public class Category extends Rule implements Serializable {
     @Override
     public double calculateCost(double insuredValue) {
         double total = 0;
-        for (Rule c : coverages) {
+        for (Coverage c : coverages) {
             total += c.calculateCost(insuredValue);
         }
         return total;

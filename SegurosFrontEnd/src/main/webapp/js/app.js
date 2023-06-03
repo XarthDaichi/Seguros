@@ -239,6 +239,7 @@ class App{
     
     policiesShow=()=>{
         this.dom.querySelector('#app>#body').replaceChildren(this.policies.dom);
+        this.policies.renderPolicies();
     }
     
     login= async ()=>{

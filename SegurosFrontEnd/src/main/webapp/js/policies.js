@@ -23,10 +23,6 @@ class Policies {
         return rootContent;
     }
     
-    //RenderPoliciesList: Pone en cada row, los datos de state.policies.
-    
-    //RenderPolicies: Hace la petición de polizas al backend
-
     renderList = () => {
       return `
         <div class="container mt-5">
@@ -53,31 +49,11 @@ class Policies {
                           <th>Fecha</th>
                           <th>Automóvil</th>
                           <th>Valor</th>
+                          <th>Plaza</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <!-- Filas de datos de muestra -->
-                        <tr>
-                          <td>1234</td>
-                          <td>ABC123</td>
-                          <td>2023-06-01</td>
-                          <td>Honda Civic</td>
-                          <td>$500</td>
-                          <td>
-                            <button class="btn btn-sm btn-info">Ver</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>5678</td>
-                          <td>XYZ789</td>
-                          <td>2023-05-30</td>
-                          <td>Toyota Corolla</td>
-                          <td>$800</td>
-                          <td>
-                            <button class="btn btn-sm btn-info">Ver</button>
-                          </td>
-                        </tr>
+                      <tbody id = "policiesTableBody">
                       </tbody>
                     </table>
                   </div>
@@ -88,6 +64,60 @@ class Policies {
         </div>
       `;
     };
+    
+    //RenderPoliciesList: Pone en cada row, los datos de state.policies.
+    renderPoliciesList = (policies) => {
+        const tableBody = this.dom.querySelector('#policiesTableBody');
+        tableBody.innerHTML = '';
+        
+        policies.forEach((policy) => {
+           const row = document.createElement('tr');
+           const buttonId = `detail-${policy.id}`;
+           row.innerHTML = `
+            <td>${policy.id}</td>
+            <td>${policy.license}</td>
+            <td>${policy.initialDate}</td>
+            <td>${policy.vehicle.brand} - ${policy.vehicle.model}</td>
+            <td>${policy.insuredValue}</td>
+            <td>${policy.term}</td>
+            <td><button class="btn btn-sm btn-info">Ver</button></td>
+           `;
+            
+            const button = row.querySelector('button');
+            button.addEventListener('click', this.showPolicyDetails);
+            
+            tableBody.appendChild(row);
+        });
+    };
+    
+    //RenderPolicies: Hace la petición de polizas al backend
+    
+    renderPolicies = async () => {
+        const policiesRequest = new Request(`${backend}/policies?id=${globalstate.user.id}`,{
+            method:'GET',
+            headers: {'Content-Type': 'application/json'},
+        });
+        
+        try{
+            
+            const response = await fetch(policiesRequest);
+            
+            if(!response.ok){
+                const error = await response.text();
+                console.log("GET POLICIES ERROR - "+error);
+                return;
+            }
+            
+            console.log("POLICIES AQUIRED");
+            const policiesList = await response.json();
+            globalstate.policiesList = policiesList;
+            this.renderPoliciesList(policiesList);
+        }catch(err){
+            console.error(err);
+        }
+    }
+
+    
 
     renderModal = () => {
       const modalHTML = `

@@ -60,16 +60,14 @@ public class Policies {
     }
     
     @DELETE
-    @Path("/{policId}")
+    @Path("/{policyId}")
     public void delete(@PathParam("policyId") String policyId) {
         Service.instance().policyDelete(policyId);
     }
     
     @POST
-//    @Path("/register")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void addPolicy(String json) throws Exception {
-//        Policy policy = JsonUtils.deserializePolicy(json);
-//        Service.instance().PolicyCreate(policy);
+    public void addPolicy(Policy policy) throws Exception {
+        Service.instance().PolicyCreate(policy);
     }
 }

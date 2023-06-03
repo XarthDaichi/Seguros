@@ -15,31 +15,42 @@ import java.time.LocalDate;
  * @author diego
  */
 public class Policy extends Rule implements Serializable {
+    private String license;
     private Vehicle vehicle;
     private Term termChosen;
     private LocalDate initialDate;
-    private List<Rule> rules;
+    private ArrayList<Coverage> rules;
     private double insuredValue;
     private User policyOwner;
 
     public Policy() {
         super();
+        this.license = "";
         this.vehicle = new Vehicle();
         this.termChosen = Term.ANNUAL;
         this.initialDate = LocalDate.now();
-        this.rules = new ArrayList<>();
+        this.rules = new ArrayList<Coverage>();
         this.insuredValue = 0;
         this.policyOwner = new User();
     }
 
-    public Policy(String id, Vehicle vehicle, Term termChosen, LocalDate initialDate, List<Rule> rules, double insuredValue, User policyOwner) {
+    public Policy(String id, String license, Vehicle vehicle, Term termChosen, LocalDate initialDate, ArrayList<Coverage> rules, double insuredValue, User policyOwner) {
         super(id, "");
+        this.license = license;
         this.vehicle = vehicle;
         this.termChosen = termChosen;
         this.initialDate = initialDate;
         this.rules = rules;
         this.insuredValue = insuredValue;
         this.policyOwner = policyOwner;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     public Vehicle getVehicle() {
@@ -78,11 +89,11 @@ public class Policy extends Rule implements Serializable {
         this.initialDate = initialDate;
     }
 
-    public List<Rule> getRules() {
+    public ArrayList<Coverage> getRules() {
         return rules;
     }
 
-    public void setRules(List<Rule> rules) {
+    public void setRules(ArrayList<Coverage> rules) {
         this.rules = rules;
     }
 
@@ -120,7 +131,7 @@ public class Policy extends Rule implements Serializable {
     @Override
     public double calculateCost(double insuredValue) {
         double total = 0;
-        for (Rule r: rules) {
+        for (Coverage r: rules) {
             total += r.calculateCost(insuredValue);
         }
         return total;

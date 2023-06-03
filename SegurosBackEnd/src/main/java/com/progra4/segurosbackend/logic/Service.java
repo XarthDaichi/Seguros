@@ -7,6 +7,8 @@ import com.progra4.segurosbackend.data.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -89,7 +91,11 @@ public class Service {
     }
     
     public void policyDelete(String policyId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            policyDao.delete(policyId);
+        } catch (Exception ex) {
+            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public ArrayList<Category> selectAllCategories() throws Exception {
@@ -100,7 +106,7 @@ public class Service {
         categoryDao.insert(c);
     }
     
-    public void CoverageCreate(Coverage c, Category cat) throws Exception {
+    public void CoverageCreate(Coverage c, String cat) throws Exception {
         coverageDao.insert(c, cat);
     }
     

@@ -51,7 +51,7 @@ public class CoverageDao {
         }
     }
     
-    public void insert(Coverage c, Category cat) throws Exception {
+    public void insert(Coverage c, String cat) throws Exception {
         String sql = "insert into " +
                 "Coverage " +
                 "(coverageName, descrip, cost, percent, categoryId) " +
@@ -61,7 +61,7 @@ public class CoverageDao {
         stm.setString(2, c.getDescription());
         stm.setDouble(3, c.getMinimumCost());
         stm.setDouble(4, c.getPercentage());
-        stm.setInt(5, Integer.parseInt(cat.getId().substring(3, 6)));
+        stm.setInt(5, Integer.parseInt(cat.substring(3, 6)));
         
         db.executeUpdate(stm);
     }

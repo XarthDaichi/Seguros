@@ -4,6 +4,7 @@
  */
 package com.progra4.segurosbackend.resources;
 
+import com.progra4.segurosbackend.logic.Category;
 import com.progra4.segurosbackend.logic.Coverage;
 import com.progra4.segurosbackend.logic.Service;
 import jakarta.annotation.security.PermitAll;
@@ -47,4 +48,17 @@ public class Coverages {
     public Coverage read(@PathParam("id") String id) throws Exception {
         return Service.instance().coverageFind(id);
     }
-}
+    
+    /**
+     * @param categoryId
+     * @return
+     * @throws java.lang.Exception
+     */
+    
+//    @POST
+//    @Path {"/{categoryId}"}
+//    @Consumes({MediaType.APPLICATION_JSON})
+//    public void insert(Coverage coverage, @PathParam("categoryId") String cat) throws Exception {
+//        Service.instance().CoverageCreate(coverage, cat);
+//    }
+//}
