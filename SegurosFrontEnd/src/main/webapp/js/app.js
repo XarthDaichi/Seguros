@@ -276,7 +276,7 @@ class App{
             
             this.modal.hide();
             this.renderMenuItems();
-            
+            this.clearLoginModal();
         }catch(err){
             console.error(err);
         }
@@ -288,6 +288,25 @@ class App{
         this.dom.querySelector('#app>#body').replaceChildren();
         this.renderBodyFiller();
         this.renderMenuItems();         
-        let request = new Request(`${backend}/login`, {method: 'DELETE', headers: { }});
+        const request = new Request(`${backend}/login`, {method: 'DELETE', headers: { }});
+        const response = await fetch(request);
+        
+        if(!response.ok){
+            console.log(`LOGOUT ERROR - ${response.status}`);
+        }
+    }
+    
+    clearLoginModal = ()=>{
+        this.dom.querySelector('#form #id').value = '';
+        this.dom.querySelector('#form #password').value = '';
+    }
+    
+    clearRegisterModal = ()=>{
+        this.dom.querySelector('#form #id').value = '';
+        this.dom.querySelector('#form #password').value = '';
+        this.dom.querySelector('#form #name').value = '';
+        this.dom.querySelector('#form #phone').value = '';
+        this.dom.querySelector('#form #email').value = '';
+        this.dom.querySelector('#form #cardNumber').value = '';
     }
 }

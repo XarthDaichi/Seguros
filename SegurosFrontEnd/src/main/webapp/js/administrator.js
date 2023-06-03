@@ -63,7 +63,7 @@ class Administrator{
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" >
-                        <img class="img-circle" id="img_logo" src="images/logo.png" style="max-width: 50px; max-height: 50px" alt="logo">
+                        <img class="img-circle" id="img_logo" src="images/Logotipo.png" style="max-width: 50px; max-height: 50px" alt="logo">
                         <span style='margin-left:4em;font-weight: bold;'>Country</span> 
                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
