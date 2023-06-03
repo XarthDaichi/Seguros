@@ -3,6 +3,7 @@ class App{
     
     modal;
     registerUserModal;
+    editUserModal;
     
     state;
     
@@ -14,11 +15,17 @@ class App{
         this.dom=this.render();
         this.renderBodyFiller();
         this.renderMenuItems();
+        
         this.policies = new Policies();
         //this.administrator = new Administrator(); This line breaks front-end, class needs checking
+        
         this.modal = new bootstrap.Modal(this.dom.querySelector('#app>#modal'));
         this.registerUserModal = new bootstrap.Modal(this.dom.querySelector('#app>#registerUserModal'));
+        this.editUserModal = new bootstrap.Modal(this.dom.querySelector('#app>#editUserModal'));
+        
         this.dom.querySelector('#app>#modal #apply').addEventListener('click',e=>this.login());
+        this.dom.querySelector('#app>#registerUserModal #applyRegister').addEventListener('click',e=>this.register());
+        //Make eventListener for applyChanges button in editUserModal
     }
     
     render=()=>{
@@ -124,7 +131,7 @@ class App{
                                 <button id="apply" type="button" class="btn btn-primary" id="apply">Login</button>
                             </div>
                             <div class="input-group">
-                                <span style="font-style: italic; margin-left: 2em;">No tiene cuenta? ... </span>
+                                <span style="font-style: italic; margin-left: 2em; margin-right: 10px">No tiene cuenta?   </span>
                                 <a id="register" class="btn btn-info btn-block" style="margin-bottom: 15px; background-color: white; color:red; border:1px solid red" href="#">Registrese aquí</a>
                             </div>                
                         </form>                 
@@ -140,7 +147,7 @@ class App{
                             <span style='margin-left:4em;font-weight: bold;'>Register</span> 
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form id="form" >
+                        <form id="registerUserForm" >
                             <div class="modal-body">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">ID</span>
@@ -159,7 +166,7 @@ class App{
         
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Phone number</span>
-                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone number" required>
+                                    <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="Phone number" required>
                                 </div>
         
                                 <div class="input-group mb-3">
@@ -174,6 +181,54 @@ class App{
                             </div>
                             <div class="modal-footer">
                                 <button id="applyRegister" type="button" class="btn btn-primary" id="applyRegister">Register</button>
+                            </div>               
+                        </form>                 
+                    </div>         
+                </div>          
+            </div>
+        
+            <div id="editUserModal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" >
+                            <img class="img-circle" id="img_logo" src="images/profile.png" style="max-width: 50px; max-height: 50px" alt="logo">
+                            <span style='margin-left:4em;font-weight: bold;'>Edit user info</span> 
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="editUserForm" >
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">ID</span>
+                                    <input type="text" class="form-control" id="id" name="id" placeholder="ID" required>
+                                </div> 
+        
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Password</span>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                </div>
+        
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Name</span>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                                </div>
+        
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Phone number</span>
+                                    <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="Phone number" required>
+                                </div>
+        
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Email</span>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+                                </div>
+        
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Card number</span>
+                                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Card number" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="applyRegister" type="button" class="btn btn-primary" id="applyChanges">Apply</button>
                             </div>               
                         </form>                 
                     </div>         
@@ -227,9 +282,11 @@ class App{
         };
         this.dom.querySelector('#app>#menu #menuItems').replaceChildren();
         this.dom.querySelector('#app>#menu #menuItems').innerHTML=html;
+        
         this.dom.querySelector("#app>#menu #menuItems #policies")?.addEventListener('click', e=>this.policiesShow());
         this.dom.querySelector("#app>#menu #menuItems #clientsPolicies")?.addEventListener('click', e=>this.administratorShow());
-        //Make eventListener for clientsPolicies & userProfile menu items
+        
+        this.dom.querySelector("#app>#menu #menuItems #userProfile")?.addEventListener('click', e=>this.editUserModal.show());
         this.dom.querySelector("#app>#menu #menuItems #login")?.addEventListener('click', e=>this.modal.show());  
         this.dom.querySelector("#app>#menu #menuItems #logout")?.addEventListener('click', e=>this.logout());
         
@@ -242,6 +299,9 @@ class App{
             switch(globalstate.user.administrator){
                 case false://Client
                     this.policiesShow();
+                    break;
+                case true://Admin
+                    this.administratorShow();
                     break;
             }
         }
@@ -288,6 +348,33 @@ class App{
             this.modal.hide();
             this.renderMenuItems();
             this.clearLoginModal();
+        }catch(err){
+            console.error(err);
+        }
+    }
+    
+    register = async() =>{
+        const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#registerUserForm"))).entries());
+        candidate.administrator = false;
+        
+        const registerUserRequest = new Request(`${backend}/register`,{
+            method:'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(candidate)
+        });
+        
+        try{
+            const response = await fetch(registerUserRequest);
+            
+            if(!response.ok){
+                const error = await response.text();
+                console.log("REGISTER ERROR - "+error);
+                return;
+            }
+            
+            console.log("REGISTER SUCCESSFUL");
+            this.registerUserModal.hide();
+            
         }catch(err){
             console.error(err);
         }
