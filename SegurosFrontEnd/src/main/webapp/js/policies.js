@@ -1,92 +1,96 @@
-class Policies{
+class Policies {
     dom;
     createPolicyModal;
-  
+
     state;
 
-    constructor(){
-      this.state = {'entities': new Array(), 'entity': this.emptyEntity(), 'mode':'A'};
-      this.dom = this.render();
-      this.dom.querySelector("#createPolicy").addEventListener('click',this.showModal);
-      this.modal = new bootstrap.Modal(this.dom.querySelector('#createPolicyModal'));
-      this.dom.querySelector('#searchButton').addEventListener('click',this.search);
-    }
-  
-    render=()=>{
-      const html= `
-              ${this.renderList()}
-              ${this.renderModal()}    
-          `;
-         var rootContent= document.createElement('div');
-         rootContent.id='policies';       
-         rootContent.innerHTML=html;
-         return rootContent;
+    constructor() {
+        this.state = { 'entities': new Array(), 'entity': this.emptyEntity(), 'mode': 'A' };
+        this.dom = this.render();
+        this.createPolicyModal = new bootstrap.Modal(this.dom.querySelector("#createPolicyModal"));
+        this.dom.querySelector("#createPolicy").addEventListener('click', e=>this.showModal());
+        this.dom.querySelector("#searchButton").addEventListener('click', e=>this.search());
     }
 
-    renderList=()=>{
-      return `
-         <div class="container mt-5">
-           <div class="row">
-             <div class="col-md-12">
-               <h1 class="text-center">Pólizas de Seguro</h1>
-               <div class="d-flex justify-content-end mb-3">
-                 <button class="btn btn-primary" id="createPolicy" data-bs-toggle="modal" data-bs-target="#crearPolizaModal">
-                   <i class="fas fa-plus"></i> Crear Póliza
-                 </button>
-               </div>
-               <div class="card">
-                 <div class="card-body">
-                   <div class="input-group mb-3">
-                     <input type="text" class="form-control" id="searchButton" placeholder="Buscar por número de placa">
-                     <button class="btn btn-outline-secondary" type="button" id="botonBusqueda">Buscar</button>
-                   </div>
-                   <div class="table-responsive">
-                     <table class="table table-striped">
-                       <thead>
-                         <tr>
-                           <th>Número de Póliza</th>
-                           <th>Número de Placa</th>
-                           <th>Fecha</th>
-                           <th>Automóvil</th>
-                           <th>Valor</th>
-                           <th>Acciones</th>
-                         </tr>
-                       </thead>
-                       <tbody>
-                         <!-- Filas de datos de muestra -->
-                         <tr>
-                           <td>1234</td>
-                           <td>ABC123</td>
-                           <td>2023-06-01</td>
-                           <td>Honda Civic</td>
-                           <td>$500</td>
-                           <td>
-                             <button class="btn btn-sm btn-info">Ver</button>
-                           </td>
-                         </tr>
-                         <tr>
-                           <td>5678</td>
-                           <td>XYZ789</td>
-                           <td>2023-05-30</td>
-                           <td>Toyota Corolla</td>
-                           <td>$800</td>
-                           <td>
-                             <button class="btn btn-sm btn-info">Ver</button>
-                           </td>
-                         </tr>
-                       </tbody>
-                     </table>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       `;
+    render = () => {
+        const html = `
+          ${this.renderList()}
+          ${this.renderModal()}
+        `;
+        var rootContent = document.createElement('div');
+        rootContent.id = 'policies';
+        rootContent.innerHTML = html;
+        return rootContent;
     }
-   
-    renderModal=()=>{
-        return `
+    
+    //RenderPoliciesList: Pone en cada row, los datos de state.policies.
+    
+    //RenderPolicies: Hace la petición de polizas al backend
+
+    renderList = () => {
+      return `
+        <div class="container mt-5">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="text-center">Pólizas de Seguro</h1>
+              <div class="d-flex justify-content-end mb-3">
+                <button class="btn btn-primary" id="createPolicy" data-bs-toggle="modal" data-bs-target="#crearPolizaModal">
+                  <i class="fas fa-plus"></i> Crear Póliza
+                </button>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="searchButton" placeholder="Buscar por número de placa">
+                    <button class="btn btn-outline-secondary" type="button" id="botonBusqueda">Buscar</button>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Número de Póliza</th>
+                          <th>Número de Placa</th>
+                          <th>Fecha</th>
+                          <th>Automóvil</th>
+                          <th>Valor</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Filas de datos de muestra -->
+                        <tr>
+                          <td>1234</td>
+                          <td>ABC123</td>
+                          <td>2023-06-01</td>
+                          <td>Honda Civic</td>
+                          <td>$500</td>
+                          <td>
+                            <button class="btn btn-sm btn-info">Ver</button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>5678</td>
+                          <td>XYZ789</td>
+                          <td>2023-05-30</td>
+                          <td>Toyota Corolla</td>
+                          <td>$800</td>
+                          <td>
+                            <button class="btn btn-sm btn-info">Ver</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    };
+
+    renderModal = () => {
+      const modalHTML = `
         <div id="createPolicyModal" class="modal fade" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -156,22 +160,23 @@ class Policies{
             </div>
           </div>
         </div>
-      `;     
+      `;
+      return modalHTML;
+    };
+
+    showModal = () => {
+        this.createPolicyModal.show();
+    };
+
+    emptyEntity = () => {
+
     }
 
-    showModal= async ()=>{
-        this.createPolicyModal.show();
-    }
-  
     makenew = () => {
         this.state.mode = 'A';
         this.showModal();
     }
-    
-    emptyEntity=()=>{
-        
-    }
-    
+
     search = () => {
 //        const searchInput = this.dom.querySelector('#searchInput').value.toLowerCase();
 //
@@ -187,5 +192,4 @@ class Policies{
 //
 //        this.renderPolizasTable(filteredPolizas);
     }
-
-} 
+}
