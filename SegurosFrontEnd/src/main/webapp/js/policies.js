@@ -120,7 +120,7 @@ class Policies {
     
 
     renderModal = () => {
-      const modalHTML = `
+      return `
         <div id="createPolicyModal" class="modal fade" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -191,7 +191,6 @@ class Policies {
           </div>
         </div>
       `;
-      return modalHTML;
     };
 
     showModal = () => {
