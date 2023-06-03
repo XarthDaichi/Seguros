@@ -10,13 +10,13 @@ class App{
     
     constructor(){
         this.state={};
-        this.dom=this.render(); 
-        this.modal = new bootstrap.Modal(this.dom.querySelector('#app>#modal'));
-        this.registerUserModal = new bootstrap.Modal(this.dom.querySelector('#app>#registerUserModal'));
-        this.dom.querySelector('#app>#modal #apply').addEventListener('click',e=>this.login());
+        this.dom=this.render();
         this.renderBodyFiller();
         this.renderMenuItems();
         this.policies = new Policies();
+        this.modal = new bootstrap.Modal(this.dom.querySelector('#app>#modal'));
+        this.registerUserModal = new bootstrap.Modal(this.dom.querySelector('#app>#registerUserModal'));
+        this.dom.querySelector('#app>#modal #apply').addEventListener('click',e=>this.login());
     }
     
     render=()=>{
@@ -229,8 +229,8 @@ class App{
         });
         
         if(globalstate.user!==null){
-            switch(globalstate.user.rol){
-                case '0'://CLient
+            switch(globalstate.user.administrator){
+                case false://Client
                     this.policiesShow();
                     break;
             }
@@ -239,7 +239,6 @@ class App{
     
     policiesShow=()=>{
         this.dom.querySelector('#app>#body').replaceChildren(this.policies.dom);
-        this.policies.list();
     }
     
     login= async ()=>{
@@ -262,17 +261,13 @@ class App{
             
             if(!response.ok){
                 const error = await response.text();
-                console.log("LOGIN ERROR"+error);
+                console.log("LOGIN ERROR - "+error);
                 return;
             }
             
-            //console.log("LOGIN SUCCESSFUL");
+            console.log("LOGIN SUCCESSFUL");
             const user = await response.json();
             globalstate.user = user;
-            
-            /*if(globalstate.user.administrator === '0'){
-                //Verify usability of this clause
-            }*/ //Might be unnecessary needs checking
             
             this.modal.hide();
             this.renderMenuItems();
@@ -283,7 +278,6 @@ class App{
     }
     
     logout= async ()=>{
-        //Invoque backend for login
         globalstate.user=null;
         this.dom.querySelector('#app>#body').replaceChildren();
         this.renderBodyFiller();
