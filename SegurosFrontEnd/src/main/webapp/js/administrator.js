@@ -13,7 +13,7 @@ class Administrator{
         this.modal = new bootstrap.Modal(this.dom.querySelector('#modal'));
         this.clients = new Clients();
 //        this.dom.querySelector("#policies #create").addEventListener('click',this.makenew);        
-//        this.dom.querySelector("#policies #search").addEventListener('click',this.search);
+        this.dom.querySelector("#search").addEventListener('click',this.search);
 //        this.dom.querySelector('#policies #modal #form #apply').addEventListener('click',this.add);
     }
     

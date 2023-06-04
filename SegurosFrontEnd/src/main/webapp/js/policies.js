@@ -214,8 +214,8 @@ class Policies {
             filteredPolicies = this.state.policiesList;
         } else {
             filteredPolicies = this.state.policiesList.filter(policy => {
-                const { id } = policy;
-                return id.toLowerCase().includes(searchInput);
+                const { license } = policy;
+                return license.toLowerCase().includes(searchInput);
             });
         }
 
