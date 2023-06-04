@@ -141,37 +141,37 @@ class Policies {
                                 <div class="tab-pane fade show active" id="datosBasicos" role="tabpanel" aria-labelledby="datosBasicosTab">
                                     <form id="addPolicyForm">
                                         <div class="mb-3">
-                                            <label for="numeroPlaca" class="form-label">Número de Placa del Vehículo</label>
-                                            <input type="text" class="form-control" id="numeroPlaca" placeholder="Ingrese el número de placa del vehículo" required>
+                                            <label for="license" class="form-label">Número de Placa del Vehículo</label>
+                                            <input type="text" class="form-control" id="license" placeholder="Ingrese el número de placa del vehículo" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="anioVehiculo" class="form-label">Año del Vehículo</label>
                                             <input type="text" class="form-control" id="anioVehiculo" placeholder="Ingrese el año del vehículo" pattern="^((188[6-9])|(18[9][0-9])|(19[0-9]{2})|(200[0-9])|(201[0-9])|(202[0-3]))$" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="marcaModelo" class="form-label">Marca y Modelo del Vehículo</label>
-                                            <select class="form-select" id="marcaModelo" required>
+                                            <label for="vehicle" class="form-label">Marca y Modelo del Vehículo</label>
+                                            <select class="form-select" id="vehicle" required>
                                                 <option value="">Seleccione la marca y modelo del vehículo...</option>
                                                 <!-- Opciones de marca y modelo aquí con renderVehiculos-->
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="valorVehiculo" class="form-label">Valor del Vehículo en Colones</label>
-                                            <input type="text" class="form-control" id="valorVehiculo" placeholder="Ingrese el valor del vehículo en colones" required>
+                                            <label for="insuredValue" class="form-label">Valor del Vehículo en Colones</label>
+                                            <input type="text" class="form-control" id="insuredValue" placeholder="Ingrese el valor del vehículo en colones" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Método de Pago</label>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="metodoPago" id="Trimestral" required>
-                                                <label class="form-check-label" for="Trimestral">Pago Trimestral</label>
+                                                <input class="form-check-input" type="radio" name="termChosen" id="QUARTERLY" required>
+                                                <label class="form-check-label" for="QUARTERLY">Trimestral</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="metodoPago" id="Semestral" required>
-                                                <label class="form-check-label" for="Semestral">Pago Semestral</label>
+                                                <input class="form-check-input" type="radio" name="termChosen" id="BIANNUAL" required>
+                                                <label class="form-check-label" for="BIANNUAL">Semestral</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="metodoPago" id="Anual" required>
-                                                <label class="form-check-label" for="Anual">Pago Anual</label>
+                                                <input class="form-check-input" type="radio" name="termChosen" id="ANNUAL" required>
+                                                <label class="form-check-label" for="ANNUAL">Anual</label>
                                             </div>
                                         </div>
                                     </form>

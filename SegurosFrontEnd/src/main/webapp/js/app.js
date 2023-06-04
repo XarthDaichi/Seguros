@@ -357,7 +357,7 @@ class App{
         const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#registerUserForm"))).entries());
         candidate.administrator = false;
         
-        const registerUserRequest = new Request(`${backend}/register`,{
+        const registerUserRequest = new Request(`${backend}/clients`,{
             method:'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(candidate)
