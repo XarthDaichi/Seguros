@@ -96,7 +96,7 @@ class Administrator{
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="${client.id}-policiesTableBody">
+                        <tbody id="${client.id}policiesTableBody">
                         </tbody>
                     </table>
                 </div>
@@ -122,7 +122,7 @@ class Administrator{
            }
            console.log("CLIENT POLICIES AQUIRED");
            const clientPoliciesList = await response.json();
-           
+
            let html = '';
         
            clientPoliciesList.forEach((policy) => {
