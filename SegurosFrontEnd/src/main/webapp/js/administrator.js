@@ -1,20 +1,18 @@
 class Administrator{
     dom;
-    
-    modal;
+    clientsModal;
     
     state;
-    
-    clients;
     
     constructor(){
         this.state = {'entities': new Array(), 'entity': this.emptyEntity(), 'mode':'A'};
         this.dom = this.render();
-        this.modal = new bootstrap.Modal(this.dom.querySelector('#modal'));
-        this.clients = new Clients();
-//        this.dom.querySelector("#policies #create").addEventListener('click',this.makenew);        
-        this.dom.querySelector("#search").addEventListener('click',this.search);
+        this.clientsModal = new bootstrap.Modal(this.dom.querySelector("#clientsModal"))
+//        this.dom.querySelector("#search").addEventListener('click',this.search);
 //        this.dom.querySelector('#policies #modal #form #apply').addEventListener('click',this.add);
+//        this.modal = new bootstrap.Modal(this.dom.querySelector('#modal'));
+//        this.clients = new Clients();
+//        this.dom.querySelector("#policies #create").addEventListener('click',this.makenew);        
     }
     
     render=()=>{
@@ -30,37 +28,76 @@ class Administrator{
     
     renderList=()=>{
      return `
-        <div id="list" class="container">     
-            <div class="card bg-light">
-                <h4 class="card-title mt-3 text-center">Policies</h4>    
-                <div class="card-body mx-auto w-75" >
-                    <form id="form">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Name</span>
-                            <input id="name" type="text" class="form-control">
-                          <div class="btn-toolbar">
-                            <div class="btn-group me-2"><button type="button" class="btn btn-primary" id="search">Search</button> </div>
-                            <div class="btn-group me-2"><button type="button" class="btn btn-primary" id="create">Create</button> </div>                        
-                          </div>  
-                        </div>
-                    </form>
-
-                    <div class="table-responsive " style="max-height: 300px; overflow: auto">
-                        <table class="table table-striped table-hover">
-                            <thead><tr><th scope="col">Name</th><th scope="col">Flag</th></tr></thead>
-                            <tbody id="listbody">
-                            </tbody>
-                        </table>
-                    </div>                 
+        <div class="container mt-5">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="text-center">Pólizas por Usuarios</h1>
+              <div class="card">
+                <div class="card-body">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar por número de usuario">
+                    <button class="btn btn-outline-secondary" type="button" id="searchButton">Buscar</button>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Nombre de Usuario</th>
+                        </tr>
+                      </thead>
+                      <tbody id = "clientsTableBody">
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
         `;
    }
    
+   renderClientsList = (clients) => {
+       const tableBody = this.dom.querySelector("#clientsTableBody");
+       tableBody.innerHTML = '';
+       
+       clients.forEach((client) => {
+           const row = document.createElement('tr');
+           row.innerHTML = `
+            <td>${client.name}</td>
+            `;
+            
+            tableBody.appendChild(row);
+       });
+   }
+   
+   renderClients = async () => {
+       const clientsRequest = new Request(`${backend}/clients`, {
+          method:'GET',
+          headers: {'Content-Type': 'application/json'}
+       });
+       
+       try {
+           const response = await fetch(clientsRequest);
+           
+           if (!response.ok) {
+               const error = await response.text();
+               console.log("GET CLIENTS ERROR - " + error);
+               return;
+           }
+           
+           console.log("CLIENTS AQUIRED");
+           const clientsList = await response.json();
+           this.state.clientsList = clientsList;
+           this.renderClientsList(clientsList);
+       } catch (err) {
+           console.error(err);
+       }
+   }
+   
    renderModal=()=>{
      return `
-        <div id="modal" class="modal fade" tabindex="-1">
+        <div id="clientsModal" class="modal fade" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" >

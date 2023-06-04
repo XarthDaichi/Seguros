@@ -17,7 +17,7 @@ class App{
         this.renderMenuItems();
         
         this.policies = new Policies();
-        //this.administrator = new Administrator(); This line breaks front-end, class needs checking
+        this.administrator = new Administrator(); // This line breaks front-end, class needs checking
         
         this.modal = new bootstrap.Modal(this.dom.querySelector('#app>#modal'));
         this.registerUserModal = new bootstrap.Modal(this.dom.querySelector('#app>#registerUserModal'));
@@ -321,7 +321,8 @@ class App{
     }
     
     administratorShow=()=>{
-        //Show all clients policies like policiesShow
+        this.dom.querySelector('#app>#body').replaceChildren(this.administrator.dom);
+        this.administrator.renderClients();
     }
      
     
