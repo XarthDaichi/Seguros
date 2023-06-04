@@ -1,5 +1,3 @@
-/* global await, html */
-
 class Administrator{
     dom;
     clientsModal;
@@ -74,7 +72,7 @@ class Administrator{
        }
     }
    
-    renderClientsList = () => {
+    renderClientsList = async () => {
         const tableBody = this.dom.querySelector("#clients");
         tableBody.innerHTML = '';
        
@@ -96,14 +94,13 @@ class Administrator{
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="${client.id}policiesTableBody">
+                        <tbody id="policiesTableBody${client.id}">
                         </tbody>
                     </table>
                 </div>
             `;
-            
-            row.innerHTML += /*await*/ this.renderClientPolicies(client);
             tableBody.appendChild(row);
+            this.renderClientPolicies(client);
         });
     }   
    
@@ -122,35 +119,33 @@ class Administrator{
            }
            console.log("CLIENT POLICIES AQUIRED");
            const clientPoliciesList = await response.json();
-
-           let html = '';
+           
+           const tableBody = this.dom.querySelector(`#policiesTableBody${client.id}`);
+           tableBody.innerHTML = '';
         
            clientPoliciesList.forEach((policy) => {
+                const row = document.createElement('tr');
                 const buttonId = `details-${policy.id}`;
-                const row = `
-                    <tr>
-                        <td>${policy.id}</td>
-                        <td>${policy.license}</td>
-                        <td>${policy.initialDate}</td>
-                        <td>${policy.vehicle.brand} - ${policy.vehicle.model}</td>
-                        <td><img src="${backend}/vehicles/${policy.vehicle.id}/image" style="display: block; margin: 0 auto; max-width: 200px; max-height: 200px;"></td>
-                        <td>${policy.insuredValue}</td>
-                        <td>${policy.term}</td>
-                        <td><button id="${buttonId}" class="btn btn-sm data-id="${policy.id}"><i class="fas fa-search"></i></button></td>
-                    </tr>
+                row.innerHTML = `
+                    <td>${policy.id}</td>
+                    <td>${policy.license}</td>
+                    <td>${policy.initialDate}</td>
+                    <td>${policy.vehicle.brand} - ${policy.vehicle.model}</td>
+                    <td><img src="${backend}/vehicles/${policy.vehicle.id}/image" style="display: block; margin: 0 auto; max-width: 200px; max-height: 200px;"></td>
+                    <td>${policy.insuredValue}</td>
+                    <td>${policy.term}</td>
+                    <td><button id="${buttonId}" class="btn btn-sm data-id="${policy.id}"><i class="fas fa-search"></i></button></td>
                 `;
 
                 //this.dom.querySelect(`#${buttonId}`)?.addEventListener('click', e=>this.showPolicyDetails());
                 const button = row.querySelector('button');
                 button.addEventListener('click', e=>this.showPolicyDetails());
 
-                html += row;
+                tableBody.appendChild(row);
             });
         }catch (err) {
            console.error(err);
         }
-        
-        return html;
     }
    
    renderModal=()=>{
