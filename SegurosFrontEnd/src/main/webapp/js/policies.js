@@ -46,14 +46,14 @@ class Policies {
                     <table class="table table-striped">
                       <thead>
                         <tr>
-                          <th>Número de Póliza</th>
-                          <th>Número de Placa</th>
-                          <th>Fecha</th>
-                          <th>Automóvil</th>
-                          <th>Valor</th>
-                          <th></th>
-                          <th>Plaza</th>
-                          <th>Acciones</th>
+                          <th scope="col">Número de Póliza</th>
+                          <th scope="col">Número de Placa</th>
+                          <th scope="col">Fecha</th>
+                          <th scope="col">Automóvil</th>
+                          <th scope="col">Valor</th>
+                          <th scope="col"></th>
+                          <th scope="col">Plaza</th>
+                          <th scope="col">Acciones</th>
                         </tr>
                       </thead>
                       <tbody id = "policiesTableBody">
@@ -84,12 +84,12 @@ class Policies {
             <td><img src="${backend}/vehicles/${policy.vehicle.id}/image" style="display: block; margin: 0 auto; max-width: 200px; max-height: 200px;"></td>
             <td>${policy.insuredValue}</td>
             <td>${policy.term}</td>
-            <td><button id="${buttonId}" class="btn btn-sm data-id="${policy.id}"><i class="fas fa-search"></i></button></td>
+            <td><button id="${buttonId}" class="btn btn-primary btn-sm" data-id="${policy.id}"><i class="fas fa-search"></i>Ver</button></td>
            `;
             
 //            this.dom.querySelect(`#${buttonId}`)?.addEventListener('click', e=>this.showPolicyDetails());
             const button = row.querySelector('button');
-            button.addEventListener('click', e=>this.showPolicyDetails());
+            button.addEventListener('click', e=>this.showPolicyDetails(e));
             
             tableBody.appendChild(row);
         });
@@ -206,8 +206,7 @@ class Policies {
                         <div id="modal-details-content" class="modal-body">
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                          <button id="siguienteBtn" type="button" class="btn btn-primary">Siguiente</button>
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
@@ -245,7 +244,7 @@ class Policies {
     }
     
     renderDetails = async (policyId) => {
-        const policy = this.state.policyList.find(p => p.id === policyId);
+        const policy = this.state.policiesList.find(p => p.id === policyId);
         
         let totalCost = 0;
         if (policy.rules && policy.rules.length > 0) {
@@ -289,7 +288,7 @@ class Policies {
                     <div class="col-12">
                         <h5>Coberturas:</h5>
                         <ul>
-                            ${policy.rules?.map(coverage => `<li>${coverage.descripcion} - ${policy.descripcion}.</li>`).join('')}
+                            ${policy.rules?.map(coverage => `<li>${coverage.name} - ${coverage.description}.</li>`).join('')}
                         </ul>
                     </div>
                 </div>
@@ -312,17 +311,18 @@ class Policies {
         
         const policyId = target.dataset.id;
         
-        if (isNaN(policyId)) {
-            console.error('Invalid id:', target.dataset.id);
-            return;
-        }
+//        if (isNaN(policyId)) {
+//            console.error('Invalid id:', target.dataset.id);
+//            return;
+//        }
         
         const details = await this.renderDetails(policyId);
         
-        const modalContent = this.dom.querySelector('#model-details-content');
+        const modalContent = this.dom.querySelector('#modal-details-content');
         modalContent.innerHTML = details;
         
-        const detailsModal = new bootstrap.Modal(this.dom.querySelector('#policyDetailsModal'));
-        detailsModal.show();
+        this.policyDetailsModal.show();
+//        const detailsModal = new bootstrap.Modal(this.dom.querySelector('#policyDetailsModal'));
+//        detailsModal.show();
     }
 }

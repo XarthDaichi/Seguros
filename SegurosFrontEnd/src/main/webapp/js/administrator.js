@@ -38,16 +38,7 @@ class Administrator{
                     <input type="text" class="form-control" id="searchInput" placeholder="Buscar por número de usuario">
                     <button class="btn btn-outline-secondary" type="button" id="searchButton">Buscar</button>
                   </div>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>Nombre de Usuario</th>
-                        </tr>
-                      </thead>
-                      <tbody id = "clientsTableBody">
-                      </tbody>
-                    </table>
+                  <div id="clients" class="table-responsive">
                   </div>
                 </div>
               </div>
@@ -57,17 +48,78 @@ class Administrator{
         `;
    }
    
-   renderClientsList = (clients) => {
-       const tableBody = this.dom.querySelector("#clientsTableBody");
+   
+   renderClientPolicies = async (client) => {
+       const clientPoliciesRequest = new Request (`${backend}/policies?id=${client.id}`, {
+          method:'GET',
+          headers: {'Content-Type': 'application/json'}
+       });
+       
+       try {
+           const response = await fetch(clientPoliciesRequest);
+           if (!response.ok) {
+               const error = await response.text();
+               console.log("GET CLIENT POLICIES ERROR - " + error);
+               return;
+           }
+           console.log("CLIENT POLICIES AQUIRED");
+           const clientPoliciesList = await response.json();
+           
+           const tableBody = this.dom.querySelector(`#${client.id}-policiesTableBody`);
+           tableBody.innerHTML = '';
+        
+           clientPoliciesList.forEach((policy) => {
+            const row = document.createElement('tr');
+            const buttonId = `details-${policy.id}`;
+            row.innerHTML = `
+                <td>${policy.id}</td>
+                <td>${policy.license}</td>
+                <td>${policy.initialDate}</td>
+                <td>${policy.vehicle.brand} - ${policy.vehicle.model}</td>
+                <td><img src="${backend}/vehicles/${policy.vehicle.id}/image" style="display: block; margin: 0 auto; max-width: 200px; max-height: 200px;"></td>
+                <td>${policy.insuredValue}</td>
+                <td>${policy.term}</td>
+                <td><button id="${buttonId}" class="btn btn-sm data-id="${policy.id}"><i class="fas fa-search"></i></button></td>
+            `;
+
+    //      this.dom.querySelect(`#${buttonId}`)?.addEventListener('click', e=>this.showPolicyDetails());
+            const button = row.querySelector('button');
+            button.addEventListener('click', e=>this.showPolicyDetails());
+
+            tableBody.appendChild(row);
+           });
+       } catch (err) {
+           console.error(err);
+       }
+   }
+   
+   renderClientsList = async (clients) => {
+       const tableBody = this.dom.querySelector("#clients");
        tableBody.innerHTML = '';
        
        clients.forEach((client) => {
-           const row = document.createElement('tr');
+           const row = document.createElement('div');
            row.innerHTML = `
-            <td>${client.name}</td>
+            <h5>${client.id} - ${client.name}</h5>
+            <table class="table table-striped>
+                <thead>
+                    <tr>
+                        <th>Número de Póliza</th>
+                        <th>Número de Placa</th>
+                        <th>Fecha</th>
+                        <th>Automóvil</th>
+                        <th>Valor</th>
+                        <th></th>
+                        <th>Plaza</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="${client.id}-policiesTableBody">
+                </tbody>
+            </table>
             `;
-            
             tableBody.appendChild(row);
+            renderClientPolicies(client);
        });
    }
    
