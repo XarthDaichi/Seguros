@@ -214,17 +214,8 @@ class Policies {
         `;
     };
 
-    showModal = async () => {
-        await loadCoverages();
-    };
-
     emptyEntity = () => {
 
-    }
-
-    makenew = () => {
-        this.state.mode = 'A';
-        this.showModal();
     }
 
     search = () => {
@@ -404,5 +395,14 @@ class Policies {
            html += `</optgroup>`;
         });
         return html;
+    }
+    
+    showModal = async () => {
+        await loadCoverages();
+    };
+    
+    makenew = () => {
+        this.state.mode = 'A';
+        this.showModal();
     }
 }
