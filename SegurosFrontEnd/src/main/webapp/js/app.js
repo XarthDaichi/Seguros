@@ -63,14 +63,14 @@ class App{
     
     renderBody=()=>{
         return `
-            <div id="body">   
+            <div id="body" style="margin-bottom: 51px">   
             </div>          
         `;
     }
     
     renderFooter=()=>{
         return `
-            <footer id="footer" class="bg-dark text-white mt-4 w-100 fixed-bottom">
+            <footer id="footer" class="bg-dark text-white mt-4 w-100">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
@@ -144,39 +144,39 @@ class App{
                     <div class="modal-content">
                         <div class="modal-header" >
                             <img class="img-circle" id="img_logo" src="images/profile.png" style="max-width: 50px; max-height: 50px" alt="logo">
-                            <span style='margin-left:4em;font-weight: bold;'>Register</span> 
+                            <span style='margin-left:4em;font-weight: bold;'>Registro</span> 
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form id="registerUserForm" >
                             <div class="modal-body">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">ID</span>
-                                    <input type="text" class="form-control" id="id" name="id" placeholder="ID" required>
+                                    <input type="text" class="form-control" id="id" name="id" required>
                                 </div> 
         
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Password</span>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                    <input type="password" class="form-control" id="password" name="password" required>
                                 </div>
         
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Name</span>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                                    <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
         
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Phone number</span>
-                                    <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="Phone number" required>
+                                    <input type="text" class="form-control" id="cellphone" name="cellphone" required>
                                 </div>
         
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Email</span>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+                                    <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
         
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Card number</span>
-                                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Card number" required>
+                                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -192,7 +192,7 @@ class App{
                     <div class="modal-content">
                         <div class="modal-header" >
                             <img class="img-circle" id="img_logo" src="images/profile.png" style="max-width: 50px; max-height: 50px" alt="logo">
-                            <span style='margin-left:4em;font-weight: bold;'>Edit user info</span> 
+                            <span style='margin-left:4em;font-weight: bold;'>Editar usuario</span> 
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form id="editUserForm" >
@@ -214,32 +214,32 @@ class App{
         this.dom.querySelector('#editUserModalBody').innerHTML = `
             <div class="input-group mb-3">
                 <span class="input-group-text">ID</span>
-                <input type="text" class="form-control" id="id" name="id" placeholder="ID" value="${globalstate.user.id}" readonly>
+                <input type="text" class="form-control" id="id" name="id" value="${globalstate.user.id}" readonly>
             </div> 
         
             <div class="input-group mb-3">
                 <span class="input-group-text">Password</span>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="${globalstate.user.password}" required>
+                <input type="password" class="form-control" id="password" name="password" value="${globalstate.user.password}" required>
             </div>
         
             <div class="input-group mb-3">
                 <span class="input-group-text">Name</span>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="${globalstate.user.name}" required>
+                <input type="text" class="form-control" id="name" name="name" value="${globalstate.user.name}" required>
             </div>
         
             <div class="input-group mb-3">
                 <span class="input-group-text">Phone number</span>
-                <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="Phone number" value="${globalstate.user.cellphone}" required>
+                <input type="text" class="form-control" id="cellphone" name="cellphone" value="${globalstate.user.cellphone}" required>
             </div>
         
             <div class="input-group mb-3">
                 <span class="input-group-text">Email</span>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email address" value="${globalstate.user.email}" required>
+                <input type="email" class="form-control" id="email" name="email" value="${globalstate.user.email}" required>
             </div>
         
             <div class="input-group mb-3">
                 <span class="input-group-text">Card number</span>
-                <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Card number" value="${globalstate.user.cardNumber}" required>
+                <input type="text" class="form-control" id="cardNumber" name="cardNumber" value="${globalstate.user.cardNumber}" required>
             </div>
         `;
         this.editUserModal.show();
