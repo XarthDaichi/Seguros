@@ -25,7 +25,7 @@ class App{
         
         this.dom.querySelector('#app>#modal #apply').addEventListener('click',e=>this.login());
         this.dom.querySelector('#app>#registerUserModal #applyRegister').addEventListener('click',e=>this.register());
-        //Make eventListener for applyChanges button in editUserModal
+        this.dom.querySelector('#app>#editUserModal #applyChanges').addEventListener('click', e=>this.editUser());
     }
     
     render=()=>{
@@ -196,45 +196,53 @@ class App{
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form id="editUserForm" >
-                            <div class="modal-body">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">ID</span>
-                                    <input type="text" class="form-control" id="id" name="id" placeholder="ID" required>
-                                </div> 
-        
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Password</span>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                                </div>
-        
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Name</span>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
-                                </div>
-        
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Phone number</span>
-                                    <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="Phone number" required>
-                                </div>
-        
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Email</span>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
-                                </div>
-        
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Card number</span>
-                                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Card number" required>
-                                </div>
+                            <div class="modal-body" id="editUserModalBody">
+                                
                             </div>
                             <div class="modal-footer">
-                                <button id="applyRegister" type="button" class="btn btn-primary" id="applyChanges">Apply</button>
+                                <button id="applyChanges" type="button" class="btn btn-primary" id="applyChanges">Apply</button>
                             </div>               
                         </form>                 
                     </div>         
                 </div>          
             </div>
         `;
+    }
+    
+    renderUserData=()=>{
+        this.dom.querySelector('#editUserModalBody').replaceChildren();
+        this.dom.querySelector('#editUserModalBody').innerHTML = `
+            <div class="input-group mb-3">
+                <span class="input-group-text">ID</span>
+                <input type="text" class="form-control" id="id" name="id" placeholder="ID" value="${globalstate.user.id}" readonly>
+            </div> 
+        
+            <div class="input-group mb-3">
+                <span class="input-group-text">Password</span>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="${globalstate.user.password}" required>
+            </div>
+        
+            <div class="input-group mb-3">
+                <span class="input-group-text">Name</span>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="${globalstate.user.name}" required>
+            </div>
+        
+            <div class="input-group mb-3">
+                <span class="input-group-text">Phone number</span>
+                <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="Phone number" value="${globalstate.user.cellphone}" required>
+            </div>
+        
+            <div class="input-group mb-3">
+                <span class="input-group-text">Email</span>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email address" value="${globalstate.user.email}" required>
+            </div>
+        
+            <div class="input-group mb-3">
+                <span class="input-group-text">Card number</span>
+                <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Card number" value="${globalstate.user.cardNumber}" required>
+            </div>
+        `;
+        this.editUserModal.show();
     }
     
     renderBodyFiller=()=>{
@@ -286,7 +294,6 @@ class App{
         this.dom.querySelector("#app>#menu #menuItems #policies")?.addEventListener('click', e=>this.policiesShow());
         this.dom.querySelector("#app>#menu #menuItems #clientsPolicies")?.addEventListener('click', e=>this.administratorShow());
         
-        this.dom.querySelector("#app>#menu #menuItems #userProfile")?.addEventListener('click', e=>this.editUserModal.show());
         this.dom.querySelector("#app>#menu #menuItems #login")?.addEventListener('click', e=>this.modal.show());  
         this.dom.querySelector("#app>#menu #menuItems #logout")?.addEventListener('click', e=>this.logout());
         
@@ -298,6 +305,7 @@ class App{
         if(globalstate.user!==null){
             switch(globalstate.user.administrator){
                 case false://Client
+                    this.dom.querySelector("#app>#menu #menuItems #userProfile")?.addEventListener('click', e=>this.renderUserData());
                     this.policiesShow();
                     break;
                 case true://Admin
@@ -375,6 +383,32 @@ class App{
             console.log("REGISTER SUCCESSFUL");
             this.registerUserModal.hide();
             
+        }catch(err){
+            console.error(err);
+        }
+    }
+    
+    editUser= async() =>{
+        const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#editUserForm"))).entries());
+        candidate.administrator = false;
+        
+        const updateUserRequest = new Request(`${backend}/clients`,{
+            method:'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(candidate)
+        });
+        
+        try{
+            const response = await fetch(updateUserRequest);
+            
+            if(!response.ok){
+                const error = await response.text();
+                console.log("UPDATE USER ERROR - "+error);
+                return;
+            }
+            
+            console.log("UPDATE USER SUCCESSFUL");
+            this.editUserModal.hide();
         }catch(err){
             console.error(err);
         }
