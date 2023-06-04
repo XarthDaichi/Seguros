@@ -12,6 +12,7 @@ class Policies {
         this.policyDetailsModal = new bootstrap.Modal(this.dom.querySelector("#policyModal"));
         this.dom.querySelector("#createPolicy").addEventListener('click', e=>this.showModal());
         this.dom.querySelector("#searchButton").addEventListener('click', e=>this.search());
+        this.dom.querySelector('#siguienteBtn').addEventListener('click', e=>this.validateAndProceed);
     }
 
     render = () => {
