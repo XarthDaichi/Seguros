@@ -330,7 +330,7 @@ class Policies {
             const coveragesHTML = this.renderCoverages();
             await this.loadVehicles();
             this.dom.querySelector('#createPolicyModal .modal-body .scrollable').innerHTML = coveragesHTML;
-            this.dom.querySelector('').innerHTML = this.renderVehicles();
+            this.dom.querySelector('#vehicle').innerHTML = this.renderVehicles();
             this.dom.addEventListener('input', this.validateForm);
             this.createPolicyModal.show();
         }catch(err){
@@ -382,7 +382,7 @@ class Policies {
     }
     
     renderVehicles = () => {
-        if (this.state.vehicles.length === 0) {
+        if (this.state.vehiclesByBrand.length === 0) {
             return `
                 <option value="">No hay vehículos registrados en este momento</option>
             `;
@@ -400,7 +400,7 @@ class Policies {
     }
     
     showModal = async () => {
-        await loadCoverages();
+        await this.loadCoverages();
     };
     
     makenew = () => {
