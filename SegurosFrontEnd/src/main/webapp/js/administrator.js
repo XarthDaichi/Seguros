@@ -119,7 +119,7 @@ class Administrator{
             </table>
             `;
             tableBody.appendChild(row);
-            renderClientPolicies(client);
+//            await renderClientPolicies(client);
        });
    }
    

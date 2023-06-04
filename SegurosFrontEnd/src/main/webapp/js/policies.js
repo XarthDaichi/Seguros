@@ -214,8 +214,8 @@ class Policies {
         `;
     };
 
-    showModal = () => {
-        this.createPolicyModal.show();
+    showModal = async () => {
+        await loadCoverages();
     };
 
     emptyEntity = () => {
@@ -265,7 +265,7 @@ class Policies {
                     <div class="col-6">${policy.license}</div>
                 </div>
                 <div class="row">
-                    <div class="col-6"><strong>Año:</strong></div>
+                    <div class="col-6"><strong>Fecha de Inicio:</strong></div>
                     <div class="col-6">${policy.initialDate}</div>
                 </div>
                 <div class="row">
@@ -311,18 +311,98 @@ class Policies {
         
         const policyId = target.dataset.id;
         
-//        if (isNaN(policyId)) {
-//            console.error('Invalid id:', target.dataset.id);
-//            return;
-//        }
-        
         const details = await this.renderDetails(policyId);
         
         const modalContent = this.dom.querySelector('#modal-details-content');
         modalContent.innerHTML = details;
         
         this.policyDetailsModal.show();
-//        const detailsModal = new bootstrap.Modal(this.dom.querySelector('#policyDetailsModal'));
-//        detailsModal.show();
+    }
+    
+    loadCoverages = async () => {
+        const request = new Request(`${backend}/categories`, {
+           method:'GET',
+           headers: {'Content-Type': 'application/json'}
+        });
+        
+        try {
+            const response = await fetch(request);
+            if (!response.ok) {
+                errorMessage("Falló la conexión con el servidor.");
+                return;
+            }
+            console.log("OK LOADING CATEGORIES");
+            const categories = await response.json();
+            
+            this.state.categories = categories;
+            
+            const coveragesHTML = this.renderCoverages();
+            await this.loadVehicles();
+            this.dom.querySelector('#createPolicyModal .modal-body .scrollable').innerHTML = coveragesHTML;
+            this.dom.querySelector('').innerHTML = this.renderVehicles();
+            this.dom.addEventListener('input', this.validateForm);
+            this.createPolicyModal.show();
+        }
+    }
+    
+    renderCoverages = () => {
+        let html = '';
+        this.state.categories.forEach(category => {
+           html += `
+            <div>
+                <h4>${category.name}</h4>
+            `;
+           category.coverages.forEach(coverage => {
+              html += `
+                <div class="form-check">
+                    <input class="form-check-input coverage-input" type="checkbox" value="" id="${coverage.id}">
+                    <label class="form-check-label" for="${coverage.name}">
+                        ${coverage.description}
+                    </label>
+                </div>
+               `;
+           });
+           
+           html += `<hr></div>`;
+        });
+        
+        return html;
+    }
+    
+    loadVehicles = async () => {
+        const request = new Request(`${backend}/vehicles`, {
+            method:'GET',
+            headers: {'Content-Type': 'application/json'}
+        });
+        try {
+            const response = await fetch(request);
+            if (!response.ok) {
+                errorMessage("Falló la conexión con el servidor");
+                return;
+            }
+            
+            const vehiclesByBrand = await response.json();
+            this.state.vehiclesByBrand = vehiclesByBrand;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    
+    renderVehicles = () => {
+        if (this.state.vehicles.length === 0) {
+            return `
+                <option value="">No hay vehículos registrados en este momento</option>
+            `;
+        }
+        
+        let html = '<option value="">Seleccione...</option>';
+        this.state.vehiclesByBrand.forEach(brand => {
+           html += `<optgroup label="${brand[0].brand}">`;
+           brand.forEach(model => {
+               html += `<option value="${model.brand}-${model.model}">${model.brand} - ${model.model}</option>`;
+           });
+           html += `</optgroup>`;
+        });
+        return html;
     }
 }
