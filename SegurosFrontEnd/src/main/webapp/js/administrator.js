@@ -102,7 +102,7 @@ class Administrator{
                 </div>
             `;
             
-            row.innerHTML += await this.renderClientPolicies(client);
+            row.innerHTML += /*await*/ this.renderClientPolicies(client);
             tableBody.appendChild(row);
         });
     }   
