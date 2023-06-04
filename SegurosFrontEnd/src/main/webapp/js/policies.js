@@ -213,7 +213,7 @@ class Policies {
             </div>
         `;
     };
-
+    
     emptyEntity = () => {
 
     }
@@ -333,6 +333,8 @@ class Policies {
             this.dom.querySelector('').innerHTML = this.renderVehicles();
             this.dom.addEventListener('input', this.validateForm);
             this.createPolicyModal.show();
+        }catch(err){
+            console.error(err);
         }
     }
     
