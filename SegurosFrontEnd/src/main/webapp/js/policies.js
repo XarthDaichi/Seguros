@@ -215,7 +215,7 @@ class Policies {
     };
 
     showModal = async () => {
-        await loadCoverages();
+        await this.loadCoverages();
     };
 
     emptyEntity = () => {
@@ -342,6 +342,8 @@ class Policies {
             this.dom.querySelector('').innerHTML = this.renderVehicles();
             this.dom.addEventListener('input', this.validateForm);
             this.createPolicyModal.show();
+        }catch(err){
+            console.error(err);
         }
     }
     
