@@ -151,22 +151,18 @@ class Policies {
                                             <input type="text" class="form-control" id="license" placeholder="Ingrese el número de placa del vehículo" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="anioVehiculo" class="form-label">Año del Vehículo</label>
-                                            <input type="text" class="form-control" id="anioVehiculo" placeholder="Ingrese el año del vehículo" pattern="^((188[6-9])|(18[9][0-9])|(19[0-9]{2})|(200[0-9])|(201[0-9])|(202[0-3]))$" required>
-                                        </div>
-                                        <div class="mb-3">
                                             <label for="vehicle" class="form-label">Marca y Modelo del Vehículo</label>
                                             <select class="form-select" id="vehicle" required>
-                                                <option value="">Seleccione la marca y modelo del vehículo...</option>
+                                                <option value="">Seleccione la marca, modelo y año del vehículo...</option>
                                                 <!-- Opciones de marca y modelo aquí con renderVehiculos-->
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="insuredValue" class="form-label">Valor del Vehículo en Colones</label>
-                                            <input type="text" class="form-control" id="insuredValue" placeholder="Ingrese el valor del vehículo en colones" required>
+                                            <label for="insuredValue" class="form-label">Valor Asegurado en Colones</label>
+                                            <input type="text" class="form-control" id="insuredValue" placeholder="Ingrese el valor asegurado en colones" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Método de Pago</label>
+                                            <label class="form-label">Plaza de la Póliza</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="termChosen" id="QUARTERLY" required>
                                                 <label class="form-check-label" for="QUARTERLY">Trimestral</label>
@@ -393,7 +389,7 @@ class Policies {
         this.state.vehiclesByBrand.forEach(brand => {
            html += `<optgroup label="${brand[0].brand}">`;
            brand.forEach(model => {
-               html += `<option value="${model.brand}-${model.model}">${model.brand} - ${model.model}</option>`;
+               html += `<option value="${model.brand}-${model.model}-${model.year}">${model.brand} - ${model.model} - ${model.year}</option>`;
            });
            html += `</optgroup>`;
         });
@@ -407,5 +403,61 @@ class Policies {
     makenew = () => {
         this.state.mode = 'A';
         this.showModal();
+    }
+    
+    renderToast = () => {
+        return `
+          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="alert" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);z-index: 9999;">
+            <div class="toast-header">
+              <strong class="me-auto">Alerta</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Asegurate de llenar todos los datos básicos con valores válidos y seleccionar al menos una cobertura para tu Póliza.
+            </div>
+          </div>
+        `;
+    }
+    
+    validateAndProceed = async () => {
+        const AllInputsFilled = Array.from(this.dom.querySelectAll('.required-input')).every(input => input.value.trim() !== '');
+        const atLeastOneCoverageSelected = Array.from(this.dom.querySelectorAll('.coverage-input')).some(input => input.checked);
+        const insuredValue = this.dom.querySelector('#insuredValue').value.trim(0;)
+        const validInsuredValue = !isNaN(insuredValue);
+        
+        if (!AllInputsFilled || !validInsuredValue || !atLeastOneCoverageSelected) {
+            const toastElement = new bootstrap.Toast(this.dom.querySelector('#alert'), {
+               animation:true;
+               delay: 2000
+            });
+            toastElement.show();
+            return;
+        }
+        
+        this.gatherPolicyData();
+        this.addPolicy();
+    }
+    
+    gatherPolicyData = () => {
+        const license = this.dom.querySelector('#license').value;
+        const vehicle = this.dom.querySelector('#vehicle').value.split('-');
+        const brand = vehicle[0];
+        const model = vehicle[1];
+        const year = vehicle[2];
+        const insuredValue = this.dom.querySelector('#insuredValue').value;
+        
+        const termInputs = Array.from(this.dom.querySelectorAll('input[name="termChosen"]'));
+        const term = termInputs.find(input => input.checked)?.id || '';
+        
+        const coverageInputs = Array.from(this.dom.querySelectorAll('.scrollable .form-check-input'));
+        const coverageSelec = coverageInputs.filter(input => input.checked).map(input => input.id);
+        
+        const coverages = coverageSelec.map(sel => this.state.categories.find());
+        
+        const client = globalstate.client;
+    }
+    
+    addPolicy = () => {
+        //
     }
 }

@@ -277,6 +277,12 @@ class App{
                     <li class="nav-item">
                         <a class="nav-link" id="clientsPolicies" href="#"> <span><i class="fas fa-th-list"></i></span> Clients' policies </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="coverages" href="#"><i class="fas fa-list-ul"></i> Categories and Coverages </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="vehicles" href="#"><i class="fas fa-car"></i> Vehicles </a>
+                    </li>
                 `;
             }
             html+=`
