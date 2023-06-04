@@ -37,8 +37,8 @@ class Policies {
               <div class="card">
                 <div class="card-body">
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="searchButton" placeholder="Buscar por número de placa">
-                    <button class="btn btn-outline-secondary" type="button" id="botonBusqueda">Buscar</button>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar por número de placa">
+                    <button class="btn btn-outline-secondary" type="button" id="searchButton">Buscar</button>
                   </div>
                   <div class="table-responsive">
                     <table class="table table-striped">
@@ -110,7 +110,7 @@ class Policies {
             
             console.log("POLICIES AQUIRED");
             const policiesList = await response.json();
-            globalstate.policiesList = policiesList;
+            this.state.policiesList = policiesList;
             this.renderPoliciesList(policiesList);
         }catch(err){
             console.error(err);
@@ -207,18 +207,18 @@ class Policies {
     }
 
     search = () => {
-//        const searchInput = this.dom.querySelector('#searchInput').value.toLowerCase();
-//
-//        let filteredPolizas;
-//        if (searchInput === '') {
-//            filteredPolizas = this.state.polizas;
-//        } else {
-//            filteredPolizas = this.state.polizas.filter(poliza => {
-//                const { numero } = poliza;
-//                return numero.toLowerCase().includes(searchInput);
-//            });
-//        }
-//
-//        this.renderPolizasTable(filteredPolizas);
+        const searchInput = this.dom.querySelector('#searchInput').value.toLowerCase();
+
+        let filteredPolicies;
+        if (searchInput === '') {
+            filteredPolicies = this.state.policiesList;
+        } else {
+            filteredPolicies = this.state.policiesList.filter(policy => {
+                const { id } = policy;
+                return id.toLowerCase().includes(searchInput);
+            });
+        }
+
+        this.renderPoliciesList(filteredPolicies);
     }
 }

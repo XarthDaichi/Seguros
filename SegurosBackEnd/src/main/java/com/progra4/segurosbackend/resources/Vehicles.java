@@ -37,7 +37,7 @@ import java.util.ArrayList;
 @Path("/vehicles")
 @PermitAll
 public class Vehicles {
-    String location = "";
+    String location = "C:/imagenesCarros/";
     
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -57,7 +57,7 @@ public class Vehicles {
     }
     
     @GET
-    @Path("/{id}/flag")
+    @Path("/{id}/image")
     @Produces("image/png")
     public Response readImage(@PathParam("id") String id) throws IOException {
         File file = new File(location + id);
@@ -91,7 +91,7 @@ public class Vehicles {
     
     @POST
     @Consumes({MediaType.MULTIPART_FORM_DATA})
-    @Path("{id}/image")
+    @Path("/{id}/image")
     public void createImage(@PathParam("id") String id, @FormParam("image") InputStream in) {
         try {
             OutputStream out = new FileOutputStream(new File(location + id));

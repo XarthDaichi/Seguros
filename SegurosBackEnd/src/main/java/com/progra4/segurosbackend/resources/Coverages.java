@@ -49,10 +49,9 @@ public class Coverages {
         return Service.instance().coverageFind(id);
     }
     
-//    @POST
-//    @Path {"/{categoryId}"}
-//    @Consumes({MediaType.APPLICATION_JSON})
-//    public void insert(Coverage coverage, @PathParam("categoryId") String cat) throws Exception {
-//        Service.instance().CoverageCreate(coverage, cat);
-//    }
+    @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    public void insert(Coverage coverage) throws Exception {
+        Service.instance().CoverageCreate(coverage, coverage.getCategoryId());
+    }
 }

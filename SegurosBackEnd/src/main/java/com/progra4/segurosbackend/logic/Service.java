@@ -102,6 +102,22 @@ public class Service {
         }
     }
     
+    public List<Category> categoriesFind(String name) throws Exception {
+        return categoryDao.find(name);
+    }
+    
+    public Category categoryFind(String categoryId) throws Exception {
+        return categoryDao.read(categoryId);
+    }
+    
+    public void categoryDelete(String categoryId) throws Exception {
+        categoryDao.delete(categoryId);
+    }
+    
+    public void categoryUpdate(Category category) throws Exception {
+        categoryDao.update(category);
+    }
+    
     public ArrayList<Category> selectAllCategories() throws Exception {
         return categoryDao.selectAll();
     }

@@ -14,18 +14,21 @@ public class Coverage extends Rule implements Serializable {
     private String name;
     private double minimumCost;
     private double percentage;
+    private String categoryId;
 
     public Coverage() {
         super();
         this.name = "";
         this.minimumCost = 0;
         this.percentage = 0;
+        this.categoryId = "";
     }
 
     public Coverage(String id, String description, double minimumCost, double percentage) {
         super(id, description);
         this.minimumCost = minimumCost;
         this.percentage = percentage;
+        this.categoryId = "";
     }
 
     public double getMinimumCost() {
@@ -50,6 +53,14 @@ public class Coverage extends Rule implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
