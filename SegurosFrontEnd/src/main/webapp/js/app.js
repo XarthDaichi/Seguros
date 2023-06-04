@@ -408,6 +408,8 @@ class App{
             }
             
             console.log("UPDATE USER SUCCESSFUL");
+            globalstate.user.name = candidate.name;
+            this.renderMenuItems();
             this.editUserModal.hide();
         }catch(err){
             console.error(err);
