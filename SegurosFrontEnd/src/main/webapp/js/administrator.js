@@ -7,7 +7,7 @@ class Administrator{
     constructor(){
         this.state = {'entities': new Array(), 'entity': this.emptyEntity(), 'mode':'A'};
         this.dom = this.render();
-        this.clientsModal = new bootstrap.Modal(this.dom.querySelector("#clientsModal"))
+        this.clientsModal = new bootstrap.Modal(this.dom.querySelector("#clientsModal"));
 //        this.dom.querySelector("#search").addEventListener('click',this.search);
 //        this.dom.querySelector('#policies #modal #form #apply').addEventListener('click',this.add);
 //        this.modal = new bootstrap.Modal(this.dom.querySelector('#modal'));
@@ -48,82 +48,7 @@ class Administrator{
         `;
    }
    
-   
-   renderClientPolicies = async (client) => {
-       const clientPoliciesRequest = new Request (`${backend}/policies?id=${client.id}`, {
-          method:'GET',
-          headers: {'Content-Type': 'application/json'}
-       });
-       
-       try {
-           const response = await fetch(clientPoliciesRequest);
-           if (!response.ok) {
-               const error = await response.text();
-               console.log("GET CLIENT POLICIES ERROR - " + error);
-               return;
-           }
-           console.log("CLIENT POLICIES AQUIRED");
-           const clientPoliciesList = await response.json();
-           
-           const tableBody = this.dom.querySelector(`#${client.id}-policiesTableBody`);
-           tableBody.innerHTML = '';
-        
-           clientPoliciesList.forEach((policy) => {
-            const row = document.createElement('tr');
-            const buttonId = `details-${policy.id}`;
-            row.innerHTML = `
-                <td>${policy.id}</td>
-                <td>${policy.license}</td>
-                <td>${policy.initialDate}</td>
-                <td>${policy.vehicle.brand} - ${policy.vehicle.model}</td>
-                <td><img src="${backend}/vehicles/${policy.vehicle.id}/image" style="display: block; margin: 0 auto; max-width: 200px; max-height: 200px;"></td>
-                <td>${policy.insuredValue}</td>
-                <td>${policy.term}</td>
-                <td><button id="${buttonId}" class="btn btn-sm data-id="${policy.id}"><i class="fas fa-search"></i></button></td>
-            `;
-
-    //      this.dom.querySelect(`#${buttonId}`)?.addEventListener('click', e=>this.showPolicyDetails());
-            const button = row.querySelector('button');
-            button.addEventListener('click', e=>this.showPolicyDetails());
-
-            tableBody.appendChild(row);
-           });
-       } catch (err) {
-           console.error(err);
-       }
-   }
-   
-   renderClientsList = async (clients) => {
-       const tableBody = this.dom.querySelector("#clients");
-       tableBody.innerHTML = '';
-       
-       clients.forEach((client) => {
-           const row = document.createElement('div');
-           row.innerHTML = `
-            <h5>${client.id} - ${client.name}</h5>
-            <table class="table table-striped>
-                <thead>
-                    <tr>
-                        <th>Número de Póliza</th>
-                        <th>Número de Placa</th>
-                        <th>Fecha</th>
-                        <th>Automóvil</th>
-                        <th>Valor</th>
-                        <th></th>
-                        <th>Plaza</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="${client.id}-policiesTableBody">
-                </tbody>
-            </table>
-            `;
-            tableBody.appendChild(row);
-//            await renderClientPolicies(client);
-       });
-   }
-   
-   renderClients = async () => {
+    renderClients = async () => {
        const clientsRequest = new Request(`${backend}/clients`, {
           method:'GET',
           headers: {'Content-Type': 'application/json'}
@@ -141,11 +66,87 @@ class Administrator{
            console.log("CLIENTS AQUIRED");
            const clientsList = await response.json();
            this.state.clientsList = clientsList;
-           this.renderClientsList(clientsList);
+           this.renderClientsList();
        } catch (err) {
            console.error(err);
        }
-   }
+    }
+   
+    renderClientsList = async () => {
+        const tableBody = this.dom.querySelector("#clients");
+        tableBody.innerHTML = '';
+       
+        this.state.clientsList.forEach((client) => {
+            const row = document.createElement('div');
+            row.innerHTML = `
+                <h5>${client.id} - ${client.name}</h5>
+                <div id="clientPolices" class="table-responsive">
+                    <table class="table table-striped" id="clientPolicesTable">
+                        <thead>
+                            <tr>
+                                <th>Número de Póliza</th>
+                                <th>Número de Placa</th>
+                                <th>Fecha</th>
+                                <th>Automóvil</th>
+                                <th>Valor</th>
+                                <th></th>
+                                <th>Plaza</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="${client.id}-policiesTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            tableBody.appendChild(row);
+            this.renderClientPolicies(client);
+        });
+    }   
+   
+    renderClientPolicies = async (client) => {
+       const clientPoliciesRequest = new Request (`${backend}/policies?id=${client.id}`, {
+          method:'GET',
+          headers: {'Content-Type': 'application/json'}
+       });
+       
+        try {
+           const response = await fetch(clientPoliciesRequest);
+           if (!response.ok) {
+               const error = await response.text();
+               console.log("GET CLIENT POLICIES ERROR - " + error);
+               return;
+           }
+           console.log("CLIENT POLICIES AQUIRED");
+           const clientPoliciesList = await response.json();
+           
+           const tableBody = this.dom.querySelector(`#clientPolicesTable>#${client.id}-policiesTableBody`);
+           tableBody.innerHTML = '';
+        
+           clientPoliciesList.forEach((policy) => {
+                const row = document.createElement('tr');
+                const buttonId = `details-${policy.id}`;
+                row.innerHTML = `
+                    <td>${policy.id}</td>
+                    <td>${policy.license}</td>
+                    <td>${policy.initialDate}</td>
+                    <td>${policy.vehicle.brand} - ${policy.vehicle.model}</td>
+                    <td><img src="${backend}/vehicles/${policy.vehicle.id}/image" style="display: block; margin: 0 auto; max-width: 200px; max-height: 200px;"></td>
+                    <td>${policy.insuredValue}</td>
+                    <td>${policy.term}</td>
+                    <td><button id="${buttonId}" class="btn btn-sm data-id="${policy.id}"><i class="fas fa-search"></i></button></td>
+                `;
+
+                //this.dom.querySelect(`#${buttonId}`)?.addEventListener('click', e=>this.showPolicyDetails());
+                const button = row.querySelector('button');
+                button.addEventListener('click', e=>this.showPolicyDetails());
+
+                tableBody.appendChild(row);
+            });
+        }catch (err) {
+           console.error(err);
+        }
+    }
    
    renderModal=()=>{
      return `
