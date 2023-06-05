@@ -259,8 +259,8 @@ class Policies {
             termChosen: '',
             insuredValue: '',
             rules: [],
-            policyOwner: '',
-        }
+            policyOwner: ''
+        };
     }
 
     search = () => {

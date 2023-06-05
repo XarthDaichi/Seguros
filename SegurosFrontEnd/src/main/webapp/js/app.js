@@ -9,6 +9,7 @@ class App{
     
     policies;
     administrator;
+    vehicles;
     
     constructor(){
         this.state={};
@@ -18,6 +19,7 @@ class App{
         
         this.policies = new Policies();
         this.administrator = new Administrator(); // This line breaks front-end, class needs checking
+        this.vehicles = new Vehicles();
         
         this.modal = new bootstrap.Modal(this.dom.querySelector('#app>#modal'));
         this.registerUserModal = new bootstrap.Modal(this.dom.querySelector('#app>#registerUserModal'));
@@ -298,6 +300,7 @@ class App{
         
         this.dom.querySelector("#app>#menu #menuItems #policies")?.addEventListener('click', e=>this.policiesShow());
         this.dom.querySelector("#app>#menu #menuItems #clientsPolicies")?.addEventListener('click', e=>this.administratorShow());
+        this.dom.querySelector("#app>#menu #menuItems #vehicles")?.addEventListener('click', e=>this.vehiclesShow());
         
         this.dom.querySelector("#app>#menu #menuItems #login")?.addEventListener('click', e=>this.modal.show());  
         this.dom.querySelector("#app>#menu #menuItems #logout")?.addEventListener('click', e=>this.logout());
@@ -321,6 +324,11 @@ class App{
                     break;
             }
         }
+    }
+    
+    vehiclesShow=()=>{
+        this.dom.querySelector('#app>#body').replaceChildren(this.vehicles.dom);
+        this.vehicles.render();
     }
     
     policiesShow=()=>{
