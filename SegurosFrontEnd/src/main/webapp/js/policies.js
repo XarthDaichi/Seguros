@@ -521,7 +521,7 @@ class Policies {
                brand,
                model,
                year
-           }
+           },
            term,
            insuredValue,
            coverages,
