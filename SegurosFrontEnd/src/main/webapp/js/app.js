@@ -315,6 +315,7 @@ class App{
                     this.policiesShow();
                     break;
                 case true://Admin
+                    this.dom.querySelector("#app>#menu #menuItems #userProfile")?.addEventListener('click', e=>this.renderUserData());
                     this.administratorShow();
                     break;
             }
