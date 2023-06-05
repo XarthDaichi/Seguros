@@ -207,6 +207,8 @@ class Coverages {
   
     addCategory=async()=>{
         const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#categoryForm"))).entries());
+        candidate.id="";
+        candidate.coverages=[];
         
         const registerCategoryRequest = new Request(`${backend}/categories`,{
             method:'POST',
@@ -233,6 +235,7 @@ class Coverages {
   
     addCoverage=async()=>{
         const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#coverageForm"))).entries());
+        candidate.id="";
         
         const registerCategoryRequest = new Request(`${backend}/coverages`,{
             method:'POST',
