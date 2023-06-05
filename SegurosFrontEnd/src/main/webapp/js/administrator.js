@@ -6,6 +6,8 @@ class Administrator{
     
     state;
     
+    vehicles;
+    
     constructor(){
         this.state = {'entities': new Array(), 'entity': this.emptyEntity(), 'mode':'A'};
         this.dom = this.render();
@@ -84,7 +86,6 @@ class Administrator{
             const buttonId = `details-${client.id}`;
             row.innerHTML = `
                 <button id="${buttonId}" class="btn btn-sm data-id="${client.id}"><i class="fas fa-search"></i><h5>${client.id} - ${client.name}</h5></button>
-                <!-- <h5>${client.id} - ${client.name}</h5> -->
                 <div id="clientPolices" class="table-responsive">
                     <table class="table table-striped" id="clientPolicesTable">
                         <thead>
@@ -93,8 +94,8 @@ class Administrator{
                                 <th>Número de Placa</th>
                                 <th>Fecha</th>
                                 <th>Automóvil</th>
-                                <th>Valor</th>
                                 <th></th>
+                                <th>Valor</th>
                                 <th>Plaza</th>
                             </tr>
                         </thead>

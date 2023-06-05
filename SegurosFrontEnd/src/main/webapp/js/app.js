@@ -9,6 +9,8 @@ class App{
     
     policies;
     administrator;
+    coverages;
+    vehicles;
     
     constructor(){
         this.state={};
@@ -17,7 +19,9 @@ class App{
         this.renderMenuItems();
         
         this.policies = new Policies();
-        this.administrator = new Administrator(); // This line breaks front-end, class needs checking
+        this.administrator = new Administrator();
+        this.coverages = new Coverages();
+        this.vehicles = new Vehicles();
         
         this.modal = new bootstrap.Modal(this.dom.querySelector('#app>#modal'));
         this.registerUserModal = new bootstrap.Modal(this.dom.querySelector('#app>#registerUserModal'));
@@ -25,7 +29,6 @@ class App{
         
         this.dom.querySelector('#app>#modal #apply').addEventListener('click',e=>this.login());
         this.dom.querySelector('#app>#registerUserModal #applyRegister').addEventListener('click',e=>this.register());
-        this.dom.querySelector('#app>#editUserModal #applyChanges').addEventListener('click', e=>this.editUser());
     }
     
     render=()=>{
@@ -299,6 +302,8 @@ class App{
         
         this.dom.querySelector("#app>#menu #menuItems #policies")?.addEventListener('click', e=>this.policiesShow());
         this.dom.querySelector("#app>#menu #menuItems #clientsPolicies")?.addEventListener('click', e=>this.administratorShow());
+        this.dom.querySelector("#app>#menu #menuItems #coverages")?.addEventListener('click', e=>this.coveragesShow());
+        this.dom.querySelector("#app>#menu #menuItems #vehicles")?.addEventListener('click', e=>this.vehiclesShow());
         
         this.dom.querySelector("#app>#menu #menuItems #login")?.addEventListener('click', e=>this.modal.show());  
         this.dom.querySelector("#app>#menu #menuItems #logout")?.addEventListener('click', e=>this.logout());
@@ -312,9 +317,12 @@ class App{
             switch(globalstate.user.administrator){
                 case false://Client
                     this.dom.querySelector("#app>#menu #menuItems #userProfile")?.addEventListener('click', e=>this.renderUserData());
+                    this.dom.querySelector('#app>#editUserModal #applyChanges').addEventListener('click', e=>this.editUser());
                     this.policiesShow();
                     break;
                 case true://Admin
+                    this.dom.querySelector("#app>#menu #menuItems #userProfile")?.addEventListener('click', e=>this.renderUserData());
+                    this.dom.querySelector('#app>#editUserModal #applyChanges').addEventListener('click', e=>this.editAdmin());
                     this.administratorShow();
                     break;
             }
@@ -330,7 +338,16 @@ class App{
         this.dom.querySelector('#app>#body').replaceChildren(this.administrator.dom);
         this.administrator.renderClients();
     }
-     
+    
+    coveragesShow=()=>{
+        this.dom.querySelector('#app>#body').replaceChildren(this.coverages.dom);
+        this.coverages.render();
+    }
+    
+    vehiclesShow=()=>{
+        this.dom.querySelector('#app>#body').replaceChildren(this.vehicles.dom);
+        this.vehicles.render();
+    }
     
     login= async ()=>{
         const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#form"))).entries());
@@ -398,6 +415,34 @@ class App{
     editUser= async() =>{
         const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#editUserForm"))).entries());
         candidate.administrator = false;
+        
+        const updateUserRequest = new Request(`${backend}/clients`,{
+            method:'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(candidate)
+        });
+        
+        try{
+            const response = await fetch(updateUserRequest);
+            
+            if(!response.ok){
+                const error = await response.text();
+                console.log("UPDATE USER ERROR - "+error);
+                return;
+            }
+            
+            console.log("UPDATE USER SUCCESSFUL");
+            globalstate.user.name = candidate.name;
+            this.renderMenuItems();
+            this.editUserModal.hide();
+        }catch(err){
+            console.error(err);
+        }
+    }
+    
+    editAdmin= async() =>{
+        const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#editUserForm"))).entries());
+        candidate.administrator = true;
         
         const updateUserRequest = new Request(`${backend}/clients`,{
             method:'PUT',
