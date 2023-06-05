@@ -319,9 +319,9 @@ class Policies {
                 </div>
                 <div class="row">
                     <div class"col-6"><strong>Coberturas: </strong></div>
-                    <ul>
+                    <div class="col-12"> <ul>
                         ${policy.rules?.map(coverage => `<li>${coverage.name} - ${coverage.description}.</li>`).join('')}
-                    </ul>
+                    </ul> </div>
                 </div>
                 <div class="row">
                     <div class="col-6"><Strong>Costo Total:</Strong></div>

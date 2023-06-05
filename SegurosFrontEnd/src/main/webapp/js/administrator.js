@@ -39,10 +39,6 @@ class Administrator{
               <h1 class="text-center">Pólizas por Usuarios</h1>
               <div class="card">
                 <div class="card-body">
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar por número de usuario">
-                    <button class="btn btn-outline-secondary" type="button" id="searchButton">Buscar</button>
-                  </div>
                   <div id="clients" class="table-responsive">
                   </div>
                 </div>
@@ -334,19 +330,15 @@ class Administrator{
                         <div class="col-6"><strong>Plazo:</strong></div>
                         <div class="col-6">${policy.term}</div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <h5>Coberturas:</h5>
-                            <ul>
-                                ${policy.rules?.map(coverage => `<li>${coverage.name} - ${coverage.description}.</li>`).join('')}
-                            </ul>
-                        </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Coberturas:</strong></div>
+                        <div class="col-6"> <ul>
+                            ${policy.rules?.map(coverage => `<li>${coverage.name} - ${coverage.description}.</li>`).join('')}
+                        </ul> </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <h5>Costo Total:</h5>
-                            ₡${formattedTotalCost}
-                        </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Costo Total:</strong></div>
+                        <div class="col-6">₡${formattedTotalCost}</div>
                     </div>
                 </div>
             `;
