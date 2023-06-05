@@ -113,7 +113,7 @@ class Vehicles {
         }catch(err){
             console.error(err);
         }
-
+        
     }
     
     renderModal=()=>{
