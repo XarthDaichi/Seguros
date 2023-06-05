@@ -8,6 +8,8 @@ class Vehicles {
         this.dom = this.render();
         this.renderVehicles();
         this.addVehicleModal = new bootstrap.Modal(this.dom.querySelector("#addVehicle"));
+        this.dom.querySelector('#addVehicle').addEventListener('click',e=>this.addVehicle());
+        
     }
     
     render=()=> {
@@ -112,5 +114,6 @@ class Vehicles {
         }catch(err){
             console.error(err);
         }
+
     }
 }
