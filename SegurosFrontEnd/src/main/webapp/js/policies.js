@@ -2,6 +2,7 @@ class Policies {
     dom;
     createPolicyModal;
     policyDetailsModal;
+    addPolicyModal;
 
     state;
 
@@ -10,6 +11,7 @@ class Policies {
         this.dom = this.render();
         this.createPolicyModal = new bootstrap.Modal(this.dom.querySelector("#createPolicyModal"));
         this.policyDetailsModal = new bootstrap.Modal(this.dom.querySelector("#policyModal"));
+        this.addPolicyModal = new bootstrap.Modal(this.dom.querySelector("#addModal"));
         this.dom.querySelector("#createPolicy").addEventListener('click', e=>this.showModal());
         this.dom.querySelector("#searchButton").addEventListener('click', e=>this.search());
         this.dom.querySelector('#siguienteBtn').addEventListener('click', e=>this.validateAndProceed);
@@ -207,6 +209,44 @@ class Policies {
                         </div>
                     </div>
                 </div>
+            </div>
+        
+            <div id="addModal" class="modal fade" tabindex="-1">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    <h5 class="modal-title" style="margin-left:5px;">Confirmar Compra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Items</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Costo Total</button>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="cart-items">
+                          <!-- renderCartItems -->
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div id="pago">
+                          ${this.renderTotalCost()}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cartCancel">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="cartBuy">Buy</button>
+                  </div>
+                </div>
+              </div>
             </div>
         `;
     };
@@ -422,12 +462,12 @@ class Policies {
     validateAndProceed = async () => {
         const AllInputsFilled = Array.from(this.dom.querySelectAll('.required-input')).every(input => input.value.trim() !== '');
         const atLeastOneCoverageSelected = Array.from(this.dom.querySelectorAll('.coverage-input')).some(input => input.checked);
-        const insuredValue = this.dom.querySelector('#insuredValue').value.trim(0;)
+        const insuredValue = this.dom.querySelector('#insuredValue').value.trim(0);
         const validInsuredValue = !isNaN(insuredValue);
         
         if (!AllInputsFilled || !validInsuredValue || !atLeastOneCoverageSelected) {
             const toastElement = new bootstrap.Toast(this.dom.querySelector('#alert'), {
-               animation:true;
+               animation:true,
                delay: 2000
             });
             toastElement.show();
@@ -455,6 +495,19 @@ class Policies {
         const coverages = coverageSelec.map(sel => this.state.categories.find());
         
         const client = globalstate.client;
+        
+        this.state.entity = {
+           license,
+           vehicle: {
+               brand,
+               model,
+               year
+           }
+           term,
+           insuredValue,
+           coverages,
+           client
+        };
     }
     
     addPolicy = () => {
