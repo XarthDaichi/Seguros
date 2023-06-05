@@ -1,11 +1,15 @@
 class Vehicles {
     dom;
+    modal;
     state;
     
     constructor() {
         this.state = { 'entities': new Array(), 'entity': this.emptyEntity(), 'mode': 'A' };
         this.dom = this.render();
+        this.modal = new bootstrap.Modal(this.dom.querySelector("#createVehicle"));
         this.renderVehicles();
+        
+        this.dom.querySelector('#registerVehicle').addEventListener('click',e=>this.addVehicle());
     }
     
     render=()=> {
@@ -106,6 +110,67 @@ class Vehicles {
 
                 tableBody.appendChild(row);
             });
+        }catch(err){
+            console.error(err);
+        }
+    }
+    
+    renderModal=()=>{
+        return `
+            <div id="createVehicle" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" >
+                            <h5 class="modal-title">Crear categoría de coberturas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="categoryForm" >
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Nombre</span>
+                                    <input type="text" class="form-control" id="brand" name="brand" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Descripción</span>
+                                    <input type="text" class="form-control" id="model" name="model" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Descripción</span>
+                                    <input type="text" class="form-control" id="year" name="year" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="registerVehicle" type="button" class="btn btn-primary" >Aplicar</button>
+                            </div>
+                        </form>                 
+                    </div>         
+                </div>          
+            </div>
+        `;
+    }
+    
+    addVehicle=async()=>{
+        const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#vehiclesForm"))).entries());
+        candidate.id="";
+        
+        const registerCategoryRequest = new Request(`${backend}/vehicles`,{
+            method:'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(candidate)
+        });
+        
+        try{
+            const response = await fetch(registerCategoryRequest);
+            
+            if(!response.ok){
+                const error = await response.text();
+                console.log("REGISTER CATEGORY ERROR - "+error);
+                return;
+            }
+            
+            console.log("REGISTER CATEGORY SUCCESSFUL");
+            this.categoryModal.hide();
+            this.getCategories();
         }catch(err){
             console.error(err);
         }

@@ -8,6 +8,7 @@ import com.progra4.segurosbackend.logic.Category;
 import com.progra4.segurosbackend.logic.Coverage;
 import com.progra4.segurosbackend.logic.Service;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -51,6 +52,7 @@ public class Coverages {
     
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
+//    @RolesAllowed({"true"})
     public void insert(Coverage coverage) throws Exception {
         Service.instance().CoverageCreate(coverage, coverage.getCategoryId());
     }

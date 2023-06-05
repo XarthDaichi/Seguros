@@ -7,6 +7,7 @@ package com.progra4.segurosbackend.resources;
 import com.progra4.segurosbackend.logic.Service;
 import com.progra4.segurosbackend.logic.Vehicle;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -81,6 +82,7 @@ public class Vehicles {
     
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
+    @RolesAllowed({"true"})
     public void insert(Vehicle v) {
         try {
             Service.instance().vehicleCreate(v);
@@ -92,6 +94,7 @@ public class Vehicles {
     @POST
     @Consumes({MediaType.MULTIPART_FORM_DATA})
     @Path("/{id}/image")
+//    @RolesAllowed({"true"})
     public void createImage(@PathParam("id") String id, @FormParam("image") InputStream in) {
         try {
             OutputStream out = new FileOutputStream(new File(location + id));

@@ -7,6 +7,7 @@ package com.progra4.segurosbackend.resources;
 import com.progra4.segurosbackend.logic.Category;
 import com.progra4.segurosbackend.logic.Service;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -53,6 +54,7 @@ public class Categories {
     
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
+    @RolesAllowed({"true"})
     public void insert(Category cat) throws Exception {
         Service.instance().CategoryCreate(cat);
     }
