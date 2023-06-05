@@ -14,6 +14,10 @@ class Coverages {
         
         this.dom.querySelector("#createCategory").addEventListener('click', e=>this.categoryModal.show());
         this.dom.querySelector("#createCoverage").addEventListener('click', e=>this.coverageModal.show());
+        this.getCategories();
+        
+        this.dom.querySelector('#registerCategoryButton').addEventListener('click',e=>this.addCategory());
+        this.dom.querySelector('#registerCoverageButton').addEventListener('click',e=>this.addCoverage());
     }
     
     render=()=> {
@@ -77,7 +81,7 @@ class Coverages {
         }
     }
     
-    renderCategories=async()=>{
+    renderCategories=()=>{
         const tableBody = this.dom.querySelector("#categories");
         tableBody.innerHTML = '';
         
@@ -87,7 +91,7 @@ class Coverages {
             row.innerHTML = `
                 <div id="categoryIdNameDescription">
                     <h5>${category.id} - ${category.name}</h5>
-                    <p>${category.description}</p>
+                    <p>Descripción: ${category.description}</p>
                 </div>
                 <div id="categoryCoverages">
                     <table class="table table-striped" id="categoryCoveragesTable">
@@ -111,7 +115,7 @@ class Coverages {
         
     }
     
-    renderCoverages=async(category)=>{
+    renderCoverages=(category)=>{
         try{
             const tableBody = this.dom.querySelector(`#categoryCoveragesTableBody${category.id}`);
             tableBody.innerHTML = '';
@@ -168,7 +172,7 @@ class Coverages {
                             <h5 class="modal-title">Crear cobertura</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form id="form" >
+                        <form id="coverageForm" >
                         <div class="modal-body">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Nombre</span>
@@ -199,6 +203,58 @@ class Coverages {
                 </div>          
             </div>
         `;     
+    }
+  
+    addCategory=async()=>{
+        const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#categoryForm"))).entries());
+        
+        const registerCategoryRequest = new Request(`${backend}/categories`,{
+            method:'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(candidate)
+        });
+        
+        try{
+            const response = await fetch(registerCategoryRequest);
+            
+            if(!response.ok){
+                const error = await response.text();
+                console.log("REGISTER CATEGORY ERROR - "+error);
+                return;
+            }
+            
+            console.log("REGISTER CATEGORY SUCCESSFUL");
+            this.categoryModal.hide();
+            this.getCategories();
+        }catch(err){
+            console.error(err);
+        }
+    }
+  
+    addCoverage=async()=>{
+        const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#coverageForm"))).entries());
+        
+        const registerCategoryRequest = new Request(`${backend}/coverages`,{
+            method:'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(candidate)
+        });
+        
+        try{
+            const response = await fetch(registerCategoryRequest);
+            
+            if(!response.ok){
+                const error = await response.text();
+                console.log("REGISTER COVERAGE ERROR - "+error);
+                return;
+            }
+            
+            console.log("REGISTER COVERAGE SUCCESSFUL");
+            this.categoryModal.hide();
+            this.getCategories();
+        }catch(err){
+            console.error(err);
+        }
     }
   
     load=()=>{
