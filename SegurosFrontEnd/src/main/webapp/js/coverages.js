@@ -43,10 +43,6 @@ class Coverages {
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" id="searchInput" placeholder="Buscar por número categor">
-                                <button class="btn btn-outline-secondary" type="button" id="searchButton">Buscar</button>
-                            </div>
                             <div id="categories" class="table-responsive">
                             </div>
                         </div>
