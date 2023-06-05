@@ -9,6 +9,7 @@ class App{
     
     policies;
     administrator;
+    coverages;
     vehicles;
     
     constructor(){
@@ -18,7 +19,8 @@ class App{
         this.renderMenuItems();
         
         this.policies = new Policies();
-        this.administrator = new Administrator(); // This line breaks front-end, class needs checking
+        this.administrator = new Administrator();
+        this.coverages = new Coverages();
         this.vehicles = new Vehicles();
         
         this.modal = new bootstrap.Modal(this.dom.querySelector('#app>#modal'));
@@ -300,6 +302,7 @@ class App{
         
         this.dom.querySelector("#app>#menu #menuItems #policies")?.addEventListener('click', e=>this.policiesShow());
         this.dom.querySelector("#app>#menu #menuItems #clientsPolicies")?.addEventListener('click', e=>this.administratorShow());
+        this.dom.querySelector("#app>#menu #menuItems #coverages")?.addEventListener('click', e=>this.coveragesShow());
         this.dom.querySelector("#app>#menu #menuItems #vehicles")?.addEventListener('click', e=>this.vehiclesShow());
         
         this.dom.querySelector("#app>#menu #menuItems #login")?.addEventListener('click', e=>this.modal.show());  
@@ -326,11 +329,6 @@ class App{
         }
     }
     
-    vehiclesShow=()=>{
-        this.dom.querySelector('#app>#body').replaceChildren(this.vehicles.dom);
-        this.vehicles.render();
-    }
-    
     policiesShow=()=>{
         this.dom.querySelector('#app>#body').replaceChildren(this.policies.dom);
         this.policies.renderPolicies();
@@ -340,7 +338,16 @@ class App{
         this.dom.querySelector('#app>#body').replaceChildren(this.administrator.dom);
         this.administrator.renderClients();
     }
-     
+    
+    coveragesShow=()=>{
+        this.dom.querySelector('#app>#body').replaceChildren(this.coverages.dom);
+        this.coverages.render();
+    }
+    
+    vehiclesShow=()=>{
+        this.dom.querySelector('#app>#body').replaceChildren(this.vehicles.dom);
+        this.vehicles.render();
+    }
     
     login= async ()=>{
         const candidate = Object.fromEntries( (new FormData(this.dom.querySelector("#form"))).entries());
