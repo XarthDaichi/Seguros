@@ -329,6 +329,11 @@ class App{
         }
     }
     
+    vehiclesShow=()=>{
+        this.dom.querySelector('#app>#body').replaceChildren(this.vehicles.dom);
+        this.vehicles.renderVehicles();
+    }
+    
     policiesShow=()=>{
         this.dom.querySelector('#app>#body').replaceChildren(this.policies.dom);
         this.policies.renderPolicies();
