@@ -422,12 +422,12 @@ class Policies {
     validateAndProceed = async () => {
         const AllInputsFilled = Array.from(this.dom.querySelectAll('.required-input')).every(input => input.value.trim() !== '');
         const atLeastOneCoverageSelected = Array.from(this.dom.querySelectorAll('.coverage-input')).some(input => input.checked);
-        const insuredValue = this.dom.querySelector('#insuredValue').value.trim(0;)
+        const insuredValue = this.dom.querySelector('#insuredValue').value.trim(0);
         const validInsuredValue = !isNaN(insuredValue);
         
         if (!AllInputsFilled || !validInsuredValue || !atLeastOneCoverageSelected) {
             const toastElement = new bootstrap.Toast(this.dom.querySelector('#alert'), {
-               animation:true;
+               animation:true,
                delay: 2000
             });
             toastElement.show();
