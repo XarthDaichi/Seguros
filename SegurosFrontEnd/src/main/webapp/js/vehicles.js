@@ -5,6 +5,7 @@ class Vehicles {
     constructor() {
         this.state = { 'entities': new Array(), 'entity': this.emptyEntity(), 'mode': 'A' };
         this.dom = this.render();
+        this.renderVehicles();
     }
     
     render=()=> {
@@ -49,13 +50,13 @@ class Vehicles {
            
            if (!response.ok) {
                const error = await response.text();
-               console.log("GET CLIENTS ERROR - " + error);
+               console.log("GET VEHICLES ERROR - " + error);
                return;
            }
            
-           console.log("CLIENTS AQUIRED");
+           console.log("VEHICLE AQUIRED");
            const vehiclesList = await response.json();
-           this.state.clientsList = vehiclesList;
+           this.state.vehiclesList = vehiclesList;
            this.renderVehiclesList();
        } catch (err) {
            console.error(err);
@@ -65,12 +66,10 @@ class Vehicles {
     renderVehiclesList = async () => {
         const tableBody = this.dom.querySelector("#vehicles");
         tableBody.innerHTML = '';
-       
-        this.state.vehiclesList.forEach((vehicle) => {
+        this.state.vehiclesList.forEach((brand) => {
             const row = document.createElement('div');
-            const buttonId = `details-${vehicle.brand}`;
             row.innerHTML = `
-                <h5>${vehicle.id} - ${vehicle.brand}</h5>
+                <h5>${brand[0].id} - ${brand[0].brand}</h5>
                 <div id="vehiclesAdmin" class="table-responsive">
                     <table class="table table-striped" id="vehiclesTable">
                         <thead>
@@ -80,7 +79,7 @@ class Vehicles {
                                 <th>Imagen</th>
                             </tr>
                         </thead>
-                        <tbody id="vehiclesTableBody${vehicle.id}">
+                        <tbody id="vehiclesTableBody${brand[0].id}">
                         </tbody>
                     </table>
                 </div>
@@ -88,46 +87,27 @@ class Vehicles {
             //const button = row.querySelector('button');
             //button.addEventListener('click', e=>this.showPolicyDetails(vehicle));
             tableBody.appendChild(row);
-            this.renderVehicles(vehicle);
+            this.renderModels(brand);
         });
     }   
     
-    renderVehicles = async (vehicle) => {
-       const vehiclesRequest = new Request (`${backend}/vehicles?id=${vehicle.id}`, {
-          method:'GET',
-          headers: {'Content-Type': 'application/json'}
-       });
-       
-        try {
-           const response = await fetch(vehiclesRequest);
-           if (!response.ok) {
-               const error = await response.text();
-               console.log("GET CLIENT POLICIES ERROR - " + error);
-               return;
-           }
-           console.log("CLIENT POLICIES AQUIRED");
-           const vehiclesList = await response.json();
-            
-           const tableBody = this.dom.querySelector(`#policiesTableBody${vehicle.id}`);
-           tableBody.innerHTML = '';
-        
-           vehiclesList.forEach((policy) => {
+    renderModels=(brand)=>{
+        try{
+            const tableBody = this.dom.querySelector(`#vehiclesTableBody${brand[0].id}`);
+            tableBody.innerHTML = '';
+
+            brand.forEach((model) => {
                 const row = document.createElement('tr');
-                const buttonId = `details-${policy.id}`;
                 row.innerHTML = `
-                    <td>${policy.id}</td>
-                    <td>${policy.license}</td>
-                    <td>${policy.initialDate}</td>
-                    <td>${policy.vehicle.brand} - ${policy.vehicle.model}</td>
-                    <td><img src="${backend}/vehicles/${policy.vehicle.id}/image" style="display: block; margin: 0 auto; max-width: 200px; max-height: 200px;"></td>
-                    <td>${policy.insuredValue}</td>
-                    <td>${policy.term}</td>
+                    <td>${model.model}</td>
+                    <td>${model.year}</td>
+                    <td><img src="${backend}/vehicles/${model.id}/image" style="display: block; margin: 0 auto; max-width: 200px; max-height: 200px;"></td>
                 `;
+
                 tableBody.appendChild(row);
             });
-            
-        }catch (err) {
-           console.error(err);
+        }catch(err){
+            console.error(err);
         }
     }
 }
