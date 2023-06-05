@@ -2,6 +2,7 @@ class Policies {
     dom;
     createPolicyModal;
     policyDetailsModal;
+    addPolicyModal;
 
     state;
 
@@ -10,6 +11,7 @@ class Policies {
         this.dom = this.render();
         this.createPolicyModal = new bootstrap.Modal(this.dom.querySelector("#createPolicyModal"));
         this.policyDetailsModal = new bootstrap.Modal(this.dom.querySelector("#policyModal"));
+        this.addPolicyModal = new bootstrap.Modal(this.dom.querySelector("#addModal"));
         this.dom.querySelector("#createPolicy").addEventListener('click', e=>this.showModal());
         this.dom.querySelector("#searchButton").addEventListener('click', e=>this.search());
         this.dom.querySelector('#siguienteBtn').addEventListener('click', e=>this.validateAndProceed);
@@ -208,11 +210,57 @@ class Policies {
                     </div>
                 </div>
             </div>
+        
+            <div id="addModal" class="modal fade" tabindex="-1">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    <h5 class="modal-title" style="margin-left:5px;">Confirmar Compra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Items</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Costo Total</button>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="add-contents">
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div id="cost">
+                          ${this.renderTotalCost()}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="addCancel">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="addPolicyConfirm">Confirmar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         `;
     };
     
     emptyEntity = () => {
-
+        return {
+            id: '',
+            license: '',
+            vehicle: '',
+            initialDate: '',
+            termChosen: '',
+            insuredValue: '',
+            rules: [],
+            policyOwner: '',
+        }
     }
 
     search = () => {
@@ -389,7 +437,7 @@ class Policies {
         this.state.vehiclesByBrand.forEach(brand => {
            html += `<optgroup label="${brand[0].brand}">`;
            brand.forEach(model => {
-               html += `<option value="${model.brand}-${model.model}-${model.year}">${model.brand} - ${model.model} - ${model.year}</option>`;
+               html += `<option value="${model.id}-${model.brand}-${model.model}-${model.year}">${model.brand} - ${model.model} - ${model.year}</option>`;
            });
            html += `</optgroup>`;
         });
@@ -400,7 +448,16 @@ class Policies {
         await this.loadCoverages();
     };
     
+    reset = () => {
+        this.state.entity = this.emptyEntity();
+        this.dom.querySelector('#license').value = '';
+        this.dom.querySelector('#insuredValue').value = '';
+        const termInputs = Array.from(this.dom.querySelectorAll('input[name="termChosen"]'));
+        termInputs.forEach(input => (input.checked = false));
+    }
+    
     makenew = () => {
+        this.reset();
         this.state.mode = 'A';
         this.showModal();
     }
@@ -441,9 +498,10 @@ class Policies {
     gatherPolicyData = () => {
         const license = this.dom.querySelector('#license').value;
         const vehicle = this.dom.querySelector('#vehicle').value.split('-');
-        const brand = vehicle[0];
-        const model = vehicle[1];
-        const year = vehicle[2];
+        const vehicleId = vehicle[0];
+        const brand = vehicle[1];
+        const model = vehicle[2];
+        const year = vehicle[3];
         const insuredValue = this.dom.querySelector('#insuredValue').value;
         
         const termInputs = Array.from(this.dom.querySelectorAll('input[name="termChosen"]'));
@@ -455,9 +513,156 @@ class Policies {
         const coverages = coverageSelec.map(sel => this.state.categories.find());
         
         const client = globalstate.client;
+        
+        this.state.entity = {
+           license,
+           vehicle: {
+               vehicleId,
+               brand,
+               model,
+               year
+           },
+           term,
+           insuredValue,
+           coverages,
+           client
+        };
     }
     
     addPolicy = () => {
-        //
+        this.addPolicyModal = new bootstrap.Modal(this.dom.querySelector('#addModal'));
+        this.dom.querySelector('#addModal .add-contents').innerHTML = this.renderAddPolicy();
+        this.dom.querySelector('#addModal #cost').innerHTML = this.renderTotalCost();
+        this.showAddModal();
+    }
+    
+    showAddModal = () => {
+        this.createPolicyModal.hide();
+        
+        this.dom.querySelector('#addModal').addEventListener('shown.bs.modal', () => {
+           this.dom.querySelector('#addModal .add-contents').innerHTML = this.renderAddPolicy();
+           this.dom.querySelector('#addModal #cost').innerHTML = this.renderTotalCost();
+        });
+        
+        this.addPolicyModal.show();
+        
+        this.dom.querySelector("#addPolicyConfirm").addEventListener('click', this.add());
+        this.dom.querySelector("#addCancel").addEventListener('click', this.cancel());
+    }
+    
+    renderTotalCost = () => {
+        const policy = this.state.entity;
+        const {insuredValue: insuredValue} = policy;
+        
+        let totalCostHTML = '';
+        let totalCost = 0;
+        
+        if (policy.coverages && policy.coverages.length > 0) {
+            totalCostHTML += '<ol>';
+            policy.coverages.forEach(coverage => {
+               const { minimumCost, percentage } = coverage;
+               const costPercentualApplied = percentage * insuredValue;
+               const coverageCost = Math.max(minimumCost, costPercentualApplied);
+               totalCost += coverageCost;
+               
+               totalCostHTML += `
+                <li>
+                    <strong>Coverage: </strong> ${coverage.name} <br>
+                    <strong>Minimum Cost: </strong> ₡${minimumCost}<br>
+                    <strong>Percentage Cost: </strong> ${percentage * 100}%<br>
+                    <strong>Percentage Cost Applied to Insured Value: </strong> ₡${costPercentualApplied}<br>
+                    <strong> Cost of Coverage: </strong> ₡${coverageCost}<br>
+                </li>
+                `;
+            });
+            totalCostHTML += `</ol>`;
+            totalCostHTML += `<strong>Total: ₡${totalCost}</strong>`;
+        } else {
+            totalCostHTML = `<p> No se seleccionó ninguna cobertura.</p>`;
+        }
+        
+        return totalCostHTML;
+    }
+    
+    renderAddPolicy = () => {
+        const policy = this.state.entity;
+        
+        if (!policy) {
+            return `<p> No hay ninguna poliza</p>`;
+        }
+        
+        let coveragesHTML = '';
+        if (policy.coverages && policy.coverages.length > 0) {
+            coveragesHTML += '<ol>';
+            policy.coverages.forEach(coverage => {
+               coveragesHTML += `<li>${coverage.name}</li>`; 
+            });
+            coveragesHTML += '</ol>';
+        } else {
+            coveragesHTML = `<p>No se seleccionó ninguna cobertura.</p>`;
+        }
+        
+        return `
+        <div class="accordion" id="accordionPolicy">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Datos de la Póliza
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionPolicy">
+              <div class="accordion-body">
+                <div class="text-center">
+                  <img class="imagen" src="${backend}/vehicles/${policy.vehicle.id}/image" alt="Imagen del Vehículo">
+                </div>
+                <br>
+                <strong>Número de placa:</strong> ${policy.license}<br>
+                <strong>Marca del Vehículo:</strong> ${policy.vehicle.brand}<br>
+                <strong>Modelo del Vehículo:</strong> ${policy.vehicle.model}<br>
+                <strong>Año del Vehículo:</strong> ${policy.initialDate}<br>
+                <strong>Plazo de Pago:</strong> ${policy.termChosen}<br>
+                <strong>Valor del Vehículo:</strong> ₡${policy.insuredValue}<br>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Coberturas
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionPolicy">
+              <div class="accordion-body">
+                ${coveragesHTML}
+              </div>
+            </div>
+          </div>
+        </div>
+        `;
+    };
+    
+    add = async () => {
+        const policy = this.state.entity;
+        
+        const request = new Request('${backend}/policies', {
+           method: 'POST',
+           headers: {'Content-Type': 'application/json'},
+           body: JSON.stringify(policy)
+        });
+        
+        try {
+            const response = await fetch(request);
+            if (!response.ok) {
+                errorMessage("Falló la conexión con el servidor.");
+                console.log("ERROR ADD");
+                return;
+            }
+            console.log("OK ADD");
+            this.addPolicyModal.hide();
+            this.renderPolicies();
+            this.reset();
+        } catch (err) {
+            console.error(err);
+        }
     }
 }
