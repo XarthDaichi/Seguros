@@ -253,7 +253,7 @@ class Coverages {
             }
             
             console.log("REGISTER COVERAGE SUCCESSFUL");
-            this.categoryModal.hide();
+            this.coverageModal.hide();
             this.getCategories();
         }catch(err){
             console.error(err);
