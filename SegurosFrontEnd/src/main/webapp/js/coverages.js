@@ -150,11 +150,11 @@ class Coverages {
                             <div class="modal-body">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Nombre</span>
-                                    <input type="text" class="form-control" id="name" name="name">
+                                    <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Descripción</span>
-                                    <input type="text" class="form-control" id="description" name="description">
+                                    <input type="text" class="form-control" id="description" name="description" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -176,23 +176,23 @@ class Coverages {
                         <div class="modal-body">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Nombre</span>
-                                <input type="text" class="form-control" id="name" name="name">
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Descripción</span>
-                                <input type="text" class="form-control" id="description" name="description">
+                                <input type="text" class="form-control" id="description" name="description" required>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">ID categoría</span>
-                                <input type="text" class="form-control" id="categoryId" name="categoryId">
+                                <input type="text" class="form-control" id="categoryId" name="categoryId" required>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Costo mínimo</span>
-                                <input type="text" class="form-control" id="minimumCost" name="minimumCost">
+                                <input type="text" class="form-control" id="minimumCost" name="minimumCost" required>
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Porcentaje</span>
-                                <input type="text" class="form-control" id="percentage" name="percentage">
+                                <input type="text" class="form-control" id="percentage" name="percentage" required>
                             </div>
                         </div>
                         <div class="modal-footer">
