@@ -81,8 +81,10 @@ class Administrator{
        
         this.state.clientsList.forEach((client) => {
             const row = document.createElement('div');
+            const buttonId = `details-${client.id}`;
             row.innerHTML = `
-                <h5>${client.id} - ${client.name}</h5>
+                <button id="${buttonId}" class="btn btn-sm data-id="${client.id}"><i class="fas fa-search"></i><h5>${client.id} - ${client.name}</h5></button>
+                <!-- <h5>${client.id} - ${client.name}</h5> -->
                 <div id="clientPolices" class="table-responsive">
                     <table class="table table-striped" id="clientPolicesTable">
                         <thead>
@@ -94,7 +96,6 @@ class Administrator{
                                 <th>Valor</th>
                                 <th></th>
                                 <th>Plaza</th>
-                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="policiesTableBody${client.id}">
@@ -102,6 +103,8 @@ class Administrator{
                     </table>
                 </div>
             `;
+            const button = row.querySelector('button');
+            button.addEventListener('click', e=>this.showPolicyDetails(client));
             tableBody.appendChild(row);
             this.renderClientPolicies(client);
         });
@@ -137,17 +140,11 @@ class Administrator{
                     <td><img src="${backend}/vehicles/${policy.vehicle.id}/image" style="display: block; margin: 0 auto; max-width: 200px; max-height: 200px;"></td>
                     <td>${policy.insuredValue}</td>
                     <td>${policy.term}</td>
-                    <td><button id="${buttonId}" class="btn btn-sm data-id="${policy.id}"><i class="fas fa-search"></i></button></td>
                 `;
-
-                //this.dom.querySelect(`#${buttonId}`)?.addEventListener('click', e=>this.showPolicyDetails());
-                const button = row.querySelector('button');
-                button.addEventListener('click', e=>this.showPolicyDetails(e));
 
                 tableBody.appendChild(row);
             });
             
-            this.getAllPolicies();
         }catch (err) {
            console.error(err);
         }
@@ -260,8 +257,8 @@ class Administrator{
         // To do
     }
   
-    getAllPolicies = async () => {
-        const policiesRequest = new Request(`${backend}/policies`,{
+    showPolicyDetails = async (client) => {
+        const policiesRequest = new Request(`${backend}/policies?id=${client.id}`,{
             method:'GET',
             headers: {'Content-Type': 'application/json'}
         });
@@ -279,84 +276,82 @@ class Administrator{
             console.log("POLICIES AQUIRED");
             const policiesList = await response.json();
             this.state.policiesList = policiesList;
+            
+            const modalContent = this.dom.querySelector('#modal-details-content');
+            modalContent.innerHTML = await this.renderDetails();
+            
+            this.policyDetailsModal.show();
         }catch(err){
             console.error(err);
         }
     }
   
-    renderDetails = async (policyId) => {
-        const policy = this.state.policiesList.find(p => p.id === policyId);
-        
-        let totalCost = 0;
-        if (policy.rules && policy.rules.length > 0) {
-            policy.rules.forEach(coverage => {
-               const {minimumCost, percentage} = coverage;
-               const costPercentualApplied = percentage * policy.insuredValue;
-               const coverageCost = Math.max(minimumCost, costPercentualApplied);
-               totalCost += coverageCost;
-            });
+    renderDetails = async () => {
+        if(this.state.policiesList.length === 0){
+            return '<p>El cliente no tiene ninguna poliza registrada</p>';
         }
         
-        const formattedTotalCost = totalCost.toFixed(2);
+        let html='';
         
-        return `
-            <div class="container">
-                <div class="row">
-                    <div class="col-6"><strong>Número de placa:</strong></div>
-                    <div class="col-6">${policy.license}</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><strong>Fecha de Inicio:</strong></div>
-                    <div class="col-6">${policy.initialDate}</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><strong>Marca del Vehículo:</strong></div>
-                    <div class="col-6">${policy.vehicle.brand}</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><strong>Modelo del Vehículo:</strong></div>
-                    <div class="col-6">${policy.vehicle.model}</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><strong>Valor:</strong></div>
-                    <div class="col-6">₡${policy.insuredValue}</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><strong>Plazo:</strong></div>
-                    <div class="col-6">${policy.term}</div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <h5>Coberturas:</h5>
-                        <ul>
-                            ${policy.rules?.map(coverage => `<li>${coverage.name} - ${coverage.description}.</li>`).join('')}
-                        </ul>
+        this.state.policiesList.forEach((policy) => {
+            let totalCost = 0;
+            if (policy.rules && policy.rules.length > 0) {
+                policy.rules.forEach(coverage => {
+                   const {minimumCost, percentage} = coverage;
+                   const costPercentualApplied = percentage * policy.insuredValue;
+                   const coverageCost = Math.max(minimumCost, costPercentualApplied);
+                   totalCost += coverageCost;
+                });
+            }
+
+            const formattedTotalCost = totalCost.toFixed(2);
+
+            html += `
+                <h5>${policy.id}</h5>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6"><strong>Número de placa:</strong></div>
+                        <div class="col-6">${policy.license}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Fecha de Inicio:</strong></div>
+                        <div class="col-6">${policy.initialDate}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Marca del Vehículo:</strong></div>
+                        <div class="col-6">${policy.vehicle.brand}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Modelo del Vehículo:</strong></div>
+                        <div class="col-6">${policy.vehicle.model}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Valor:</strong></div>
+                        <div class="col-6">₡${policy.insuredValue}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><strong>Plazo:</strong></div>
+                        <div class="col-6">${policy.term}</div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h5>Coberturas:</h5>
+                            <ul>
+                                ${policy.rules?.map(coverage => `<li>${coverage.name} - ${coverage.description}.</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h5>Costo Total:</h5>
+                            ₡${formattedTotalCost}
+                        </div>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <h5>Costo Total:</h5>
-                        ₡${formattedTotalCost}
-                    </div>
-                </div>
-            </div>
-        `;
+            `;
+        });
+        
+        return html;
     };
     
-    showPolicyDetails = async (event) => {
-        let target = event.target;
-        
-        if (target.tagName !== 'BUTTON') {
-            target = target.parentElement;
-        }
-        
-        const policyId = target.dataset.id;
-        
-        const details = await this.renderDetails(policyId);
-        
-        const modalContent = this.dom.querySelector('#modal-details-content');
-        modalContent.innerHTML = details;
-        
-        this.policyDetailsModal.show();
-    }
 }
