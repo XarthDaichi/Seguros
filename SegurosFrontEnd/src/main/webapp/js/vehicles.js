@@ -1,11 +1,13 @@
 class Vehicles {
     dom;
     state;
+    addVehicleModal;
     
     constructor() {
         this.state = { 'entities': new Array(), 'entity': this.emptyEntity(), 'mode': 'A' };
         this.dom = this.render();
         this.renderVehicles();
+        this.addVehicleModal = new bootstrap.Modal(this.dom.querySelector("#addVehicle"));
     }
     
     render=()=> {
@@ -24,8 +26,9 @@ class Vehicles {
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-center">Modelos por marca</h1>
-                    <div class="card">
-                        <div class="card-body">
+                    <button class="btn btn-primary" id="addVehicle" data-bs-toggle="modal" data-bs-target="#addVehicleModal" style="margin-right: 5px">Añadir Vehículo</button>
+                        <div class="card">
+                            <div class="card-body">
                             <div id="vehicles" class="table-responsive">
                             </div>
                         </div>
