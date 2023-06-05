@@ -6,6 +6,8 @@ class Administrator{
     
     state;
     
+    vehicles;
+    
     constructor(){
         this.state = {'entities': new Array(), 'entity': this.emptyEntity(), 'mode':'A'};
         this.dom = this.render();
