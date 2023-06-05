@@ -12,7 +12,7 @@ import java.util.Set;
  * @author Juneau
  */
 @ApplicationPath("api")
-@DeclareRoles({"true", "false"})
+//@DeclareRoles({"true", "false"})
 public class JakartaRestConfiguration extends Application {
     @Override
     public Set<Class<?>> getClasses() {

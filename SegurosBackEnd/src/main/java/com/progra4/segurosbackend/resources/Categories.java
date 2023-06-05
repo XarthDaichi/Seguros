@@ -54,7 +54,7 @@ public class Categories {
     
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    @RolesAllowed({"true"})
+//    @RolesAllowed({"true"})
     public void insert(Category cat) throws Exception {
         Service.instance().CategoryCreate(cat);
     }

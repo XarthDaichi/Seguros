@@ -1,15 +1,14 @@
 class Vehicles {
     dom;
-    modal;
     state;
+    addVehicleModal;
     
     constructor() {
         this.state = { 'entities': new Array(), 'entity': this.emptyEntity(), 'mode': 'A' };
         this.dom = this.render();
-        this.modal = new bootstrap.Modal(this.dom.querySelector("#createVehicle"));
         this.renderVehicles();
-        
-        this.dom.querySelector('#registerVehicle').addEventListener('click',e=>this.addVehicle());
+        this.addVehicleModal = new bootstrap.Modal(this.dom.querySelector("#createVehicle"));
+        this.dom.querySelector('#addVehicle').addEventListener('click',e=>this.addVehicle());
     }
     
     render=()=> {
@@ -28,8 +27,9 @@ class Vehicles {
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-center">Modelos por marca</h1>
-                    <div class="card">
-                        <div class="card-body">
+                    <button class="btn btn-primary" id="addVehicle" data-bs-toggle="modal" data-bs-target="#addVehicleModal" style="margin-right: 5px">Añadir Vehículo</button>
+                        <div class="card">
+                            <div class="card-body">
                             <div id="vehicles" class="table-responsive">
                             </div>
                         </div>
@@ -113,6 +113,7 @@ class Vehicles {
         }catch(err){
             console.error(err);
         }
+
     }
     
     renderModal=()=>{

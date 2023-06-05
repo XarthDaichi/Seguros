@@ -39,7 +39,7 @@ public class Clients {
     
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @RolesAllowed({"true"})
+//    @RolesAllowed({"true"})
     public List<User> find(@DefaultValue("") @QueryParam("id") String id, @DefaultValue("") @QueryParam("name") String name) throws Exception {
         if (id.equals("") && name.equals("")) {
             return Service.instance().selectOnlyClients();
